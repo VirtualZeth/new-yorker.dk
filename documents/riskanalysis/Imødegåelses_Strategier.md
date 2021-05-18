@@ -61,6 +61,7 @@ Der er en risiko for at vi ikke kan få vores applikation udgivet i Play Store
 ## imødegåelse strategi
 
 Vi læser lunch guidelines for at udgive vores applikation i Play Store
+
 [Guideline](https://developer.android.com/distribute/best-practices/launch/launch-checklist)
 
 # alvorlig sygdom
