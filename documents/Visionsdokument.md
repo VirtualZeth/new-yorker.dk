@@ -4,7 +4,7 @@
 
 qwe
 
-## Problem statement
+## Problemformulering
 
 New Yorker DK har i forbindelse med førsteårsprojektet bedt os om at fremstille en applikation som gør det muligt for deres kunder at få et godt overblik over sammenhængen mellem pris og størrelse på new yorker glasvægge.
 
@@ -28,7 +28,7 @@ Er interesserede i at få lavet et godt projekt der kan vise at vi opfylder de l
 
 Er interesserede i udvikling af et godt produkt til deres samarbejdspartnere.
 
-## Feature List
+## Feature liste
 
 - Prisberegner
 
@@ -37,4 +37,7 @@ Er interesserede i udvikling af et godt produkt til deres samarbejdspartnere.
   - Dørtype valg
 
 - Mail service
-  - plantegnings medsendelse
+
+  - plantegningsmedsendelse
+
+-
