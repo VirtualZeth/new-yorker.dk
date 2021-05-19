@@ -2,7 +2,7 @@
 
 Der er en risiko for at opgaven og produktet ikke bliver afleveret til tiden.
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Vi har i vores TODO-liste sat en deadline til at aflevere vores opgave/produkt til tiden.
 
@@ -10,7 +10,7 @@ Vi har i vores TODO-liste sat en deadline til at aflevere vores opgave/produkt t
 
 Der kan forekomme misforståelser mellem kunden og klienten i forbindelse med produktets udformning
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Forberede gode spørgsmål til kundemøderne og tage kontakt til kunden tidligt.
 
@@ -18,7 +18,7 @@ Forberede gode spørgsmål til kundemøderne og tage kontakt til kunden tidligt.
 
 Der er en risiko for at vi ikke får opfyldt en eller flere læringsmål i forbindelse med rapporten.
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Bede om vejledning, gennemlæs studieordningen og forstå den.
 
@@ -26,7 +26,7 @@ Bede om vejledning, gennemlæs studieordningen og forstå den.
 
 Der er en meget lav risiko for at prisberegnings feature ikke kan implementeres til tiden.
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Vi prioriterer prisberegnings feature ved at implementere den tidlig i udviklingsprocessen.
 
@@ -34,7 +34,7 @@ Vi prioriterer prisberegnings feature ved at implementere den tidlig i udvikling
 
 Der er en lav risiko for at videresendelse af forespørgsel feature ikke kan implementeres til tiden
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Vi prioriterer videresendelse af forespørgsel feature ved at implementere den tidlig i udviklingsprocessen.
 
@@ -42,7 +42,7 @@ Vi prioriterer videresendelse af forespørgsel feature ved at implementere den t
 
 Der er en risiko for at autogenerering af DXF-fil featuren ikke kan implementeres til tiden.
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Vi begynder at researche tidligt i sprint 2
 
@@ -50,7 +50,7 @@ Vi begynder at researche tidligt i sprint 2
 
 Der er en mindre mellem risiko for at rapporten ikke opfylder studieordningens formateringskrav.
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Dobbelt tjek studieordningens formateringskrav og bed om vejledning.
 
@@ -58,17 +58,17 @@ Dobbelt tjek studieordningens formateringskrav og bed om vejledning.
 
 Der er en risiko for at vi ikke kan få vores applikation udgivet i Play Store
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Vi læser lunch guidelines for at udgive vores applikation i Play Store
 
 [Guideline](https://developer.android.com/distribute/best-practices/launch/launch-checklist)
 
-# alvorlig sygdom
+# Alvorlig sygdom
 
 Der en risiko for at et af gruppemedlemmerne bliver alvorlig syg
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 De manglende opgaver fordeles ligelig ud mellem de resterende gruppemedlemmer.
 
@@ -76,7 +76,7 @@ De manglende opgaver fordeles ligelig ud mellem de resterende gruppemedlemmer.
 
 Applikationen opfylder ikke kundens ønsker i forbindelse til designkravet.
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Vi sender mock-up for at få design feedback. Derudover holder vi os til det design de har på hjemmesiden (sort, hvid og gul).
 
@@ -84,7 +84,7 @@ Vi sender mock-up for at få design feedback. Derudover holder vi os til det des
 
 Der er en risiko for at en af gruppemedlemmerne får problemer med deres computer
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Køb ny computer, lån en computer eller fiks computeren
 
@@ -92,7 +92,7 @@ Køb ny computer, lån en computer eller fiks computeren
 
 Der en risiko for at et af gruppemedlemmerne bliver syg
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 De manglende opgaver fordeles ligelig ud mellem de resterende gruppemedlemmer.
 Givet at et gruppemedlem falder bagud med dagens opgaver, vil resterende gruppemedlemmer på bedst mulig vis hjælpe med manglende opgaver.
@@ -101,6 +101,6 @@ Givet at et gruppemedlem falder bagud med dagens opgaver, vil resterende gruppem
 
 Der en risiko for at klienten aflyser et eller flere kundemøder
 
-## imødegåelse strategi
+## Imødegåelse strategi
 
 Kontakt klienten for at indhente nødvendige informationer, hvis dette ikke er muligt, så kontakt Anders.
