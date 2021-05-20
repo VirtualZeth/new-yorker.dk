@@ -14,6 +14,12 @@ Applikationen skal kunne beregne prisen på forskellige typer og størrelser af 
 
 ## Interessent beskrivelse
 
+### Tømrer
+
+> Beskrivelse mangler
+
+Applikationens målgruppe.
+
 ### New Yorker DK
 
 Har investeret tid i udviklingen af produktet.
@@ -21,14 +27,6 @@ Har investeret tid i udviklingen af produktet.
 ### Samarbejdspartnere (Stark, XL-byg, Ilva, salestyling.dk)
 
 Er interesserede i at få tilsendt en læsbar oversigt over eventuelle forespørgelser, så de på bedst mulig vis kan klargøre en eventuel bestilling.
-
-### Iqbal & Co. (gruppe 6)
-
-Er interesserede i at få lavet et godt projekt der kan vise at de opfylder de læringsmål der er på første år på datamatiker uddannelsen og at de får lavet et godt produkt til Zealands samarbejdspartnere New Yorker DK som eventuelt ville kunne skrives på vores portfølje.
-
-### Zealand
-
-Er interesserede i udvikling af et godt produkt til deres samarbejdspartnere og at de studerende opfylder læringsmålene.
 
 ### Google
 
