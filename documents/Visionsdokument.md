@@ -42,24 +42,8 @@ _Yderligere krav kan findes [her](https://developer.android.com/distribute/best-
 
 - Prisberegner
 
-  - Glasfelter
-  - Dørtype
-  - Yderligere tilføjelser
-
 - Autocad feature
 
-  - Preview
-  - Fil generering
+- Email feature
 
-- Kontakt
-
-  - Email
-  - Forespørgselsforsendelse
-  - Autocad forsendelse
-  - Klient oplysningsforsendelse
-
-- Forespørgselsoversigt
-  - Redigering
-  - Fjern
-  - Valg af antal
-  - Visuel præsenteret prisestimat
+- Oversigt feature
