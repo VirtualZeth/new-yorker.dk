@@ -16,7 +16,7 @@ Applikationen skal kunne beregne prisen på forskellige typer og størrelser af 
 
 ### Tømrer
 
-En tømrer vil være målgruppen for hvem der typisk ville bruge denne applikation. En tømrer har behov for hurtigt at kunne checke priser på vægge og nemt at kunne lægge forespørgsler.
+En tømrer vil være målgruppen for hvem der typisk ville bruge denne applikation. En tømrer har behov for hurtigt at kunne checke priser på vægge og nemt at kunne lave forespørgsler.
 
 ### New Yorker DK
 
