@@ -16,27 +16,27 @@ Applikationen skal kunne beregne prisen på forskellige typer og størrelser af 
 
 ### Tømrer
 
-> Beskrivelse mangler
-
-Applikationens målgruppe.
+En tømrer vil være målgruppen for hvem der typisk ville bruge denne applikation. En tømrer har behov for hurtigt at kunne checke priser på vægge og nemt at kunne lægge forespørgsler.
 
 ### New Yorker DK
 
-Har investeret tid i udviklingen af produktet.
+New Yorker DK er klienten i dette projekt og de har investeret tid i samarbejdet. De ønsker en applikation der kan automatisere dele af deres ellers manuelle processer.
 
 ### Samarbejdspartnere (Stark, XL-byg, Ilva, salestyling.dk)
 
 Er interesserede i at få tilsendt en læsbar oversigt over eventuelle forespørgelser, så de på bedst mulig vis kan klargøre en eventuel bestilling.
 
+### Android studio (Google, JetBrains, Oracle)
+
+I forbindelse med udviklingen af applikationen vil vi bruge Android Studio udviklet af google på JetBrains IntelliJ IDEA.
+
 ### Google
 
-Google er interesserede i at deres "Developer Program" politikker bliver overholdt.
+I forbindelse med udgivelsen af vores produkt, er Google interesserede i at deres "Developer Program" politikker bliver overholdt.
 
 De er derudover også interesserede i at applikationen møder deres standarter for kvalitet.
 
-Applikationens skal som minimum have samme version som deres API level (nuværende API level 28 - version 9.0).
-
-_Yderligere krav kan findes [her](https://developer.android.com/distribute/best-practices/launch/launch-checklist)_
+_Krav kan findes [her](https://developer.android.com/distribute/best-practices/launch/launch-checklist)_
 
 ## Feature liste
 
