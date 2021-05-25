@@ -1,4 +1,4 @@
-package dk.newYorker;
+package com.example.newyorkerdk;
 
 import androidx.appcompat.app.AppCompatActivity;
 
