@@ -1,8 +1,10 @@
-package com.example.newyorkerdk;
+package com.example.newyorkerdk.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.newyorkerdk.R;
 
 public class MainActivity extends AppCompatActivity {
 
