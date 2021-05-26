@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">New Yorker DK</string>
+    <string name="height">Højde</string>
+    <string name="width">Bredde</string>
+    <string name="panel_count_height_text">Antal paneller i højden</string>
+    <string name="panel_count_width_text">Antal paneller i bredden</string>
 </resources>
