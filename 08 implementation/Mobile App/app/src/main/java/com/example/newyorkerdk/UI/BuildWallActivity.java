@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.util.MinMaxInputFilter;
 import com.example.newyorkerdk.databinding.ActivityBuildWallBinding;
+import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.BuildWallViewModel;
 
@@ -27,7 +29,8 @@ public class BuildWallActivity extends AppCompatActivity {
 
     private ActivityBuildWallBinding binding;
     private final Wall currentWall = new Wall();
-    BuildWallViewModel model;
+    private final Basket currentBasket = new Basket();
+    private BuildWallViewModel model;
     private final ArrayList<EditText> listOfInputFields = new ArrayList<>();
 
     @Override
@@ -37,8 +40,6 @@ public class BuildWallActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        /*binding.seekbarHeightTextfield.setText(String.valueOf(getSeekBarProgres(binding.seekBarHeight)));
-        binding.seekbarWidthTextfield.setText(String.valueOf(getSeekBarProgres(binding.seekBarWidth)));*/
 
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
@@ -48,16 +49,30 @@ public class BuildWallActivity extends AppCompatActivity {
         listOfInputFields.add(binding.editTextHeight);
         listOfInputFields.add(binding.editTextWidth);
 
+        binding.addButton.setOnClickListener(event -> addWallToBasket());
+
         model = new ViewModelProvider(this).get(BuildWallViewModel.class);
-        model.getPriceEstimate().observe(this, priceEstimate ->
+        model.getMutablePriceEstimate().observe(this, priceEstimate ->
                 binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
 
+        model.getBasket().observe(this, basket -> Log.d("basket", basket.getListOfWalls().toString()));
+
+    }
+    //Methods that interact with the view model
+    public void calculatePriceEstimate() {
+        setupWall();
+        model.calculatePriceEstimate(currentWall);
     }
 
-    private int getSeekBarProgres(SeekBar seekBar) {
-        return seekBar.getProgress();
+    public void addWallToBasket() {
+        if (!allFieldsFilled()) {
+            return;
+        }
+        model.addToBasket(currentBasket, currentWall);
     }
 
+
+    //setup methods
     private void setFilter(EditText inputField, double min, double max) {
         inputField.setFilters(new InputFilter[]{ new MinMaxInputFilter(min, max)});
     }
@@ -113,11 +128,6 @@ public class BuildWallActivity extends AppCompatActivity {
     }
     private boolean inputFieldIsEmpty(EditText inputField) {
         return inputField.getText().toString().trim().length() == 0;
-    }
-
-    public void calculatePriceEstimate() {
-        setupWall();
-        model.calculatePriceEstimate(currentWall);
     }
 
     private void setupWall() {
