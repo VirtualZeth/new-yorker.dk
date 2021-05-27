@@ -81,12 +81,9 @@ public class BuildWallActivity extends AppCompatActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
             }
-
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-
             }
 
             @Override
@@ -97,15 +94,17 @@ public class BuildWallActivity extends AppCompatActivity {
             }
         });
     }
-    private boolean allFieldsFilled() {
 
+    private boolean allFieldsFilled() {
         for (EditText inputfield:listOfInputFields) {
-            if (inputfield.getText().length() == 0) {
+            if (inputFieldIsEmpty(inputfield)) {
                 return false;
             }
         }
         return true;
-
+    }
+    private boolean inputFieldIsEmpty(EditText inputField) {
+        return inputField.getText().toString().trim().length() == 0;
     }
 
     public void calculatePriceEstimate() {
