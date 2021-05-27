@@ -5,18 +5,16 @@ const App = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    getItems();
+    const ref = firebase.firestore().collection("items");
+
+    (() => {
+      ref.onSnapshot((querySnapshot) => {
+        const list = [];
+        querySnapshot.forEach((e) => list.push(e.data()));
+        setItems(list);
+      });
+    })();
   }, []);
-
-  const ref = firebase.firestore().collection("items");
-
-  let getItems = () => {
-    ref.onSnapshot((querySnapshot) => {
-      const list = [];
-      querySnapshot.forEach((e) => list.push(e.data()));
-      setItems(list);
-    });
-  };
 
   return (
     <div>
