@@ -9,6 +9,7 @@
     <string name="done">Færdig</string>
     <string name="add">Tilføj</string>
     <string name="price_estimate">Prisestimat:</string>
+    <string name="in_cm">Angives i cm</string>
     <string-array name="supplier">
         <item>Stark</item>
         <item>XL-byg</item>

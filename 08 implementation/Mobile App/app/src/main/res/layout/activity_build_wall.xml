@@ -20,6 +20,7 @@
         android:id="@+id/height_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="@string/height"
         app:layout_constraintStart_toStartOf="@+id/editText_Height"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
@@ -30,14 +31,15 @@
         android:layout_height="wrap_content"
         android:text="@string/width"
         app:layout_constraintStart_toStartOf="@+id/editText_Width"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toTopOf="@+id/height_textfield" />
 
     <EditText
         android:id="@+id/editText_Height"
-        android:layout_width="108dp"
-        android:layout_height="42dp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:ems="10"
+        android:hint="@string/in_cm"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/editText_Width"
         app:layout_constraintHorizontal_bias="0.5"
@@ -46,9 +48,11 @@
 
     <EditText
         android:id="@+id/editText_Width"
-        android:layout_width="108dp"
-        android:layout_height="42dp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="@string/in_cm"
         android:inputType="numberDecimal"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText_Height"
         app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +79,7 @@
 
     <SeekBar
         android:id="@+id/seekBar_height"
-        android:layout_width="138dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
         android:max="10"
@@ -86,7 +90,7 @@
 
     <SeekBar
         android:id="@+id/seekBar_width"
-        android:layout_width="141dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="35dp"
