@@ -80,6 +80,7 @@
         android:layout_marginTop="35dp"
         android:max="10"
         android:min="1"
+        android:progress="1"
         app:layout_constraintStart_toStartOf="@+id/panelcount_height_fextfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_height_fextfield" />
 
@@ -91,6 +92,7 @@
         android:layout_marginTop="35dp"
         android:max="10"
         android:min="1"
+        android:progress="1"
         app:layout_constraintStart_toStartOf="@+id/panelcount_width_textfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_width_textfield" />
 
@@ -155,5 +157,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
         app:srcCompat="@drawable/wall" />
+
+    <TextView
+        android:id="@+id/seekbar_height_textfield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_height"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_height"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_height" />
+
+    <TextView
+        android:id="@+id/seekbar_width_textfield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_width"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_width"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_width" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

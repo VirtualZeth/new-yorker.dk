@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,9 +37,11 @@ public class BuildWallActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        /*binding.seekbarHeightTextfield.setText(String.valueOf(getSeekBarProgres(binding.seekBarHeight)));
+        binding.seekbarWidthTextfield.setText(String.valueOf(getSeekBarProgres(binding.seekBarWidth)));*/
 
-        attachSeekBarListener(binding.seekBarHeight);
-        attachSeekBarListener(binding.seekBarWidth);
+        attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
+        attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
         attachEditFieldListener(binding.editTextHeight);
         attachEditFieldListener(binding.editTextWidth);
         setFilter(binding.editTextHeight, 1, 250);
@@ -49,6 +52,10 @@ public class BuildWallActivity extends AppCompatActivity {
         model.getPriceEstimate().observe(this, priceEstimate ->
                 binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
 
+    }
+
+    private int getSeekBarProgres(SeekBar seekBar) {
+        return seekBar.getProgress();
     }
 
     private void setFilter(EditText inputField, double min, double max) {
@@ -77,10 +84,11 @@ public class BuildWallActivity extends AppCompatActivity {
         });
     }
 
-    private void attachSeekBarListener(SeekBar seekBar) {
+    private void attachSeekBarListener(SeekBar seekBar, TextView seekBarTextField) {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                seekBarTextField.setText(String.valueOf(progress));
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
