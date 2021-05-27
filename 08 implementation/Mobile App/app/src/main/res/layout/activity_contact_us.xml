@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContactUsActivity">
+    tools:context=".UI.ContactUsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -73,26 +73,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cityText" />
 
-    <EditText
-        android:id="@+id/editTextMessage"
-        android:layout_width="326dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:autofillHints=""
-        android:background="@drawable/custom_textinput"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/messageText" />
-
     <TextView
         android:id="@+id/nameText"
         android:layout_width="73dp"
         android:layout_height="25dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="15dp"
         android:layout_marginEnd="296dp"
         android:text="Navn"
         android:textColor="#000000"
@@ -107,7 +92,7 @@
         android:layout_width="73dp"
         android:layout_height="25dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="296dp"
         android:text="Email"
         android:textColor="#000000"
@@ -122,7 +107,7 @@
         android:layout_width="73dp"
         android:layout_height="25dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="296dp"
         android:text="Telefon"
         android:textColor="#000000"
@@ -137,7 +122,7 @@
         android:layout_width="73dp"
         android:layout_height="25dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="296dp"
         android:text="By"
         android:textColor="#000000"
@@ -153,12 +138,11 @@
         android:layout_width="73dp"
         android:layout_height="25dp"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="296dp"
         android:text="Besked"
         android:textColor="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/editTextMessage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -169,11 +153,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="300dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintHorizontal_bias="0.095"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextMessage" />
 
@@ -196,14 +180,26 @@
         android:layout_width="183dp"
         android:layout_height="50dp"
         android:layout_marginStart="115dp"
-        android:layout_marginTop="90dp"
         android:layout_marginEnd="115dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="onButtonSendRequestClick"
         android:text="Send forespørgsel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextMessage"
+        android:layout_width="325dp"
+        android:layout_height="96dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/custom_textinput"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextMessage"
-        app:layout_constraintVertical_bias="0.472" />
+        app:layout_constraintTop_toBottomOf="@+id/messageText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
