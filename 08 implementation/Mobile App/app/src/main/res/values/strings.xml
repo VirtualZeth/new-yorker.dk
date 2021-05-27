@@ -5,4 +5,8 @@
     <string name="panel_count_height_text">Antal paneller i højden</string>
     <string name="panel_count_width_text">Antal paneller i bredden</string>
     <string name="additions">Tilføjelser</string>
+    <string name="price"> %s kr</string>
+    <string name="done">Færdig</string>
+    <string name="add">Tilføj</string>
+    <string name="price_estimate">Prisestimat:</string>
 </resources>

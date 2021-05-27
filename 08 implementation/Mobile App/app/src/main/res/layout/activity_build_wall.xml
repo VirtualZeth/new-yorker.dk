@@ -13,35 +13,24 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/height_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/height"
         app:layout_constraintStart_toStartOf="@+id/editText_Height"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/width_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/width"
         app:layout_constraintStart_toStartOf="@+id/editText_Width"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <EditText
         android:id="@+id/editText_Height"
@@ -89,6 +78,7 @@
         android:layout_width="138dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
+        android:max="10"
         app:layout_constraintStart_toStartOf="@+id/panelcount_height_fextfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_height_fextfield" />
 
@@ -98,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="35dp"
+        android:max="10"
         app:layout_constraintStart_toStartOf="@+id/panelcount_width_textfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_width_textfield" />
 
@@ -116,7 +107,7 @@
         android:layout_height="wrap_content"
 
         android:layout_marginTop="36dp"
-        android:text="Prisestimat:"
+        android:text="@string/price_estimate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,7 +117,6 @@
         android:id="@+id/price_value_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5555 kr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_textfield" />
@@ -136,7 +126,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Tilføj"
+        android:text="@string/add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_value_textfield" />
@@ -145,12 +135,23 @@
         android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Færdig"
+        android:text="@string/done"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/add_button"
         app:layout_constraintVertical_bias="0.152" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:srcCompat="@drawable/wall" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
