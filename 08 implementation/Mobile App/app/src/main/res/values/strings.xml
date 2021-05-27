@@ -4,4 +4,10 @@
     <string name="width">Bredde</string>
     <string name="panel_count_height_text">Antal paneller i højden</string>
     <string name="panel_count_width_text">Antal paneller i bredden</string>
+    <string-array name="supplier">
+        <item>Stark</item>
+        <item>XL-byg</item>
+        <item>Ilva</item>
+        <item>Salessyling.dk</item>
+    </string-array>
 </resources>
