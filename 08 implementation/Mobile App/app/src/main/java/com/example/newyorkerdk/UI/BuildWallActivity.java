@@ -2,6 +2,7 @@ package com.example.newyorkerdk.UI;
 
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.newyorkerdk.R;
+import com.example.newyorkerdk.UI.util.MinMaxInputFilter;
 import com.example.newyorkerdk.databinding.ActivityBuildWallBinding;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.BuildWallViewModel;
@@ -39,7 +41,7 @@ public class BuildWallActivity extends AppCompatActivity {
         attachSeekBarListener(binding.seekBarWidth);
         attachEditFieldListener(binding.editTextHeight);
         attachEditFieldListener(binding.editTextWidth);
-
+        setFilter(binding.editTextHeight, 1, 250);
         listOfInputFields.add(binding.editTextHeight);
         listOfInputFields.add(binding.editTextWidth);
 
@@ -47,6 +49,10 @@ public class BuildWallActivity extends AppCompatActivity {
         model.getPriceEstimate().observe(this, priceEstimate ->
                 binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
 
+    }
+
+    private void setFilter(EditText inputField, double min, double max) {
+        inputField.setFilters(new InputFilter[]{ new MinMaxInputFilter(min, max)});
     }
 
     private void attachEditFieldListener(EditText inputField) {
