@@ -2,7 +2,7 @@
 
 - Appen skal være i stand til at beregne prisen for vinduerne.
 - Skal kunne sende forespørgslen til leverandøren og Klienten.
-- Skal kunne Autogenerer DFX-filer.
+- Skal kunne Autogenerer DXF-filer.
 
 ## Sikkerhed
 
@@ -30,5 +30,3 @@
 ## Supportability
 
 - Programmet skal være testbart.
-
-##
