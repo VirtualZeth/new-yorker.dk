@@ -1,4 +1,4 @@
-package com.example.newyorkerdk;
+package com.example.newyorkerdk.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.newyorkerdk.R;
 
 public class ContactUsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
