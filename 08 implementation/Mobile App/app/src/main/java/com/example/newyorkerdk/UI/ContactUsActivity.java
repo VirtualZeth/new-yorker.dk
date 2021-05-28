@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -14,17 +16,16 @@ import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
 import com.example.newyorkerdk.entities.Request;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.IOException;
 
 public class ContactUsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-
     private final ContactForm contactForm = new ContactForm();
     private final Basket basket = new Basket();
 
     private final Request request = new Request(contactForm, basket);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +40,6 @@ public class ContactUsActivity extends AppCompatActivity implements AdapterView.
 
     }
 
-
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String choosenSupplier = parent.getItemAtPosition(position).toString();
@@ -52,7 +50,6 @@ public class ContactUsActivity extends AppCompatActivity implements AdapterView.
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
-
 
     public void onButtonSendRequestClick(View view){
         EditText editTextName = findViewById(R.id.editTextName);
@@ -78,12 +75,6 @@ public class ContactUsActivity extends AppCompatActivity implements AdapterView.
         Spinner editTextSupplier = findViewById(R.id.spinnerSupplier);
         String supplier = editTextSupplier.getContext().toString();
         contactForm.setNote(supplier);
-
-        try {
-            request.SendRequest();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

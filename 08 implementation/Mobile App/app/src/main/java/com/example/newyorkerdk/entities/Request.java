@@ -16,7 +16,6 @@ public class Request {
 
     private Basket basket;
 
-
     public Request(ContactForm contactForm, Basket basket) {
         this.contactForm = contactForm;
         this.basket = basket;
@@ -25,7 +24,8 @@ public class Request {
 
     String apiKey = "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";
 
-    public void SendRequest() throws IOException {
+   public void SendRequest() throws IOException {
+
 
         Email from = new Email("dani025a@edu.easj.dk");
         Email to = new Email("dani025a@edu.easj.dk");
