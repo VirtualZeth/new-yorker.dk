@@ -4,11 +4,17 @@ import java.util.ArrayList;
 
 public class Wall {
 
+
+    private String name;
     private double height;
     private double width;
     private int numberOfGlassFieldsHeight;
     private int numberOfGlassFieldsWidth;
     private ArrayList<Addition> listOfAdditions;
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public double getHeight() {
         return height;
@@ -49,4 +55,6 @@ public class Wall {
     public void setListOfAdditions(ArrayList<Addition> listOfAdditions) {
         this.listOfAdditions = listOfAdditions;
     }
+
+
 }

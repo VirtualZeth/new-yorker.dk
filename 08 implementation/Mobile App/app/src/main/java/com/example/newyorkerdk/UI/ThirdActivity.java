@@ -1,15 +1,11 @@
-package com.example.newyorkerdk;
+package com.example.newyorkerdk.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-
-import com.example.newyorkerdk.UI.BuildWallActivity;
+import com.example.newyorkerdk.R;
 
 public class ThirdActivity extends AppCompatActivity {
 
@@ -29,9 +25,7 @@ public class ThirdActivity extends AppCompatActivity {
             int resid = bundle.getInt("resId");
             i1.setImageResource(resid);
         }
-
     }
-
 
     public void backToWall(View view) {
         startActivity(new Intent(ThirdActivity.this,BuildWallActivity.class));

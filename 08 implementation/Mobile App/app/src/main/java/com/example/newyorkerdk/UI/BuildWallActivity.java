@@ -1,11 +1,11 @@
 package com.example.newyorkerdk.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -28,8 +28,7 @@ import static java.lang.Double.parseDouble;
 public class BuildWallActivity extends AppCompatActivity {
 
     private ActivityBuildWallBinding binding;
-    private final Wall currentWall = new Wall();
-    private final Basket currentBasket = new Basket();
+    private Wall currentWall;
     private BuildWallViewModel model;
     private final ArrayList<EditText> listOfInputFields = new ArrayList<>();
 
@@ -50,27 +49,35 @@ public class BuildWallActivity extends AppCompatActivity {
         listOfInputFields.add(binding.editTextWidth);
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
+        binding.doneButton.setOnClickListener(event -> startBasketActivity() );
 
         model = new ViewModelProvider(this).get(BuildWallViewModel.class);
         model.getMutablePriceEstimate().observe(this, priceEstimate ->
                 binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
 
-        model.getBasket().observe(this, basket -> Log.d("basket", basket.getListOfWalls().toString()));
-
-    }
-    //Methods that interact with the view model
-    public void calculatePriceEstimate() {
-        setupWall();
-        model.calculatePriceEstimate(currentWall);
+       // model.getBasket().observe(this, basket -> Log.d("basket", basket.getListOfWalls().toString()));
     }
 
     public void addWallToBasket() {
         if (!allFieldsFilled()) {
             return;
         }
-        model.addToBasket(currentBasket, currentWall);
+        //model.addToBasket(currentBasket, currentWall);
+        Basket.addWall(currentWall);
     }
 
+
+
+    private void startBasketActivity() {
+        Intent intent = new Intent(this, ThirdActivity.class);
+        startActivity(intent);
+    }
+
+    //Methods that interact with the view model
+    public void calculatePriceEstimate() {
+        setupWall();
+        model.calculatePriceEstimate(currentWall);
+    }
 
     //setup methods
     private void setFilter(EditText inputField, double min, double max) {
@@ -131,6 +138,13 @@ public class BuildWallActivity extends AppCompatActivity {
     }
 
     private void setupWall() {
+        currentWall = new Wall();
+        if (!inputFieldIsEmpty(binding.editTextNote)) {
+            currentWall.setName(binding.editTextNote.getText().toString());
+        } else {
+            currentWall.setName("Væg");
+        }
+        currentWall.setName(binding.editTextNote.getText().toString());
         currentWall.setHeight(parseDouble(binding.editTextHeight.getText().toString()));
         currentWall.setWidth(parseDouble(binding.editTextWidth.getText().toString()));
         currentWall.setNumberOfGlassFieldsWidth(binding.seekBarWidth.getProgress());
