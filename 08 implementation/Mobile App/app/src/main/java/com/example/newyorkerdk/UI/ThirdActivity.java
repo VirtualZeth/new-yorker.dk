@@ -16,7 +16,7 @@ public class ThirdActivity extends AppCompatActivity {
 
     ImageView i1;
     private TextView textView;
-    public ImageView viewToUse;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +54,9 @@ public class ThirdActivity extends AppCompatActivity {
         textView = (TextView)findViewById((R.id.textView));
 
         textView.setText("");
+        ImageView imgview = findViewById(R.id.imageView4);
 
-        viewToUse.setVisibility(Integer.parseInt(null));
-
-
-
+        imgview.setImageDrawable(null);
 
 
 
