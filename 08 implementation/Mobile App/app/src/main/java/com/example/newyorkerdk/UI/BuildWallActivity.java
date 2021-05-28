@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -71,7 +71,14 @@ public class BuildWallActivity extends AppCompatActivity {
     private void startBasketActivity() {
         Intent intent = new Intent(this, ThirdActivity.class);
         startActivity(intent);
+        String note = binding.editTextNote.getText().toString();
+
+        intent.putExtra("WallName", note);
+        intent.putExtra("resId",R.drawable.newyorker);
+        startActivity(intent);
     }
+
+
 
     //Methods that interact with the view model
     public void calculatePriceEstimate() {
