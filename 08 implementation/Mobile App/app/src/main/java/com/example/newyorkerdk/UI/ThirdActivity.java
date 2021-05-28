@@ -51,5 +51,8 @@ public class ThirdActivity extends AppCompatActivity {
     public void backToWall(View view) {
         startActivity(new Intent(ThirdActivity.this,BuildWallActivity.class));
     }
+    public void contactActivity(View view) {
+        startActivity(new Intent(ThirdActivity.this, ContactUsActivity.class));
+    }
 }
 
