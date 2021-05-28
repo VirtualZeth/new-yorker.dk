@@ -59,7 +59,6 @@ public class ThirdActivity extends AppCompatActivity {
         imgview.setImageDrawable(null);
 
 
-
     }
 }
 
