@@ -1,18 +1,13 @@
-package com.example.newyorkerdk;
+package com.example.newyorkerdk.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.example.newyorkerdk.UI.BuildWallActivity;
-
-import java.io.File;
+import com.example.newyorkerdk.R;
 
 public class ThirdActivity extends AppCompatActivity {
 
@@ -44,8 +39,9 @@ public class ThirdActivity extends AppCompatActivity {
 
     public void delete(View view) {
 
-        i1 = (ImageView) findViewById(R.id.imageView2);
-        i1.setEnabled(false);
+        ImageView image = new ImageView(resId.this);
+        image.setImageBitmap(null);
+
 
 
 

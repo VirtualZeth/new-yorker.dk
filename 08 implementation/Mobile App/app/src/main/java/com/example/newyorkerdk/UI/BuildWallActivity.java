@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.newyorkerdk.R;
-import com.example.newyorkerdk.ThirdActivity;
 import com.example.newyorkerdk.databinding.ActivityBuildWallBinding;
 
 public class BuildWallActivity extends AppCompatActivity {
