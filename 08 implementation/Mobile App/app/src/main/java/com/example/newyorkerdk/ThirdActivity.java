@@ -7,9 +7,12 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.newyorkerdk.UI.BuildWallActivity;
+
+import java.io.File;
 
 public class ThirdActivity extends AppCompatActivity {
 
@@ -35,6 +38,17 @@ public class ThirdActivity extends AppCompatActivity {
 
     public void backToWall(View view) {
         startActivity(new Intent(ThirdActivity.this,BuildWallActivity.class));
+    }
+
+
+
+    public void delete(View view) {
+
+        i1 = (ImageView) findViewById(R.id.imageView2);
+        i1.setEnabled(false);
+
+
+
     }
 }
 
