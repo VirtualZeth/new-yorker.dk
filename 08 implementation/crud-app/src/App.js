@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from "react";
-import firebase from "./firebase";
+import React from "react";
+import Login from "./components/Login";
+import "./styling/App.css";
 
 const App = () => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    const ref = firebase.firestore().collection("items");
-
-    (() => {
-      ref.onSnapshot((querySnapshot) => {
-        const list = [];
-        querySnapshot.forEach((e) => list.push(e.data()));
-        setItems(list);
-      });
-    })();
-  }, []);
-
   return (
-    <div>
-      {items.map((e) => (
-        <div key={items.id}>
-          <h2>{e.name}</h2>
-          <p>{e.price}</p>
-        </div>
-      ))}
+    <div
+      id="login_container"
+      class="container-sm d-flex justify-content-center"
+    >
+      <Login />
     </div>
   );
 };
