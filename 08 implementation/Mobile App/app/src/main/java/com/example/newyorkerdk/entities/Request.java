@@ -7,8 +7,8 @@ import com.sendgrid.Mail;
 import com.sendgrid.Method;
 import com.sendgrid.Response;
 import com.sendgrid.SendGrid;
-
 import java.io.IOException;
+
 
 public class Request {
 
@@ -17,17 +17,23 @@ public class Request {
     private Basket basket;
 
 
-    public Request(ContactForm contactForm, Basket basket) throws IOException {
+    public Request(ContactForm contactForm, Basket basket) {
         this.contactForm = contactForm;
         this.basket = basket;
 
-        Email from = new Email(contactForm.getEmail());
+    }
+
+    String apiKey = "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";
+
+    public void SendRequest() throws IOException {
+
+        Email from = new Email("dani025a@edu.easj.dk");
         Email to = new Email("dani025a@edu.easj.dk");
-        String subject = ("Kontakt informationer: \n" + contactForm.getEmail() + "\n" + contactForm.getEmail() + "\n" + contactForm.getPhonenumber() + "\n" + contactForm.getCity() + "\n" + contactForm.getSupplier() + "\n" + contactForm.getNote());
-        Content content = new Content("text/plain", "and easy to do anywhere, even with Java");
+        String subject = ("Forespørgsel fra: " + contactForm.getName());
+        Content content = new Content("text/plain", "Kontakt informationer: \n" + contactForm.getName() + "\n" + contactForm.getEmail() + "\n" + contactForm.getPhonenumber() + "\n" + contactForm.getCity() + "\n" + contactForm.getSupplier() + "\n" + contactForm.getNote());
         Mail mail = new Mail(from, subject, to, content);
 
-        SendGrid sg = new SendGrid(System.getenv("i99y76uiQHmcKycCWtJ00g"));
+        SendGrid sg = new SendGrid(apiKey);
         com.sendgrid.Request request = new com.sendgrid.Request();
         try {
             request.setMethod(Method.POST);
@@ -41,5 +47,4 @@ public class Request {
             throw ex;
         }
     }
-
 }
