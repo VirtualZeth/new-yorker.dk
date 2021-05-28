@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.newyorkerdk.R;
 
@@ -13,6 +15,8 @@ public class ThirdActivity extends AppCompatActivity {
 
 
     ImageView i1;
+    private TextView textView;
+    public ImageView viewToUse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,14 @@ public class ThirdActivity extends AppCompatActivity {
         i1.setImageResource(resid);
 
         i1.setImageBitmap(null);
+
+        textView = (TextView)findViewById((R.id.textView));
+
+        textView.setText("");
+
+        viewToUse.setVisibility(Integer.parseInt(null));
+
+
 
 
 
