@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.UI;
+package com.example.newyorkerdk;
 
 import androidx.appcompat.app.AppCompatActivity;
 

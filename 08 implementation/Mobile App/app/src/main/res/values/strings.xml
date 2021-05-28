@@ -11,4 +11,15 @@
     <string name="wall3">wall3</string>
     <string name="tilf_j_v_g">Tilføj væg</string>
     <string name="fors_t">Forsæt</string>
+    <string name="price"> %s kr</string>
+    <string name="done">Færdig</string>
+    <string name="add">Tilføj</string>
+    <string name="price_estimate">Prisestimat:</string>
+    <string name="in_cm"><font size="10">Angives i cm</font></string>
+    <string-array name="supplier">
+        <item>Stark</item>
+        <item>XL-byg</item>
+        <item>Ilva</item>
+        <item>Salessyling.dk</item>
+    </string-array>
 </resources>

@@ -13,18 +13,8 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        tools:ignore="MissingConstraints" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="198dp"
-        android:layout_height="149dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
-        android:src="@drawable/newyorker" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
         android:id="@+id/height_textfield"
@@ -33,23 +23,23 @@
         android:layout_marginTop="16dp"
         android:text="@string/height"
         app:layout_constraintStart_toStartOf="@+id/editText_Height"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
         android:id="@+id/width_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="@string/width"
         app:layout_constraintStart_toStartOf="@+id/editText_Width"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/height_textfield" />
 
     <EditText
         android:id="@+id/editText_Height"
-        android:layout_width="108dp"
-        android:layout_height="42dp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:ems="10"
+        android:hint="@string/in_cm"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toStartOf="@+id/editText_Width"
         app:layout_constraintHorizontal_bias="0.5"
@@ -58,9 +48,11 @@
 
     <EditText
         android:id="@+id/editText_Width"
-        android:layout_width="108dp"
-        android:layout_height="42dp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:ems="10"
+        android:hint="@string/in_cm"
         android:inputType="numberDecimal"
         app:layout_constraintBaseline_toBaselineOf="@+id/editText_Height"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,26 +79,32 @@
 
     <SeekBar
         android:id="@+id/seekBar_height"
-        android:layout_width="138dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
+        android:max="10"
+        android:min="1"
+        android:progress="1"
         app:layout_constraintStart_toStartOf="@+id/panelcount_height_fextfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_height_fextfield" />
 
     <SeekBar
         android:id="@+id/seekBar_width"
-        android:layout_width="141dp"
+        android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="35dp"
+        android:max="10"
+        android:min="1"
+        android:progress="1"
         app:layout_constraintStart_toStartOf="@+id/panelcount_width_textfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_width_textfield" />
 
     <TextView
         android:id="@+id/additions_textfield"
-        android:layout_width="62dp"
+        android:layout_width="wrap_content"
         android:layout_height="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:text="@string/additions"
         app:layout_constraintStart_toStartOf="@+id/seekBar_height"
         app:layout_constraintTop_toBottomOf="@+id/seekBar_height" />
@@ -116,8 +114,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="36dp"
-        android:text="Prisestimat:"
+        android:layout_marginTop="16dp"
+        android:text="@string/price_estimate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -127,7 +125,6 @@
         android:id="@+id/price_value_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="5555 kr"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_textfield" />
@@ -136,9 +133,11 @@
         android:id="@+id/add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Tilføj"
+        android:layout_marginTop="88dp"
+        android:text="@string/add"
+        android:background="#bf8e55"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.244"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_value_textfield" />
 
@@ -146,13 +145,61 @@
         android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="send"
-        android:text="Færdig"
+        android:text="@string/done"
+        android:background="#bf8e55"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.792"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_button"
-        app:layout_constraintVertical_bias="0.152" />
+        app:layout_constraintTop_toTopOf="@+id/add_button"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:srcCompat="@drawable/wall" />
+
+    <TextView
+        android:id="@+id/seekbar_height_textfield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_height"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_height"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_height" />
+
+    <TextView
+        android:id="@+id/seekbar_width_textfield"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:text="1"
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_width"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_width"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_width" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="note"
+        app:layout_constraintStart_toStartOf="@+id/additions_textfield"
+        app:layout_constraintTop_toBottomOf="@+id/price_value_textfield" />
+
+    <EditText
+        android:id="@+id/editText_note"
+        android:layout_width="138dp"
+        android:layout_height="49dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
