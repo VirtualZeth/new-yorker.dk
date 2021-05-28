@@ -38,9 +38,14 @@ public class ThirdActivity extends AppCompatActivity {
 
 
     public void delete(View view) {
+        setContentView(R.layout.activity_basket);
+        i1 = (ImageView) findViewById(R.id.imageView2);
+        Bundle bundle = getIntent().getExtras();
 
-        ImageView image = new ImageView(resId.this);
-        image.setImageBitmap(null);
+        int resid = bundle.getInt("resId");
+        i1.setImageResource(resid);
+
+        i1.setImageBitmap(null);
 
 
 
