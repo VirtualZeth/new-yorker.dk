@@ -1,15 +1,17 @@
 import React from "react";
-import Login from "./components/Login";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Dashboard from "./components/views/Dashboard";
+import Login from "./components/views/Login";
 import "./styling/App.css";
 
 const App = () => {
   return (
-    <div
-      id="login_container"
-      class="container-sm d-flex justify-content-center"
-    >
-      <Login />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Login} />
+        <Route exact path="/dashboard" component={Dashboard} />
+      </Switch>
+    </Router>
   );
 };
 

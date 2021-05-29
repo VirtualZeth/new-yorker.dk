@@ -2,7 +2,10 @@ import React from "react";
 
 const Home = () => {
   return (
-    <div>
+    <div
+      id="login_container"
+      class="container-sm d-flex justify-content-center"
+    >
       <form class="row g-3">
         <div class="col-12">
           <label for="inputEmail4" class="form-label">
