@@ -1,44 +1,63 @@
 package com.example.newyorkerdk.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
-
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.util.MinMaxInputFilter;
-import com.example.newyorkerdk.databinding.ActivityBuildWallBinding;
-import com.example.newyorkerdk.entities.Basket;
+import com.example.newyorkerdk.databinding.FragmentBuildWallBinding;
 import com.example.newyorkerdk.entities.Wall;
-import com.example.newyorkerdk.viewmodels.BuildWallViewModel;
+import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 import java.util.ArrayList;
 
 import static java.lang.Double.parseDouble;
 
-public class BuildWallActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link BuildWallFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class BuildWallFragment extends Fragment {
 
-    private ActivityBuildWallBinding binding;
+    private FragmentBuildWallBinding binding;
     private Wall currentWall;
-    private BuildWallViewModel model;
+    private SharedViewModel model;
     private final ArrayList<EditText> listOfInputFields = new ArrayList<>();
 
+    public BuildWallFragment() {
+        // Required empty public constructor
+    }
+
+    public static BuildWallFragment newInstance() {
+        return new BuildWallFragment();
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityBuildWallBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        Toolbar myToolbar = findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        currentWall = new Wall();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
 
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
@@ -49,44 +68,43 @@ public class BuildWallActivity extends AppCompatActivity {
         listOfInputFields.add(binding.editTextWidth);
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
-        binding.doneButton.setOnClickListener(event -> startBasketActivity() );
+        binding.doneButton.setOnClickListener(event -> displayBasketFragment() );
 
-        model = new ViewModelProvider(this).get(BuildWallViewModel.class);
-        model.getMutablePriceEstimate().observe(this, priceEstimate ->
-                binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
+        model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        model.getPriceEstimate().observe(requireActivity(), priceEstimate ->
 
-       // model.getBasket().observe(this, basket -> Log.d("basket", basket.getListOfWalls().toString()));
+                binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)
+                ));
+        model.calculatePriceEstimate(currentWall);
+
+        return binding.getRoot();
     }
 
     public void addWallToBasket() {
         if (!allFieldsFilled()) {
             return;
         }
-        //model.addToBasket(currentBasket, currentWall);
-        Basket.addWall(currentWall);
+        model.addToBasket(currentWall);
     }
 
 
 
-    private void startBasketActivity() {
-        Intent intent = new Intent(this, ThirdActivity.class);
-        startActivity(intent);
-        String note = binding.editTextNote.getText().toString();
+    public void displayBasketFragment() {
 
-        intent.putExtra("WallName", note);
-        intent.putExtra("resId",R.drawable.newyorker);
-        startActivity(intent);
+        BasketFragment basketFragment = BasketFragment.newInstance();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+
+        fragmentTransaction.replace(R.id.fragment_container,
+                basketFragment).addToBackStack(null).commit();
     }
 
-
-
-    //Methods that interact with the view model
     public void calculatePriceEstimate() {
         setupWall();
         model.calculatePriceEstimate(currentWall);
     }
 
-    //setup methods
     private void setFilter(EditText inputField, double min, double max) {
         inputField.setFilters(new InputFilter[]{ new MinMaxInputFilter(min, max)});
     }
@@ -145,7 +163,6 @@ public class BuildWallActivity extends AppCompatActivity {
     }
 
     private void setupWall() {
-        currentWall = new Wall();
         if (!inputFieldIsEmpty(binding.editTextNote)) {
             currentWall.setName(binding.editTextNote.getText().toString());
         } else {

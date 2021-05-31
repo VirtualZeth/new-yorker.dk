@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.ThirdActivity">
+    tools:context=".UI.BasketFragment">
 
     <TextView
         android:id="@+id/TextView"
@@ -14,7 +14,6 @@
         android:layout_marginTop="108dp"
         android:text="@string/oversigt"
         android:textColor="#000000"
-
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -66,8 +65,8 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <ImageView
-        android:onClick="delete"
         android:id="@+id/imageView"
+        android:onClick="delete"
         android:layout_width="36dp"
         android:layout_height="39dp"
         android:layout_marginEnd="40dp"
@@ -78,5 +77,17 @@
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.555"
         app:srcCompat="@drawable/baseline_delete_24dp" />
+
+    <TextView
+        android:id="@+id/totalPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="316dp"
+        android:layout_marginBottom="90dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

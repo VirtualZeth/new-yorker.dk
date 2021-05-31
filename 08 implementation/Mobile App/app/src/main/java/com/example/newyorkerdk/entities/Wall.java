@@ -1,6 +1,7 @@
 package com.example.newyorkerdk.entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Wall {
 
@@ -10,7 +11,11 @@ public class Wall {
     private double width;
     private int numberOfGlassFieldsHeight;
     private int numberOfGlassFieldsWidth;
-    private ArrayList<Addition> listOfAdditions;
+    private List<Addition> listOfAdditions;
+
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -48,13 +53,11 @@ public class Wall {
         this.numberOfGlassFieldsWidth = numberOfGlassFieldsWidth;
     }
 
-    public ArrayList<Addition> getListOfAdditions() {
+    public List<Addition> getListOfAdditions() {
         return listOfAdditions;
     }
 
-    public void setListOfAdditions(ArrayList<Addition> listOfAdditions) {
+    public void setListOfAdditions(List<Addition> listOfAdditions) {
         this.listOfAdditions = listOfAdditions;
     }
-
-
 }

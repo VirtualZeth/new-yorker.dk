@@ -5,13 +5,13 @@ import java.util.List;
 
 public class Basket {
 
-    private static ArrayList<Wall> listOfWalls = new ArrayList<>();
+    private List<Wall> listOfWalls = new ArrayList<>();
 
-    public static void addWall(Wall wall) {
+    public void addWall(Wall wall) {
         listOfWalls.add(wall);
     }
 
-    public static List getListOfWalls() {
+    public List<Wall> getListOfWalls() {
         return listOfWalls;
     }
 }
