@@ -18,27 +18,23 @@ const Login = () => {
     firebase
       .auth()
       .signInWithEmailAndPassword(formData.email, formData.password)
-      .then((e) => {
-        let user = e.user;
+      .then(({ user }) => {
         console.log(user);
       })
       .catch((error) => {
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log(errorCode);
-        console.log(errorMessage);
+        console.log(error.code);
+        console.log(error.message);
       });
   };
 
   return (
     <div
       id="login_container"
-      class="container-sm d-flex justify-content-center"
+      className="container-sm d-flex justify-content-center"
     >
-      <h1 id="log">log</h1>
-      <form class="row g-3" onSubmit={(e) => onSubmit(e)}>
-        <div class="col-12">
-          <label for="inputEmail4" class="form-label">
+      <form className="row g-3" onSubmit={(e) => onSubmit(e)}>
+        <div className="col-12">
+          <label htmlFor="inputEmail4" className="form-label">
             Email
           </label>
           <input
@@ -46,13 +42,13 @@ const Login = () => {
             onChange={(e) => onChange(e)}
             name="email"
             type="email"
-            class="form-control"
+            className="form-control"
             id="inputEmail4"
             required
           />
         </div>
-        <div class="col-12">
-          <label for="inputPassword4" class="form-label">
+        <div className="col-12">
+          <label htmlFor="inputPassword4" className="form-label">
             Password
           </label>
           <input
@@ -60,13 +56,13 @@ const Login = () => {
             onChange={(e) => onChange(e)}
             name="password"
             type="password"
-            class="form-control"
+            className="form-control"
             id="inputPassword4"
             required
           />
         </div>
-        <div class="col-12">
-          <button type="submit" class="btn btn-primary">
+        <div className="col-12">
+          <button type="submit" className="btn btn-primary">
             Sign in
           </button>
         </div>
