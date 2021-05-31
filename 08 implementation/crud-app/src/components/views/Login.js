@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import firebase from "../../firebase";
 import "firebase/auth";
+import { setIsAuth } from "../../actions/auth";
+import PropTypes from "prop-types";
 
-const Login = () => {
+const Login = ({ auth, setIsAuth }) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const onChange = (e) => {
-    console.log(e.name);
+  const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +29,17 @@ const Login = () => {
       });
   };
 
-  return (
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user && auth.isAuth === false) {
+      setIsAuth(true);
+    } else if (!user && auth.isAuth === true) {
+      setIsAuth(false);
+    }
+  });
+
+  return auth.isAuth ? (
+    <Redirect to="/dashboard" />
+  ) : (
     <div
       id="login_container"
       className="container-sm d-flex justify-content-center"
@@ -71,4 +83,13 @@ const Login = () => {
   );
 };
 
-export default Login;
+Login.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
+
+export default connect(
+  (state) => ({
+    auth: state.auth,
+  }),
+  { setIsAuth }
+)(Login);
