@@ -4,17 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.BuildWallActivity">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    tools:context=".UI.BuildWallFragment">
 
     <TextView
         android:id="@+id/height_textfield"
@@ -158,11 +148,11 @@
         android:id="@+id/imageView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.479"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/my_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/wall" />
 
     <TextView
@@ -186,7 +176,7 @@
         app:layout_constraintStart_toStartOf="@+id/seekBar_width" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/note_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="note"
@@ -199,7 +189,7 @@
         android:layout_height="49dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintStart_toStartOf="@+id/note_textview"
+        app:layout_constraintTop_toBottomOf="@+id/note_textview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
