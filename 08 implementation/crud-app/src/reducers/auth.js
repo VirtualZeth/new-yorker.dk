@@ -5,12 +5,11 @@ const initialState = {
 };
 
 // eslint-disable-next-line
-export default function (state = initialState, action) {
+export default (state = initialState, action) => {
   switch (action.type) {
     case SET_IS_AUTH:
       return action.payload;
-
     default:
       return state;
   }
-}
+};

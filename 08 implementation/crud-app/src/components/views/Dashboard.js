@@ -1,26 +1,13 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import firebase from "../../firebase";
 import "firebase/auth";
 import { setIsAuth } from "../../actions/auth";
 import PropTypes from "prop-types";
+import Table from "../Table";
 
 const Dashboard = ({ auth, setIsAuth }) => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    const ref = firebase.firestore().collection("products");
-
-    (() => {
-      ref.onSnapshot((querySnapshot) => {
-        const items = [];
-        querySnapshot.forEach((e) => items.push(e.data()));
-        setProducts(items);
-      });
-    })();
-  }, []);
-
   const signOut = async () => firebase.auth().signOut();
 
   firebase.auth().onAuthStateChanged((user) => {
@@ -33,21 +20,27 @@ const Dashboard = ({ auth, setIsAuth }) => {
 
   return auth.isAuth ? (
     <Fragment>
-      <button onClick={() => signOut()} className="btn btn-primary">
+      <button
+        style={{ position: "absolute", right: "0", top: "0" }}
+        onClick={() => signOut()}
+        className="btn btn-primary"
+      >
         Sign out
       </button>
-      <div>
-        {products.map((e) => (
-          <div key={products.id}>
-            <h2>{e.name}</h2>
-            <p>{e.price}</p>
-          </div>
-        ))}
+      <div
+        style={TableContainerStyle}
+        className="container-sm d-flex justify-content-center"
+      >
+        <Table />
       </div>
     </Fragment>
   ) : (
     <Redirect to="/" />
   );
+};
+
+const TableContainerStyle = {
+  marginTop: "80px",
 };
 
 Dashboard.propTypes = {
