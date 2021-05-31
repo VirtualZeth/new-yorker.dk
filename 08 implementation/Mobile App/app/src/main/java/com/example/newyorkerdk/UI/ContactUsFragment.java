@@ -20,7 +20,10 @@ import com.example.newyorkerdk.databinding.FragmentContactUsBinding;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
 import com.example.newyorkerdk.entities.Request;
+import com.example.newyorkerdk.usecase.RequestSender;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
+
+import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +36,7 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
     private final Basket basket = new Basket();
     private final Request request = new Request(contactForm, basket);
     private SharedViewModel model;
+    private RequestSender requestSender = new RequestSender();
 
 
     FragmentContactUsBinding binding;
@@ -62,38 +66,35 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
         spinnerSupplier.setAdapter((adapter));
         spinnerSupplier.setOnItemSelectedListener(this);
 
-        binding.sendRequestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText editTextName = requireActivity().findViewById(R.id.editTextName);
-                String name = editTextName.getText().toString();
-                contactForm.setName(name);
+        binding.sendRequestButton.setOnClickListener(v -> {
+            EditText editTextName = requireActivity().findViewById(R.id.editTextName);
+            String name = editTextName.getText().toString();
+            contactForm.setName(name);
 
-                EditText editTextEmail = requireActivity().findViewById(R.id.editTextEmail);
-                String email = editTextEmail.getText().toString();
-                contactForm.setEmail(email);
+            EditText editTextEmail = requireActivity().findViewById(R.id.editTextEmail);
+            String email = editTextEmail.getText().toString();
+            contactForm.setEmail(email);
 
-                EditText editTextPhoneNumber = requireActivity().findViewById(R.id.editTextNumber);
-                String phoneNumber = editTextPhoneNumber.getText().toString();
-                contactForm.setPhonenumber(phoneNumber);
+            EditText editTextPhoneNumber = requireActivity().findViewById(R.id.editTextNumber);
+            String phoneNumber = editTextPhoneNumber.getText().toString();
+            contactForm.setPhonenumber(phoneNumber);
 
-                EditText editTextCity = requireActivity().findViewById(R.id.editTextCity);
-                String city = editTextCity.getText().toString();
-                contactForm.setCity(city);
+            EditText editTextCity = requireActivity().findViewById(R.id.editTextCity);
+            String city = editTextCity.getText().toString();
+            contactForm.setCity(city);
 
-                EditText editTextMessage = requireActivity().findViewById(R.id.editTextMessage);
-                String message = editTextMessage.getText().toString();
-                contactForm.setNote(message);
+            EditText editTextMessage = requireActivity().findViewById(R.id.editTextMessage);
+            String message = editTextMessage.getText().toString();
+            contactForm.setNote(message);
 
-                Spinner editTextSupplier = requireActivity().findViewById(R.id.spinnerSupplier);
-                String supplier = editTextSupplier.getContext().toString();
-                contactForm.setNote(supplier);
+            Spinner editTextSupplier = requireActivity().findViewById(R.id.spinnerSupplier);
+            String supplier = editTextSupplier.getContext().toString();
+            contactForm.setNote(supplier);
 
-                try {
-                    request.SendRequest();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                requestSender.sendRequest(request);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         });
 
