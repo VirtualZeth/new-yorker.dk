@@ -1,10 +1,7 @@
 package com.example.newyorkerdk.entities;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Wall {
-
 
     private String name;
     private double height;
@@ -44,7 +41,6 @@ public class Wall {
     public void setNumberOfGlassFieldsHeight(int numberOfGlassFieldsHeight) {
         this.numberOfGlassFieldsHeight = numberOfGlassFieldsHeight;
     }
-
     public int getNumberOfGlassFieldsWidth() {
         return numberOfGlassFieldsWidth;
     }
@@ -52,7 +48,6 @@ public class Wall {
     public void setNumberOfGlassFieldsWidth(int numberOfGlassFieldsWidth) {
         this.numberOfGlassFieldsWidth = numberOfGlassFieldsWidth;
     }
-
     public List<Addition> getListOfAdditions() {
         return listOfAdditions;
     }
