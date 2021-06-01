@@ -85,7 +85,6 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
             String message = editTextMessage.getText().toString();
             contactForm.setNote(message);
 
-
             sendMail();
         });
 
