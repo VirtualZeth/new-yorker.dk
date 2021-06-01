@@ -4,11 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 
 import com.example.newyorkerdk.R;
 
-public class fragment_splash_screen extends AppCompatActivity {
+public class SplashScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +17,8 @@ public class fragment_splash_screen extends AppCompatActivity {
         setContentView(R.layout.activity_fragment_splash_screen);
 
 
-        Thread background = new Thread() {
+
+        Thread thread = new Thread() {
             public void run() {
                 try {
                     // Thread sover i  2 sekunder
@@ -33,7 +35,9 @@ public class fragment_splash_screen extends AppCompatActivity {
             }
         };
         // start runner
-        background.start();
+        thread.start();
+
+
 
 
     }
