@@ -3,6 +3,8 @@ package com.example.newyorkerdk.usecase;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+
+import java.lang.ref.WeakReference;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -15,9 +17,8 @@ import javax.mail.internet.MimeMessage;
 public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
 
 
-    private Context context;
+    private final WeakReference<Context> context;
     private Session session;
-
     private String email;
     private String subject;
     private String message;
@@ -25,7 +26,7 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     private ProgressDialog mProgressDialog;
 
     public JavaMailAPI(Context context, String email, String subject, String message) {
-        this.context = context;
+        this.context = new WeakReference<>(context);
         this.email = email;
         this.subject = subject;
         this.message = message;
@@ -34,7 +35,7 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        mProgressDialog = ProgressDialog.show(context,"Sender mail", "vent venligst...",false,false);
+        mProgressDialog = ProgressDialog.show(context.get(), "Sender mail", "vent venligst...",false,false);
     }
 
     @Override

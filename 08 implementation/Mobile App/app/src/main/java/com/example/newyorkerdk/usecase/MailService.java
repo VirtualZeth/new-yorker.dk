@@ -14,7 +14,7 @@ public class MailService {
         ContactForm contactForm = request.getContactForm();
         //Basket basket = request.getBasket();
 
-        String mail = "danijelgitanovic@gmail.com";
+        String mail = MailCredentials.getEMAIL();
         String subject = "Forespørgsel fra: " + contactForm.getName();
         String message = "Kontakt oplysninger:\n" + contactForm.getName() + "\n" + contactForm.getEmail() + "\n" + contactForm.getPhonenumber() + "\n" + contactForm.getCity() + "\nValgte leverandør: \n" + contactForm.getSupplier() + "\n\nBesked fra kunden: \n" + contactForm.getNote();
 
