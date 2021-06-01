@@ -1,5 +1,6 @@
 package com.example.newyorkerdk.UI;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,9 @@ import com.example.newyorkerdk.databinding.FragmentContactUsBinding;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
 import com.example.newyorkerdk.entities.Request;
+import com.example.newyorkerdk.usecase.JavaMailAPI;
+import com.example.newyorkerdk.usecase.MailCredentials;
+import com.example.newyorkerdk.usecase.MailService;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 /**
@@ -61,40 +65,48 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSupplier.setAdapter((adapter));
         spinnerSupplier.setOnItemSelectedListener(this);
+
+        binding.sendRequestButton.setOnClickListener(v -> {
+            EditText editTextName = requireActivity().findViewById(R.id.editTextName);
+            String name = editTextName.getText().toString();
+            contactForm.setName(name);
+
+            EditText editTextEmail = requireActivity().findViewById(R.id.editTextEmail);
+            String email = editTextEmail.getText().toString();
+            contactForm.setEmail(email);
+
+            EditText editTextPhoneNumber = requireActivity().findViewById(R.id.editTextNumber);
+            String phoneNumber = editTextPhoneNumber.getText().toString();
+            contactForm.setPhonenumber(phoneNumber);
+
+            EditText editTextCity = requireActivity().findViewById(R.id.editTextCity);
+            String city = editTextCity.getText().toString();
+            contactForm.setCity(city);
+
+            EditText editTextMessage = requireActivity().findViewById(R.id.editTextMessage);
+            String message = editTextMessage.getText().toString();
+            contactForm.setNote(message);
+
+
+            sendMail(getContext(), request);
+        });
+
         return binding.getRoot();
+    }
+
+    private void sendMail(Context context, Request request) {
+        MailService mailService = new MailService();
+        mailService.sendMail(context, request);
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String choosenSupplier = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), choosenSupplier, Toast.LENGTH_SHORT).show();
         contactForm.setSupplier(choosenSupplier);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        EditText editTextName = requireActivity().findViewById(R.id.editTextName);
-        String name = editTextName.getText().toString();
-        contactForm.setName(name);
-
-        EditText editTextEmail = requireActivity().findViewById(R.id.editTextEmail);
-        String email = editTextEmail.getText().toString();
-        contactForm.setEmail(email);
-
-        EditText editTextPhoneNumber = requireActivity().findViewById(R.id.editTextNumber);
-        String phoneNumber = editTextPhoneNumber.getText().toString();
-        contactForm.setPhonenumber(phoneNumber);
-
-        EditText editTextCity = requireActivity().findViewById(R.id.editTextCity);
-        String city = editTextCity.getText().toString();
-        contactForm.setCity(city);
-
-        EditText editTextMessage = requireActivity().findViewById(R.id.editTextMessage);
-        String message = editTextMessage.getText().toString();
-        contactForm.setNote(message);
-
-        Spinner editTextSupplier = requireActivity().findViewById(R.id.spinnerSupplier);
-        String supplier = editTextSupplier.getContext().toString();
-        contactForm.setNote(supplier);
     }
+
 }

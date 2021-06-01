@@ -8,7 +8,7 @@ public class ContactForm {
     private String city;
     private String note;
     private String supplier;
-
+    
     public void setName(String name) {
         this.name = name;
     }
