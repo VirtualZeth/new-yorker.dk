@@ -16,8 +16,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_splash_screen);
 
-
-
         Thread thread = new Thread() {
             public void run() {
                 try {
@@ -36,9 +34,5 @@ public class SplashScreenActivity extends AppCompatActivity {
         };
         // start runner
         thread.start();
-
-
-
-
     }
 }
