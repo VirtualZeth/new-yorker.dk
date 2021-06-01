@@ -1,5 +1,6 @@
 package com.example.newyorkerdk.UI;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.example.newyorkerdk.entities.ContactForm;
 import com.example.newyorkerdk.entities.Request;
 import com.example.newyorkerdk.usecase.JavaMailAPI;
 import com.example.newyorkerdk.usecase.MailCredentials;
+import com.example.newyorkerdk.usecase.MailService;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 /**
@@ -86,22 +88,15 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
             contactForm.setNote(message);
 
 
-            sendMail();
+            sendMail(getContext(), request);
         });
 
         return binding.getRoot();
     }
 
-    private void sendMail() {
-
-        String mail = "danijelgitanovic@gmail.com";
-        String subject = "Forespørgsel fra: " + contactForm.getName();
-        String message = "Kontakt oplysninger:\n" + contactForm.getName() + "\n" + contactForm.getEmail() + "\n" + contactForm.getPhonenumber() + "\n" + contactForm.getCity() + "\nValgte leverandør: \n" + contactForm.getSupplier() + "\n\nBesked fra kunden: \n" + contactForm.getNote();
-
-
-        JavaMailAPI javaMailAPI = new JavaMailAPI(getContext() , mail , subject , message );
-        javaMailAPI.execute();
-
+    private void sendMail(Context context, Request request) {
+        MailService mailService = new MailService();
+        mailService.sendMail(context, request);
     }
 
     @Override
