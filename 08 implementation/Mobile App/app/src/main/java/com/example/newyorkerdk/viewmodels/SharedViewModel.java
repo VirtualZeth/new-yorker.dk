@@ -10,13 +10,20 @@ import com.example.newyorkerdk.usecase.PriceEstimator;
 
 
 public class SharedViewModel extends ViewModel {
+
     PriceEstimator priceEstimator = new PriceEstimator();
 
     private MutableLiveData<String> mutablePriceEstimate;
-    private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<String> mutableBasketTotalPrice;
+    private MutableLiveData<Basket> mutableBasket;
+    private MutableLiveData<Wall> mutableCurrentWall;
+
+    public SharedViewModel() {
+        super();
+    }
 
     public LiveData<String> getPriceEstimate() {
+
         if (mutablePriceEstimate == null) {
             mutablePriceEstimate = new MutableLiveData<>();
         }
@@ -24,13 +31,16 @@ public class SharedViewModel extends ViewModel {
     }
 
     public LiveData<Basket> getBasket() {
+
         if (mutableBasket == null) {
             mutableBasket = new MutableLiveData<>();
+            mutableBasket.setValue(new Basket());
         }
         return mutableBasket;
     }
 
     public LiveData<String> getBasketTotalPrice() {
+
         if (mutableBasketTotalPrice == null) {
             mutableBasketTotalPrice = new MutableLiveData<>();
         }
@@ -38,27 +48,45 @@ public class SharedViewModel extends ViewModel {
         return mutableBasketTotalPrice;
     }
 
-    public void calculatePriceEstimate(Wall wall) {
-        double estimation = priceEstimator.calculatePriceEstimate(wall);
-        mutablePriceEstimate.setValue(String.valueOf(estimation));
+    public LiveData<Wall> getCurrentWall() {
+
+        if (mutableCurrentWall == null) {
+            mutableCurrentWall = new MutableLiveData<>();
+            newCurrentWall();
+        }
+
+        return mutableCurrentWall;
     }
 
-    public void calculateBasketTotalPrice() {
+    public void newCurrentWall() {
 
-        if (mutableBasketTotalPrice == null) {
-            mutableBasketTotalPrice = new MutableLiveData<>();
+        if (mutableCurrentWall == null) {
+            mutableCurrentWall = new MutableLiveData<>();
         }
-        if (getBasket().getValue() != null) {
-            double total = 0;
 
-            for (Wall wall:getBasket().getValue().getListOfWalls()) {
-                total += priceEstimator.calculatePriceEstimate(wall);
-            }
-            mutableBasketTotalPrice.setValue(String.valueOf(total));
+        Wall newWall = new Wall();
+        newWall.setName("Wall");
+        newWall.setWidth(1);
+        newWall.setHeight(1);
+        newWall.setName("Wall");
+        newWall.setNumberOfGlassFieldsHeight(1);
+        newWall.setNumberOfGlassFieldsWidth(1);
+        setCurrentWall(newWall);
+        calculatePriceEstimate();
+    }
+
+    public void setCurrentWall(Wall wall) {
+
+        if (mutableCurrentWall == null) {
+            mutableCurrentWall = new MutableLiveData<>();
         }
+
+        mutableCurrentWall.setValue(wall);
+        calculatePriceEstimate();
     }
 
     public void addToBasket(Wall wall) {
+
         if (mutableBasket == null) {
             mutableBasket = new MutableLiveData<>();
             mutableBasket.setValue(new Basket());
@@ -68,6 +96,79 @@ public class SharedViewModel extends ViewModel {
             basket.addWall(wall);
             mutableBasket.setValue(basket);
             calculateBasketTotalPrice();
+        }
+    }
+
+    public void calculatePriceEstimate() {
+
+        if (mutablePriceEstimate == null) {
+            mutablePriceEstimate = new MutableLiveData<>();
+        }
+
+        Wall currentWall = getCurrentWall().getValue();
+        if (currentWall != null) {
+            double estimation = priceEstimator.calculatePriceEstimate(currentWall);
+
+            mutablePriceEstimate.setValue(String.valueOf(estimation));
+        }
+    }
+
+    public void calculateBasketTotalPrice() {
+
+        if (mutableBasketTotalPrice == null) {
+            mutableBasketTotalPrice = new MutableLiveData<>();
+        }
+        Basket basket = getBasket().getValue();
+
+        if (basket != null) {
+            mutableBasketTotalPrice.setValue(
+                    String.valueOf(priceEstimator.calculateBasketTotal(basket)));
+        }
+    }
+
+    public void setCurrentWallHeight(double height) {
+
+        Wall currentWall = getCurrentWall().getValue();
+        if (currentWall != null) {
+            currentWall.setHeight(height);
+            setCurrentWall(currentWall);
+        }
+    }
+
+    public void setCurrentWallWidth(double width) {
+
+        Wall currentWall = getCurrentWall().getValue();
+        if (currentWall != null) {
+            currentWall.setWidth(width);
+            setCurrentWall(currentWall);
+        }
+    }
+
+    public void setCurrentWallNote(String note) {
+
+        Wall currentWall = getCurrentWall().getValue();
+        if (currentWall != null) {
+            currentWall.setName(note);
+            setCurrentWall(currentWall);
+        }
+    }
+
+    public void setCurrentWallSeekBarHeight(int progress) {
+
+        Wall currentWall = getCurrentWall().getValue();
+        if (currentWall != null) {
+            currentWall.setNumberOfGlassFieldsHeight(progress);
+            setCurrentWall(currentWall);
+        }
+    }
+
+    public void setCurrentWallSeekBarWidth(int progress) {
+
+        Wall currentWall = getCurrentWall().getValue();
+        if (currentWall != null) {
+            currentWall.setNumberOfGlassFieldsWidth(progress);
+            setCurrentWall(currentWall);
+
         }
     }
 }

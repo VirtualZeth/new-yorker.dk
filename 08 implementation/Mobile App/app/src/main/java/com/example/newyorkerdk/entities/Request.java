@@ -1,13 +1,10 @@
 package com.example.newyorkerdk.entities;
 
-
-import com.example.newyorkerdk.usecase.JavaMailAPI;
-
 public class Request {
 
-    private ContactForm contactForm;
+    private final ContactForm contactForm;
 
-    private Basket basket;
+    private final Basket basket;
 
     public Request(ContactForm contactForm, Basket basket) {
         this.contactForm = contactForm;
@@ -21,5 +18,4 @@ public class Request {
     public Basket getBasket() {
         return basket;
     }
-
 }
