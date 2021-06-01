@@ -1,14 +1,7 @@
 package com.example.newyorkerdk.entities;
 
 
-import com.sendgrid.Content;
-import com.sendgrid.Email;
-import com.sendgrid.Mail;
-import com.sendgrid.Method;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
-import java.io.IOException;
-
+import com.example.newyorkerdk.usecase.JavaMailAPI;
 
 public class Request {
 
@@ -28,4 +21,5 @@ public class Request {
     public Basket getBasket() {
         return basket;
     }
+
 }

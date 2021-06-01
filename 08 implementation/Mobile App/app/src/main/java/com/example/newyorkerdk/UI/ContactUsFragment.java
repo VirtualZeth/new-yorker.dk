@@ -20,10 +20,9 @@ import com.example.newyorkerdk.databinding.FragmentContactUsBinding;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
 import com.example.newyorkerdk.entities.Request;
-import com.example.newyorkerdk.usecase.RequestSender;
+import com.example.newyorkerdk.usecase.JavaMailAPI;
+import com.example.newyorkerdk.usecase.MailCredentials;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
-
-import java.io.IOException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +35,6 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
     private final Basket basket = new Basket();
     private final Request request = new Request(contactForm, basket);
     private SharedViewModel model;
-    private RequestSender requestSender = new RequestSender();
 
 
     FragmentContactUsBinding binding;
@@ -87,28 +85,33 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
             String message = editTextMessage.getText().toString();
             contactForm.setNote(message);
 
-            Spinner editTextSupplier = requireActivity().findViewById(R.id.spinnerSupplier);
-            String supplier = editTextSupplier.getContext().toString();
-            contactForm.setNote(supplier);
 
-            try {
-                requestSender.sendRequest(request);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            sendMail();
         });
 
         return binding.getRoot();
     }
 
+    private void sendMail() {
+
+        String mail = "danijelgitanovic@gmail.com";
+        String subject = "Forespørgsel fra: " + contactForm.getName();
+        String message = "Kontakt oplysninger:\n" + contactForm.getName() + "\n" + contactForm.getEmail() + "\n" + contactForm.getPhonenumber() + "\n" + contactForm.getCity() + "\nValgte leverandør: \n" + contactForm.getSupplier() + "\n\nBesked fra kunden: \n" + contactForm.getNote();
+
+
+        JavaMailAPI javaMailAPI = new JavaMailAPI(getContext() , mail , subject , message );
+        javaMailAPI.execute();
+
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String choosenSupplier = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(), choosenSupplier, Toast.LENGTH_SHORT).show();
         contactForm.setSupplier(choosenSupplier);
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
+
 }
