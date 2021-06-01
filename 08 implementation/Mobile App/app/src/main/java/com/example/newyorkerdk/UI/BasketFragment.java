@@ -71,4 +71,12 @@ public class BasketFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container,
                 buildWallFragment).addToBackStack(null).commit();
     }
+
+    public void getWallsInBasket() {
+
+        model.getBasket().getValue().getListOfWalls();
+
+
+    }
+
 }

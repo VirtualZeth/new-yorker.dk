@@ -1,5 +1,6 @@
 package com.example.newyorkerdk.UI;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -68,7 +69,7 @@ public class BuildWallFragment extends Fragment {
         listOfInputFields.add(binding.editTextWidth);
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
-        binding.doneButton.setOnClickListener(event -> displayBasketFragment() );
+        binding.doneButton.setOnClickListener(event -> displayBasketFragment());
 
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         model.getPriceEstimate().observe(requireActivity(), priceEstimate ->
@@ -87,14 +88,9 @@ public class BuildWallFragment extends Fragment {
         model.addToBasket(currentWall);
     }
 
-    public void send(View v) {
 
-        Intent i = new Intent(BuildWallActivity.this, ThirdActivity.class);
-        i.putExtra("resId",R.drawable.newyorker);
-        startActivity(i);
 
     public void displayBasketFragment() {
-
         BasketFragment basketFragment = BasketFragment.newInstance();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
@@ -102,7 +98,10 @@ public class BuildWallFragment extends Fragment {
 
         fragmentTransaction.replace(R.id.fragment_container,
                 basketFragment).addToBackStack(null).commit();
+
     }
+
+
 
     public void calculatePriceEstimate() {
         setupWall();
