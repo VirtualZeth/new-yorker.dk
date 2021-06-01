@@ -12,5 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowDisablePreview">true</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="Theme.splash" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@drawable/yorknew</item>
     </style>
 </resources>

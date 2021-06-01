@@ -39,7 +39,8 @@
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/wallName" />
+        app:layout_constraintTop_toBottomOf="@+id/wallName"
+        tools:ignore="OnClick" />
 
     <Button
         android:id="@+id/button2"
@@ -52,7 +53,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="OnClick" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -76,7 +78,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.555"
-        app:srcCompat="@drawable/baseline_delete_24dp" />
+        app:srcCompat="@drawable/baseline_delete_24dp"
+        tools:ignore="OnClick" />
 
     <TextView
         android:id="@+id/totalPriceTextView"

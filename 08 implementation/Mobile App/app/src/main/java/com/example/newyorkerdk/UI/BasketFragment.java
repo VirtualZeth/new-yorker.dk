@@ -80,4 +80,12 @@ public class BasketFragment extends Fragment {
                 buildWallFragment).addToBackStack(null).commit();
 
     }
+
+    public void getWallsInBasket() {
+
+        model.getBasket().getValue().getListOfWalls();
+
+
+    }
+
 }
