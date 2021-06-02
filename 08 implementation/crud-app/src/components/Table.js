@@ -4,22 +4,21 @@ import { TrashFill, PencilSquare } from "react-bootstrap-icons/";
 
 const Table = () => {
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
-    (() => {
-      firebase
-        .firestore()
-        .collection("products")
-        .onSnapshot((querySnapshot) => {
-          const items = [];
-          querySnapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
-          setProducts(items);
-        });
-    })();
+    firebase
+      .firestore()
+      .collection("products")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
+        setProducts(items);
+      });
   }, []);
 
-  const deleteProduct = (id) => {
+  const deleteProduct = async (id) => {
     if (id !== undefined) {
-      firebase
+      await firebase
         .firestore()
         .collection("products")
         .doc(id)

@@ -8,7 +8,7 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_IS_AUTH:
-      return action.payload;
+      return { ...state, isAuth: action.payload };
     default:
       return state;
   }

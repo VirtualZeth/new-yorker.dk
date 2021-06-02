@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import firebase from "../../firebase";
@@ -9,13 +9,17 @@ import Table from "../Table";
 import Toolbar from "../Toolbar";
 
 const Dashboard = ({ auth, setIsAuth }) => {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user && auth.isAuth === false) {
-      setIsAuth(true);
-    } else if (!user && auth.isAuth === true) {
-      setIsAuth(false);
-    }
-  });
+  const { isAuth } = auth;
+  useEffect(() => {
+    const close = firebase.auth().onAuthStateChanged((user) => {
+      if (user && isAuth === false) {
+        setIsAuth(true);
+      } else if (!user && isAuth === true) {
+        setIsAuth(false);
+      }
+    });
+    return close;
+  }, [isAuth, setIsAuth]);
 
   return auth.isAuth ? (
     <Fragment>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import firebase from "../../firebase";
@@ -7,21 +7,32 @@ import { setIsAuth } from "../../actions/auth";
 import PropTypes from "prop-types";
 
 const Login = ({ auth, setIsAuth }) => {
+  const { isAuth } = auth;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  useEffect(() => {
+    const close = firebase.auth().onAuthStateChanged((user) => {
+      if (user && isAuth === false) {
+        setIsAuth(true);
+      } else if (!user && isAuth === true) {
+        setIsAuth(false);
+      }
+    });
+    return close;
+  }, [isAuth, setIsAuth]);
+
+  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    firebase
+    await firebase
       .auth()
       .signInWithEmailAndPassword(formData.email, formData.password)
       .then(({ user }) => {
-        console.log(user);
+        console.log(`Logged in as ${user.email}`);
       })
       .catch((error) => {
         console.log(error.code);
@@ -29,21 +40,10 @@ const Login = ({ auth, setIsAuth }) => {
       });
   };
 
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user && auth.isAuth === false) {
-      setIsAuth(true);
-    } else if (!user && auth.isAuth === true) {
-      setIsAuth(false);
-    }
-  });
-
   return auth.isAuth ? (
     <Redirect to="/dashboard" />
   ) : (
-    <div
-      id="login_container"
-      className="container-sm d-flex justify-content-center"
-    >
+    <div id="login_container" className="container-sm d-flex justify-content-center">
       <form className="row g-3" onSubmit={(e) => onSubmit(e)}>
         <div className="col-12">
           <label htmlFor="inputEmail4" className="form-label">

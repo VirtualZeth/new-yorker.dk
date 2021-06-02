@@ -1,112 +1,46 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import firebase from "../firebase";
 import "firebase/firestore";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { connect } from "react-redux";
+import { setModalShow } from "../actions/modals";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import Dropdown from "react-bootstrap/esm/Dropdown";
+import AddProductModal from "./AddProductModal";
 
-const Toolbar = () => {
-  const [productData, setProductData] = useState({
-    productNumber: "",
-    name: "",
-    category: "",
-    price: "",
+const Toolbar = ({ setModalShow }) => {
+  const [categoryData, setCategoryData] = useState({
+    current: "Alle",
+    categories: [],
   });
-  const [modalShow, setModalShow] = useState(false);
 
-  const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
-
-  const signOut = async () => await firebase.auth().signOut();
-  const addProduct = async () => {
+  useEffect(() => {
     firebase
       .firestore()
-      .collection("products")
-      .add(productData)
-      .then((e) => {
-        console.log(`Product with id: ${e.id} added!`);
-      })
-      .catch((error) => {
-        console.log(error);
+      .collection("categories")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
+        setCategoryData({ ...categoryData, addProductCurrent: items[0].name, categories: items });
       });
-    setProductData({
-      productNumber: "",
-      name: "",
-      category: "",
-      price: "",
-    });
-    setModalShow(false);
-  };
+  }, [categoryData]);
+
+  const signOut = async () => await firebase.auth().signOut();
+
   return (
     <Fragment>
-      <Modal
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      >
-        <Modal.Body>
-          <Form>
-            <Row>
-              <Col>
-                <Form.Label>Kategori</Form.Label>
-                <Form.Control
-                  name="category"
-                  value={productData.category}
-                  onChange={(e) => {
-                    onChange(e);
-                  }}
-                  placeholder="f.eks. Paneler"
-                />
-              </Col>
-              <Col>
-                <Form.Label>Varenummer</Form.Label>
-                <Form.Control
-                  name="productNumber"
-                  value={productData.productNumber}
-                  onChange={(e) => {
-                    onChange(e);
-                  }}
-                  placeholder="f.eks. 20008"
-                />
-              </Col>
-              <Col>
-                <Form.Label>Navn</Form.Label>
-                <Form.Control
-                  name="name"
-                  value={productData.name}
-                  onChange={(e) => {
-                    onChange(e);
-                  }}
-                  placeholder="f.eks. Akustikpanel"
-                />
-              </Col>
-              <Col>
-                <Form.Label>Pris</Form.Label>
-                <Form.Control
-                  name="price"
-                  value={productData.price}
-                  onChange={(e) => {
-                    onChange(e);
-                  }}
-                  placeholder="f.eks. 318"
-                />
-              </Col>
-            </Row>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={addProduct}>Tilføj vare</Button>
-        </Modal.Footer>
-      </Modal>
+      <AddProductModal categories={categoryData.categories} />
       <div className="card container" style={toolbarStyle}>
         <div className="row">
+          <DropdownButton className="col col-1" id="dropdown-basic-button" title={categoryData.current}>
+            <Dropdown.Item>Alle</Dropdown.Item>
+            {categoryData.categories.map((e) => (
+              <Dropdown.Item key={e.id}>{e.name}</Dropdown.Item>
+            ))}
+          </DropdownButton>
           <button onClick={() => setModalShow(true)} className="btn btn-primary col col-1">
             Tilføj vare
           </button>
-          <button onClick={() => signOut()} className="btn btn-primary col col-1 offset-md-10">
+          <button onClick={() => signOut()} className="btn btn-danger col col-1 offset-md-9">
             Log ud
           </button>
         </div>
@@ -121,4 +55,4 @@ const toolbarStyle = {
   padding: "5px 20px",
 };
 
-export default Toolbar;
+export default connect(null, { setModalShow })(Toolbar);

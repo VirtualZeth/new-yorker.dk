@@ -1,1 +1,2 @@
 export const SET_IS_AUTH = "SET_IS_AUTH";
+export const SET_ADD_PRODUCT_MODAL_SHOW = "SET_ADD_PRODUCT_MODAL_SHOW";
