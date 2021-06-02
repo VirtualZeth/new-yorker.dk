@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -14,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.newyorkerdk.R;
@@ -36,7 +39,10 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
     private final ContactForm contactForm = new ContactForm();
     private final Basket basket = new Basket();
     private final Request request = new Request(contactForm, basket);
+    private final MailService mailService = new MailService();
     private SharedViewModel model;
+
+    String failText = "Feltet skal udfyldes";
 
 
     FragmentContactUsBinding binding;
@@ -89,15 +95,54 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
 
 
             sendMail(getContext(), request);
+
         });
 
         return binding.getRoot();
     }
 
     private void sendMail(Context context, Request request) {
-        MailService mailService = new MailService();
-        mailService.sendMail(context, request);
+
+        if ((contactForm.getName().equals("")) || (contactForm.getEmail().equals("")) || (contactForm.getPhonenumber().equals("")) || (contactForm.getCity().equals("")) || (contactForm.getSupplier().equals("Vælg leverandør"))){
+
+            TextView nameFail = requireActivity().findViewById(R.id.textViewNameFail);
+            TextView emailFail = requireActivity().findViewById(R.id.textViewEmailFail);
+            TextView numberFail = requireActivity().findViewById(R.id.textViewNumberFail);
+            TextView cityFail = requireActivity().findViewById(R.id.textViewCityFail);
+            TextView supplierFail = requireActivity().findViewById(R.id.textViewSupplierFail);
+
+            if (contactForm.getName().equals("")){nameFail.setText(failText);}
+            else nameFail.setText("");
+
+            if (contactForm.getEmail().equals("")){emailFail.setText(failText);}
+            else emailFail.setText("");
+
+            if (contactForm.getPhonenumber().equals("")){numberFail.setText(failText);}
+            else numberFail.setText("");
+
+            if (contactForm.getCity().equals("")){cityFail.setText(failText);}
+            else cityFail.setText("");
+
+            if (contactForm.getSupplier().equals("Vælg leverandør")){supplierFail.setText("Vælg en leverandør");}
+            else supplierFail.setText("");
+        }
+
+       else {
+       mailService.sendMail(context, request);
+       displayMainFragment();
+       }
     }
+
+    private void displayMainFragment() {
+        MainFragment mainFragment = MainFragment.newInstance();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+
+        fragmentTransaction.replace(R.id.fragment_container,
+                mainFragment).addToBackStack(null).commit();
+    }
+
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

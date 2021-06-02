@@ -56,5 +56,6 @@ public class ContactForm {
     public String getSupplier() {
         return supplier;
     }
+
 }
 
