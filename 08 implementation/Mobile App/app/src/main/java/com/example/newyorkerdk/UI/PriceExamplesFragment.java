@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.example.newyorkerdk.R;
+import com.example.newyorkerdk.databinding.FragmentMainBinding;
+import com.example.newyorkerdk.databinding.FragmentPriceExamplesBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +19,9 @@ import com.example.newyorkerdk.R;
  * create an instance of this fragment.
  */
 public class PriceExamplesFragment extends Fragment {
+
+   FragmentPriceExamplesBinding binding;
+
     public PriceExamplesFragment() {
         // Required empty public constructor
     }
@@ -37,10 +42,9 @@ public class PriceExamplesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        WebView webView = requireActivity().findViewById(R.id.webview);
-        webView.loadUrl("https://www.journaldev.com");
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("https://www.new-yorker.dk/pris-eksempler-paa-new-yorker-glasvaeg/");
-        return inflater.inflate(R.layout.fragment_price_examples, container, false);
+        binding = FragmentPriceExamplesBinding.inflate(getLayoutInflater());
+        binding.webview.getSettings().setJavaScriptEnabled(true);
+        binding.webview.loadUrl("https://www.new-yorker.dk/pris-eksempler-paa-new-yorker-glasvaeg/");
+        return binding.getRoot();
     }
 }
