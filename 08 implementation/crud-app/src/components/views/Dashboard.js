@@ -6,10 +6,9 @@ import "firebase/auth";
 import { setIsAuth } from "../../actions/auth";
 import PropTypes from "prop-types";
 import Table from "../Table";
+import Toolbar from "../Toolbar";
 
 const Dashboard = ({ auth, setIsAuth }) => {
-  const signOut = async () => firebase.auth().signOut();
-
   firebase.auth().onAuthStateChanged((user) => {
     if (user && auth.isAuth === false) {
       setIsAuth(true);
@@ -20,27 +19,12 @@ const Dashboard = ({ auth, setIsAuth }) => {
 
   return auth.isAuth ? (
     <Fragment>
-      <button
-        style={{ position: "absolute", right: "0", top: "0" }}
-        onClick={() => signOut()}
-        className="btn btn-primary"
-      >
-        Sign out
-      </button>
-      <div
-        style={TableContainerStyle}
-        className="container-sm d-flex justify-content-center"
-      >
-        <Table />
-      </div>
+      <Toolbar />
+      <Table />
     </Fragment>
   ) : (
     <Redirect to="/" />
   );
-};
-
-const TableContainerStyle = {
-  marginTop: "80px",
 };
 
 Dashboard.propTypes = {

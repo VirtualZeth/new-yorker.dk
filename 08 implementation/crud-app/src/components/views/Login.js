@@ -75,7 +75,7 @@ const Login = ({ auth, setIsAuth }) => {
         </div>
         <div className="col-12">
           <button type="submit" className="btn btn-primary">
-            Sign in
+            Log ind
           </button>
         </div>
       </form>
