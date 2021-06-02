@@ -8,7 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.newyorkerdk.databinding.FragmentPriceExamplesBinding;
+import com.example.newyorkerdk.databinding.FragmentWebviewBinding;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,9 +18,9 @@ import com.example.newyorkerdk.databinding.FragmentPriceExamplesBinding;
  */
 public class WebViewFragment extends Fragment {
 
-   FragmentPriceExamplesBinding binding;
+    private FragmentWebviewBinding binding;
     private static final String PAGE_NAME = "page_name";
-    private String mParam1;
+    private String pageName;
 
     public WebViewFragment() {
         // Required empty public constructor
@@ -37,7 +38,7 @@ public class WebViewFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(PAGE_NAME);
+            this.pageName = getArguments().getString(PAGE_NAME);
         }
     }
 
@@ -45,7 +46,8 @@ public class WebViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentPriceExamplesBinding.inflate(getLayoutInflater());
+
+        binding = FragmentWebviewBinding.inflate(getLayoutInflater());
         binding.webview.getSettings().setJavaScriptEnabled(true);
         showPage();
         return binding.getRoot();
@@ -57,11 +59,10 @@ public class WebViewFragment extends Fragment {
             return;
         }
 
-        String pageName = getArguments().getString(PAGE_NAME);
-        if (pageName.equals("priceExample")) {
+        if (this.pageName.equals("priceExample")) {
             binding.webview.loadUrl("https://www.new-yorker.dk/pris-eksempler-paa-new-yorker-glasvaeg/");
         }
-        if (pageName.equals("contactUs")) {
+        if (this.pageName.equals("contactUs")) {
             binding.webview.loadUrl("https://www.new-yorker.dk/kontakt/");
         }
     }
