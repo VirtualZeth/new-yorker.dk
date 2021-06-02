@@ -16,8 +16,7 @@ const Toolbar = () => {
   });
   const [modalShow, setModalShow] = useState(false);
 
-  const onChange = (e) =>
-    setProductData({ ...productData, [e.target.name]: e.target.value });
+  const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
 
   const signOut = async () => await firebase.auth().signOut();
   const addProduct = async () => {
@@ -26,7 +25,7 @@ const Toolbar = () => {
       .collection("products")
       .add(productData)
       .then((e) => {
-        console.log(e.id);
+        console.log(`Product with id: ${e.id} added!`);
       })
       .catch((error) => {
         console.log(error);
@@ -104,16 +103,10 @@ const Toolbar = () => {
       </Modal>
       <div className="card container" style={toolbarStyle}>
         <div className="row">
-          <button
-            onClick={() => setModalShow(true)}
-            className="btn btn-primary col col-1"
-          >
+          <button onClick={() => setModalShow(true)} className="btn btn-primary col col-1">
             Tilføj vare
           </button>
-          <button
-            onClick={() => signOut()}
-            className="btn btn-primary col col-1 offset-md-10"
-          >
+          <button onClick={() => signOut()} className="btn btn-primary col col-1 offset-md-10">
             Log ud
           </button>
         </div>
