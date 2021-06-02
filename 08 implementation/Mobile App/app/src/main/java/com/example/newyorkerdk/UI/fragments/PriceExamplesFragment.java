@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.UI;
+package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
 
@@ -7,10 +7,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
-import com.example.newyorkerdk.R;
-import com.example.newyorkerdk.databinding.FragmentMainBinding;
 import com.example.newyorkerdk.databinding.FragmentPriceExamplesBinding;
 
 /**
