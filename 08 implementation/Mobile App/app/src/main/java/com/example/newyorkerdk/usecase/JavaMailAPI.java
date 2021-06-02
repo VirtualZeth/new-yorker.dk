@@ -14,7 +14,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
+public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
 
 
     private final WeakReference<Context> context;
@@ -22,7 +22,6 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void>  {
     private String email;
     private String subject;
     private String message;
-
     private ProgressDialog mProgressDialog;
 
     public JavaMailAPI(Context context, String email, String subject, String message) {

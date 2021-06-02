@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentMainBinding;
 
@@ -32,7 +33,8 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentMainBinding.inflate(getLayoutInflater());
-        binding.toBuildWallButton.setOnClickListener(v -> displayBuildWallFragment());
+        binding.toBuildWallButton.setOnClickListener(click -> displayBuildWallFragment());
+        binding.toPriceexamplesButton.setOnClickListener( click -> displayPriceExamplesFragment());
         return binding.getRoot();
     }
 
@@ -41,8 +43,16 @@ public class MainFragment extends Fragment {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container,
                 buildWallFragment).addToBackStack(null).commit();
+    }
+
+    private void displayPriceExamplesFragment() {
+        PriceExamplesFragment priceExamplesFragment = PriceExamplesFragment.newInstance();
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, priceExamplesFragment)
+                .addToBackStack(null).commit();
     }
 }
