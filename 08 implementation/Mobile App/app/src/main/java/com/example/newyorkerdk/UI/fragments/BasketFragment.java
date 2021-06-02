@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.UI;
+package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
 
@@ -80,4 +80,12 @@ public class BasketFragment extends Fragment {
                 buildWallFragment).addToBackStack(null).commit();
 
     }
+
+    public void getWallsInBasket() {
+
+        model.getBasket().getValue().getListOfWalls();
+
+
+    }
+
 }

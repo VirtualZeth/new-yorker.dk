@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
-import com.example.newyorkerdk.usecase.PriceEstimator;
+import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
 
 
 public class SharedViewModel extends ViewModel {

@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.usecase;
+package com.example.newyorkerdk.usecase.sendrequest;
 
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;

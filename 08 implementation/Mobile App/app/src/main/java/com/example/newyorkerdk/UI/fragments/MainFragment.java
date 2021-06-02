@@ -1,12 +1,15 @@
-package com.example.newyorkerdk.UI;
+package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentMainBinding;
 
@@ -17,8 +20,6 @@ import com.example.newyorkerdk.databinding.FragmentMainBinding;
  */
 public class MainFragment extends Fragment {
 
-    FragmentMainBinding binding;
-
     public MainFragment() {
         // Required empty public constructor
     }
@@ -28,11 +29,15 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        FragmentMainBinding binding;
         binding = FragmentMainBinding.inflate(getLayoutInflater());
-        binding.toBuildWallButton.setOnClickListener(v -> displayBuildWallFragment());
+        binding.toBuildWallButton.setOnClickListener(click -> displayBuildWallFragment());
+        binding.toPriceexamplesButton.setOnClickListener( click -> displayPriceExamplesWebView());
+        binding.contactButton.setOnClickListener(click -> displayKontaktUsWebview());
+
         return binding.getRoot();
     }
 
@@ -41,8 +46,25 @@ public class MainFragment extends Fragment {
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container,
                 buildWallFragment).addToBackStack(null).commit();
+    }
+
+    private void displayPriceExamplesWebView() {
+        WebViewFragment webViewFragment = WebViewFragment.newInstance("priceExample");
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, webViewFragment)
+                .addToBackStack(null).commit();
+    }
+
+    private void displayKontaktUsWebview() {
+        WebViewFragment webViewFragment = WebViewFragment.newInstance("contactUs");
+        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, webViewFragment)
+                .addToBackStack(null).commit();
     }
 }
