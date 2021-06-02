@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.UI;
+package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
 

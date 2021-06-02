@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.UI;
+package com.example.newyorkerdk.UI.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,16 +14,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentContactUsBinding;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
 import com.example.newyorkerdk.entities.Request;
-import com.example.newyorkerdk.usecase.JavaMailAPI;
-import com.example.newyorkerdk.usecase.MailCredentials;
-import com.example.newyorkerdk.usecase.MailService;
+import com.example.newyorkerdk.usecase.sendrequest.MailService;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 /**

@@ -1,8 +1,7 @@
-package com.example.newyorkerdk.usecase;
+package com.example.newyorkerdk.usecase.sendrequest;
 
 import android.content.Context;
 
-import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
 import com.example.newyorkerdk.entities.Request;
 

@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.usecase;
+package com.example.newyorkerdk.usecase.sendrequest;
 
 import android.app.ProgressDialog;
 import android.content.Context;

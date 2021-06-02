@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.usecase;
+package com.example.newyorkerdk.usecase.sendrequest;
 
 public class MailCredentials {
     private static final  String EMAIL = "danijelgitanovic@gmail.com";
