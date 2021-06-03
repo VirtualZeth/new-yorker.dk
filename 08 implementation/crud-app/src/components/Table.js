@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import firebase from "../firebase";
 import { TrashFill, PencilSquare } from "react-bootstrap-icons/";
 import Button from "react-bootstrap/Button";
 
-const Table = () => {
+const Table = ({ category }) => {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState({
     id: "",
@@ -58,6 +59,7 @@ const Table = () => {
   };
 
   const tableItem = (item) => {
+    if (item.category !== category.current && category.current !== "Alle") return null;
     if (item.id === productData.id) {
       return (
         <tr key={item.id}>
@@ -135,4 +137,6 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default connect((state) => ({
+  category: state.category,
+}))(Table);
