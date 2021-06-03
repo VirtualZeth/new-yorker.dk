@@ -9,10 +9,11 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const AddProductModal = ({ modals, setModalShow }) => {
+const AddProductModal = ({ modals, setModalShow, categories }) => {
   const { modalShow } = modals;
+  const selectDefault = "Vælg kategori";
   const [productData, setProductData] = useState({
-    category: "Vælg kategori",
+    category: "",
     productNumber: "",
     name: "",
     price: "",
@@ -21,18 +22,19 @@ const AddProductModal = ({ modals, setModalShow }) => {
   const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
 
   const addProduct = () => {
-    firebase
-      .firestore()
-      .collection("products")
-      .add(productData)
-      .then((e) => {
-        console.log(`Product with id: ${e.id} added!`);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (productData.category !== selectDefault)
+      firebase
+        .firestore()
+        .collection("products")
+        .add(productData)
+        .then((e) => {
+          console.log(`Product with id: ${e.id} added!`);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     setProductData({
-      category: "Vælg kategori",
+      category: selectDefault,
       productNumber: "",
       name: "",
       price: "",
@@ -53,14 +55,18 @@ const AddProductModal = ({ modals, setModalShow }) => {
           <Row className="mb-3">
             <Form.Group as={Col} controlId="category">
               <Form.Label>Kategori</Form.Label>
-              <Form.Control
-                name="category"
-                value={productData.category}
-                onChange={(e) => {
-                  onChange(e);
-                }}
-                placeholder="Kategori"
-              />
+              <select
+                onChange={(e) => setProductData({ ...productData, category: e.target.value })}
+                className="form-select"
+                aria-label="Default select example"
+              >
+                <option>{selectDefault}</option>
+                {categories.map((e) => (
+                  <option key={e.id} value={e.name}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
             </Form.Group>
             <Form.Group as={Col} controlId="productNumber">
               <Form.Label>Varenummer</Form.Label>
