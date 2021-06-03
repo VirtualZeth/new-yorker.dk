@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.MainFragment">
+    tools:context=".UI.fragments.MainFragment">
 
     <Button
         android:id="@+id/to_build_wall_button"

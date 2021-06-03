@@ -8,6 +8,8 @@ import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.usecase.PriceEstimator;
 
+import java.util.ArrayList;
+
 
 public class SharedViewModel extends ViewModel {
 
@@ -17,7 +19,7 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
-
+    private MutableLiveData<ArrayList<Wall>> mutableArrayListWall;
     public SharedViewModel() {
         super();
     }
@@ -44,7 +46,6 @@ public class SharedViewModel extends ViewModel {
         if (mutableBasketTotalPrice == null) {
             mutableBasketTotalPrice = new MutableLiveData<>();
         }
-
         return mutableBasketTotalPrice;
     }
 
@@ -54,7 +55,6 @@ public class SharedViewModel extends ViewModel {
             mutableCurrentWall = new MutableLiveData<>();
             newCurrentWall();
         }
-
         return mutableCurrentWall;
     }
 
@@ -65,10 +65,9 @@ public class SharedViewModel extends ViewModel {
         }
 
         Wall newWall = new Wall();
-        newWall.setName("Wall");
+        newWall.setName("Wall1");
         newWall.setWidth(1);
         newWall.setHeight(1);
-        newWall.setName("Wall");
         newWall.setNumberOfGlassFieldsHeight(1);
         newWall.setNumberOfGlassFieldsWidth(1);
         setCurrentWall(newWall);
@@ -80,7 +79,6 @@ public class SharedViewModel extends ViewModel {
         if (mutableCurrentWall == null) {
             mutableCurrentWall = new MutableLiveData<>();
         }
-
         mutableCurrentWall.setValue(wall);
         calculatePriceEstimate();
     }
@@ -107,9 +105,9 @@ public class SharedViewModel extends ViewModel {
 
         Wall currentWall = getCurrentWall().getValue();
         if (currentWall != null) {
-            double estimation = priceEstimator.calculatePriceEstimate(currentWall);
-
-            mutablePriceEstimate.setValue(String.valueOf(estimation));
+            String estimation = String.valueOf(priceEstimator.calculatePriceEstimate(currentWall));
+            currentWall.setPrice(Double.parseDouble(estimation));
+            mutablePriceEstimate.setValue(estimation);
         }
     }
 
@@ -168,7 +166,6 @@ public class SharedViewModel extends ViewModel {
         if (currentWall != null) {
             currentWall.setNumberOfGlassFieldsWidth(progress);
             setCurrentWall(currentWall);
-
         }
     }
 }
