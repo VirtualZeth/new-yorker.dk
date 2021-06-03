@@ -55,12 +55,10 @@ public class BuildWallFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
-
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
         attachEditFieldListener(binding.editTextHeight);
         attachEditFieldListener(binding.editTextWidth);
-        setFilter(binding.editTextHeight, 1, 250);
 
         binding.editTextHeight.setTag("editTextHeight");
         binding.editTextWidth.setTag("editTextWidth");
@@ -68,9 +66,8 @@ public class BuildWallFragment extends Fragment {
         binding.seekBarWidth.setTag("seekBarWidth");
         binding.seekBarHeight.setTag("seekBarHeight");
 
-
         binding.addButton.setOnClickListener(event -> addWallToBasket());
-        binding.doneButton.setOnClickListener(event -> displayBasketFragment() );
+        binding.doneButton.setOnClickListener(event -> displayBasketFragment());
 
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         model.getCurrentWall().observe(requireActivity(), this::fillFieldsWithWallData);
@@ -85,35 +82,17 @@ public class BuildWallFragment extends Fragment {
         model.addToBasket(model.getCurrentWall().getValue());
     }
 
-    private void setFilter(EditText inputField, double min, double max) {
-        inputField.setFilters(new InputFilter[]{ new MinMaxInputFilter(min, max)});
-    }
-
     private void attachEditFieldListener(EditText inputField) {
-
-        inputField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        inputField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (updatingFields || inputField.getText().toString().length() == 0) {
+                return;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (updatingFields) {
-                    return;
-                }
-                String tag = inputField.getTag().toString();
-                switch (tag) {
-                    case "editTextHeight": model.setCurrentWallHeight(parseDouble(inputField.getText().toString())); break;
-                    case "editTextWidth": model.setCurrentWallWidth(parseDouble(inputField.getText().toString())); break;
-                    case "editTextNote": model.setCurrentWallNote(inputField.getText().toString()); break;
-                    default: break;
-                }
+            String tag = inputField.getTag().toString();
+            switch (tag) {
+                case "editTextHeight": model.setCurrentWallHeight(parseDouble(inputField.getText().toString())); break;
+                case "editTextWidth": model.setCurrentWallWidth(parseDouble(inputField.getText().toString())); break;
+                case "editTextNote": model.setCurrentWallNote(inputField.getText().toString()); break;
+                default: break;
             }
         });
     }

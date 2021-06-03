@@ -17,6 +17,9 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
+    private MutableLiveData<Double> mutableCurrentWallHeight;
+
+
 
     public SharedViewModel() {
         super();
@@ -105,7 +108,7 @@ public class SharedViewModel extends ViewModel {
 
         Wall currentWall = getCurrentWall().getValue();
         if (currentWall != null) {
-            double estimation = priceEstimator.calculatePriceEstimate(currentWall);
+            String estimation = priceEstimator.calculatePriceEstimate(currentWall);
 
             mutablePriceEstimate.setValue(String.valueOf(estimation));
         }
