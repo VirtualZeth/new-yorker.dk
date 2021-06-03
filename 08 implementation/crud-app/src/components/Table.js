@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import firebase from "../firebase";
 import { TrashFill, PencilSquare } from "react-bootstrap-icons/";
+import Button from "react-bootstrap/Button";
 
 const Table = () => {
   const [products, setProducts] = useState([]);
+  const [productData, setProductData] = useState({
+    id: "",
+    productNumber: "",
+    name: "",
+    price: "",
+  });
 
   useEffect(() => {
     firebase
@@ -28,6 +35,89 @@ const Table = () => {
     }
   };
 
+  const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
+
+  const editProduct = async () => {
+    firebase
+      .firestore()
+      .collection("products")
+      .doc(productData.id)
+      .set(productData)
+      .then(() => {
+        console.log("Document successfully edited!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+    setProductData({
+      id: "",
+      productNumber: "",
+      name: "",
+      price: "",
+    });
+  };
+
+  const tableItem = (item) => {
+    if (item.id === productData.id) {
+      return (
+        <tr key={item.id}>
+          <td>
+            <input
+              name="productNumber"
+              onChange={(e) => onChange(e)}
+              type="text"
+              className="form-control"
+              placeholder={item.productNumber}
+              defaultValue={item.productNumber}
+            />
+          </td>
+          <td>
+            <input
+              name="name"
+              onChange={(e) => onChange(e)}
+              type="text"
+              className="form-control"
+              placeholder={item.name}
+              defaultValue={item.name}
+            />
+          </td>
+          <td>
+            <input
+              name="price"
+              onChange={(e) => onChange(e)}
+              type="text"
+              className="form-control"
+              placeholder={item.price}
+              defaultValue={item.price}
+            />
+          </td>
+          <td>
+            <Button onClick={editProduct}>Færdig</Button>
+          </td>
+        </tr>
+      );
+    } else
+      return (
+        <tr key={item.id}>
+          <td>{item.productNumber}</td>
+          <td>{item.name}</td>
+          <td>{item.price}</td>
+          <td style={{ display: "inline-flex" }}>
+            <div
+              data-id={item.id}
+              style={{ marginRight: "10px", cursor: "pointer" }}
+              onClick={(e) => setProductData(products.filter((product) => product.id === e.target.dataset.id)[0])}
+            >
+              <PencilSquare color="orange" size={20} style={{ pointerEvents: "none" }} />
+            </div>
+            <div data-id={item.id} style={{ cursor: "pointer" }} onClick={(e) => deleteProduct(e.target.dataset.id)}>
+              <TrashFill color="red" size={20} style={{ pointerEvents: "none" }} />
+            </div>
+          </td>
+        </tr>
+      );
+  };
+
   return (
     <div className="card container">
       <table className="table">
@@ -39,23 +129,7 @@ const Table = () => {
             <th scope="col">Rediger/Slet</th>
           </tr>
         </thead>
-        <tbody>
-          {products.map((e) => (
-            <tr key={e.id}>
-              <th scope="row">{e.productNumber}</th>
-              <td>{e.name}</td>
-              <td>{e.price}</td>
-              <td style={{ display: "inline-flex" }}>
-                <div>
-                  <PencilSquare color="orange" size={20} style={{ marginRight: "10px", cursor: "pointer" }} />
-                </div>
-                <div data-id={e.id} style={{ cursor: "pointer" }} onClick={(e) => deleteProduct(e.target.dataset.id)}>
-                  <TrashFill color="red" size={20} style={{ pointerEvents: "none" }} />
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
+        <tbody>{products.map((e) => tableItem(e))}</tbody>
       </table>
     </div>
   );
