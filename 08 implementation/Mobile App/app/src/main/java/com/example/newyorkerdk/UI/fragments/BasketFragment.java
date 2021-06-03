@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,7 @@ public class BasketFragment extends Fragment {
         binding.button2.setOnClickListener(v -> displayContactUsFragment());
         model.getBasket().observe(requireActivity(), basketUpdateObserver );
         model.getBasketTotalPrice().observe(requireActivity(), totalPrice -> binding.
-                totalPriceTextView.setText(getString(R.string.total_price, String.valueOf(totalPrice))));
+                totalPriceTextView.setText(getString(R.string.total_price, totalPrice)));
 
         return binding.getRoot();
     }

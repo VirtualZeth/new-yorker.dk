@@ -105,7 +105,7 @@ public class SharedViewModel extends ViewModel {
 
         Wall currentWall = getCurrentWall().getValue();
         if (currentWall != null) {
-            String estimation = String.valueOf(priceEstimator.calculatePriceEstimate(currentWall));
+            String estimation = priceEstimator.calculatePriceEstimate(currentWall);
             currentWall.setPrice(Double.parseDouble(estimation));
             mutablePriceEstimate.setValue(estimation);
         }
