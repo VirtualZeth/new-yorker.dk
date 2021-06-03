@@ -14,6 +14,15 @@ public class Wall {
     private int numberOfGlassFieldsHeight;
     private int numberOfGlassFieldsWidth;
     private List<Addition> listOfAdditions;
+    private double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public String getName() {
         return name;

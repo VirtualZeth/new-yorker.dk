@@ -12,6 +12,7 @@
     <string name="tilf_j_v_g">Tilføj væg</string>
     <string name="fors_t">Forsæt</string>
     <string name="price"> %s kr</string>
+    <string name="total_price">%s kr</string>
     <string name="done">Færdig</string>
     <string name="add">Tilføj</string>
     <string name="price_estimate">Prisestimat:</string>
@@ -23,4 +24,5 @@
         <item>Salessyling.dk</item>
     </string-array>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="total">Total:</string>
 </resources>

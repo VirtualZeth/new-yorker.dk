@@ -8,6 +8,8 @@ import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
 
+import java.util.ArrayList;
+
 
 public class SharedViewModel extends ViewModel {
 
@@ -17,10 +19,7 @@ public class SharedViewModel extends ViewModel {
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
-    private MutableLiveData<Double> mutableCurrentWallHeight;
-
-
-
+    private MutableLiveData<ArrayList<Wall>> mutableArrayListWall;
     public SharedViewModel() {
         super();
     }
@@ -66,10 +65,9 @@ public class SharedViewModel extends ViewModel {
         }
 
         Wall newWall = new Wall();
-        newWall.setName("Wall");
+        newWall.setName("Wall1");
         newWall.setWidth(1);
         newWall.setHeight(1);
-        newWall.setName("Wall");
         newWall.setNumberOfGlassFieldsHeight(1);
         newWall.setNumberOfGlassFieldsWidth(1);
         setCurrentWall(newWall);
@@ -81,7 +79,6 @@ public class SharedViewModel extends ViewModel {
         if (mutableCurrentWall == null) {
             mutableCurrentWall = new MutableLiveData<>();
         }
-
         mutableCurrentWall.setValue(wall);
         calculatePriceEstimate();
     }
@@ -109,8 +106,8 @@ public class SharedViewModel extends ViewModel {
         Wall currentWall = getCurrentWall().getValue();
         if (currentWall != null) {
             String estimation = priceEstimator.calculatePriceEstimate(currentWall);
-
-            mutablePriceEstimate.setValue(String.valueOf(estimation));
+            currentWall.setPrice(Double.parseDouble(estimation));
+            mutablePriceEstimate.setValue(estimation);
         }
     }
 
@@ -169,7 +166,6 @@ public class SharedViewModel extends ViewModel {
         if (currentWall != null) {
             currentWall.setNumberOfGlassFieldsWidth(progress);
             setCurrentWall(currentWall);
-
         }
     }
 }

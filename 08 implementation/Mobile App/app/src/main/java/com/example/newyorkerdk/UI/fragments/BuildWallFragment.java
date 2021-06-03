@@ -59,10 +59,11 @@ public class BuildWallFragment extends Fragment {
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
         attachEditFieldListener(binding.editTextHeight);
         attachEditFieldListener(binding.editTextWidth);
+        attachEditFieldListener(binding.editTextNote);
 
         binding.editTextHeight.setTag("editTextHeight");
         binding.editTextWidth.setTag("editTextWidth");
-        binding.noteTextview.setTag("editTextNote");
+        binding.editTextNote.setTag("editTextNote");
         binding.seekBarWidth.setTag("seekBarWidth");
         binding.seekBarHeight.setTag("seekBarHeight");
 
@@ -111,11 +112,13 @@ public class BuildWallFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 String tag = seekBar.getTag().toString();
+
                 switch (tag) {
                     case "seekBarHeight": model.setCurrentWallSeekBarHeight(seekBar.getProgress());break;
                     case "seekBarWidth": model.setCurrentWallSeekBarWidth(seekBar.getProgress()); break;
                     default: break;
                 }
+
             }
         });
     }
