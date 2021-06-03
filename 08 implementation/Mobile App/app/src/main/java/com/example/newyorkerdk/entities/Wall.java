@@ -3,12 +3,26 @@ import java.util.List;
 
 public class Wall {
 
+    private static final Double MAX_WALL_HEIGHT = 250d;
+    private static final Double MIN_WALL_HEIGHT = 10d;
+    private static final Double MAX_FIELD_HEIGHT = 60d;
+    private static final Double MAX_FIELD_WIDTH = 45d;
+    private static final Double MIN_WALL_WIDTH = 10d;
     private String name;
     private double height;
     private double width;
     private int numberOfGlassFieldsHeight;
     private int numberOfGlassFieldsWidth;
     private List<Addition> listOfAdditions;
+    private double price;
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public String getName() {
         return name;
@@ -23,7 +37,14 @@ public class Wall {
     }
 
     public void setHeight(double height) {
-        this.height = height;
+
+        if (height > MAX_WALL_HEIGHT) {
+            this.height = MAX_WALL_HEIGHT;
+        } else if (height < MIN_WALL_HEIGHT) {
+            this.height = MIN_WALL_HEIGHT;
+        } else {
+            this.height = height;
+        }
     }
 
     public double getWidth() {
@@ -31,7 +52,20 @@ public class Wall {
     }
 
     public void setWidth(double width) {
-        this.width = width;
+        if (width < MIN_WALL_WIDTH) {
+            this.width = MIN_WALL_WIDTH;
+        } else {
+            this.width = width;
+        }
+    }
+    public int calculateMinAmountOfFieldsWidth(double wallWidth) {
+
+        return (int) (wallWidth / MAX_FIELD_WIDTH);
+    }
+
+    public int calculateMinAmountOfFieldsHeight(double wallHeight) {
+
+        return (int) (wallHeight / MAX_WALL_HEIGHT);
     }
 
     public int getNumberOfGlassFieldsHeight() {
