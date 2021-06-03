@@ -13,11 +13,6 @@ import android.view.ViewGroup;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentMainBinding;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MainFragment extends Fragment {
 
     public MainFragment() {

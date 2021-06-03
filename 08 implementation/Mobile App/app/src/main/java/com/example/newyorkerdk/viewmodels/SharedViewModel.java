@@ -44,7 +44,6 @@ public class SharedViewModel extends ViewModel {
         if (mutableBasketTotalPrice == null) {
             mutableBasketTotalPrice = new MutableLiveData<>();
         }
-
         return mutableBasketTotalPrice;
     }
 
@@ -54,7 +53,6 @@ public class SharedViewModel extends ViewModel {
             mutableCurrentWall = new MutableLiveData<>();
             newCurrentWall();
         }
-
         return mutableCurrentWall;
     }
 
