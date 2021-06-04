@@ -21,7 +21,7 @@ const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCu
         querySnapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
         setCategoryData(items);
       });
-  }, [categoryData]);
+  }, []);
 
   const signOut = async () => await firebase.auth().signOut();
 
@@ -31,7 +31,7 @@ const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCu
       <AddProductModal categories={categoryData} />
       <div className="card container container-fluid" style={toolbarStyle}>
         <div className="row">
-          <DropdownButton className="col col-1" id="dropdown-basic-button" title={category.current}>
+          <DropdownButton className="col col-2" id="dropdown-basic-button" title={category.current}>
             <Dropdown.Item onClick={(e) => setCurrentCategory(e.target.attributes.class.ownerElement.innerText)}>
               Vis alle
             </Dropdown.Item>
@@ -44,7 +44,9 @@ const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCu
               </Dropdown.Item>
             ))}
           </DropdownButton>
-
+          <button onClick={() => setCategoryModalShow(true)} className="btn btn-primary col col-1-auto mb-1">
+            Rediger kategorier
+          </button>
           <button
             style={itemStyle}
             onClick={() => setAddProductModalShow(true)}
@@ -52,7 +54,7 @@ const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCu
           >
             Tilføj vare
           </button>
-          <button onClick={() => signOut()} className="btn btn-danger col col-1 mb-1 offset-md-9">
+          <button onClick={() => signOut()} className="btn btn-danger col col-1 mb-1 offset-md-6">
             Log ud
           </button>
         </div>
@@ -79,9 +81,3 @@ export default connect(
   }),
   { setAddProductModalShow, setCurrentCategory, setCategoryModalShow }
 )(Toolbar);
-
-/*
-<button onClick={() => setCategoryModalShow(true)} className="btn btn-primary col col-1-auto mb-1">
-            Rediger kategorier
-          </button>
-*/
