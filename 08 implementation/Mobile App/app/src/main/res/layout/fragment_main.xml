@@ -6,44 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".UI.fragments.MainFragment">
 
-    <Button
-        android:id="@+id/to_build_wall_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:text="Byg væg"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/to_priceexamples_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread_inside"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="412dp"
+        android:layout_height="412dp"
+        android:src="@drawable/frontpage_bg"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.916" />
-
-    <Button
-        android:id="@+id/to_priceexamples_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:text="Priseksempler"
-        app:layout_constraintBottom_toBottomOf="@+id/to_build_wall_button"
-        app:layout_constraintEnd_toStartOf="@+id/contact_button"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/to_build_wall_button"
-        app:layout_constraintTop_toTopOf="@+id/to_build_wall_button"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:visibility="visible" />
 
     <Button
         android:id="@+id/contact_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/open_sans_regular"
         android:text="Kontakt os"
-        app:layout_constraintBottom_toBottomOf="@+id/to_priceexamples_button"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/to_priceexamples_button"
-        app:layout_constraintTop_toTopOf="@+id/to_priceexamples_button"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/to_priceexamples_button"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="Priseksempler"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/contact_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/to_build_wall_button"
+        android:layout_width="140dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/primary"
+        android:fontFamily="@font/open_sans_regular"
+        android:text="Byg væg"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toTopOf="@+id/to_priceexamples_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
