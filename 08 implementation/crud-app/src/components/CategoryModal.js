@@ -51,11 +51,13 @@ const CategoryModal = ({ modals, setCategoryModalShow }) => {
               />
             </Form.Group>
           </Row>
+          <Row>
+            <Form.Group className="mb-3">
+              <Button onClick={addCategory}>Tilføj kategori</Button>
+            </Form.Group>
+          </Row>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={addCategory}>Tilføj kategori</Button>
-      </Modal.Footer>
     </Modal>
   );
 };
