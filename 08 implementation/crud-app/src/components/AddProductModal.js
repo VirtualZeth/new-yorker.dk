@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import firebase from "../firebase";
 import "firebase/firestore";
 import { connect } from "react-redux";
-import { setModalShow } from "../actions/modals";
+import { setAddProductModalShow } from "../actions/modals";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const AddProductModal = ({ modals, setModalShow, categories }) => {
-  const { modalShow } = modals;
+const AddProductModal = ({ modals, setAddProductModalShow, categories }) => {
+  const { addProductModalShow } = modals;
   const selectDefault = "Vælg kategori";
   const [productData, setProductData] = useState({
     category: "",
@@ -39,7 +39,7 @@ const AddProductModal = ({ modals, setModalShow, categories }) => {
       name: "",
       price: "",
     });
-    setModalShow(false);
+    setAddProductModalShow(false);
   };
 
   return (
@@ -47,8 +47,8 @@ const AddProductModal = ({ modals, setModalShow, categories }) => {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered
-      show={modalShow}
-      onHide={() => setModalShow(false)}
+      show={addProductModalShow}
+      onHide={() => setAddProductModalShow(false)}
     >
       <Modal.Body>
         <Form>
@@ -115,5 +115,5 @@ export default connect(
   (state) => ({
     modals: state.modals,
   }),
-  { setModalShow }
+  { setAddProductModalShow }
 )(AddProductModal);

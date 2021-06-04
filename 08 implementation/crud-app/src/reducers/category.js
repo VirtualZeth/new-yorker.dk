@@ -1,7 +1,7 @@
 import { SET_CURRENT_CATEGORY } from "../actions/types";
 
 const initialState = {
-  current: "Alle",
+  current: "Vis alle",
 };
 
 // eslint-disable-next-line

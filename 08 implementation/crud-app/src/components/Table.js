@@ -39,7 +39,7 @@ const Table = ({ category }) => {
   const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
 
   const editProduct = async () => {
-    firebase
+    await firebase
       .firestore()
       .collection("products")
       .doc(productData.id)
@@ -59,7 +59,7 @@ const Table = ({ category }) => {
   };
 
   const tableItem = (item) => {
-    if (item.category !== category.current && category.current !== "Alle") return null;
+    if (item.category !== category.current && category.current !== "Vis alle") return null;
     if (item.id === productData.id) {
       return (
         <tr key={item.id}>

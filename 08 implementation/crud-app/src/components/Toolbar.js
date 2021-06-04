@@ -2,13 +2,14 @@ import React, { useState, useEffect, Fragment } from "react";
 import firebase from "../firebase";
 import "firebase/firestore";
 import { connect } from "react-redux";
-import { setModalShow } from "../actions/modals";
+import { setAddProductModalShow, setCategoryModalShow } from "../actions/modals";
 import { setCurrentCategory } from "../actions/category";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/esm/Dropdown";
 import AddProductModal from "./AddProductModal";
+import CategoryModal from "./CategoryModal";
 
-const Toolbar = ({ setModalShow, category, setCurrentCategory }) => {
+const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCurrentCategory }) => {
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
@@ -26,12 +27,13 @@ const Toolbar = ({ setModalShow, category, setCurrentCategory }) => {
 
   return (
     <Fragment>
+      <CategoryModal categories={categoryData} />
       <AddProductModal categories={categoryData} />
-      <div className="card container" style={toolbarStyle}>
+      <div className="card container container-fluid" style={toolbarStyle}>
         <div className="row">
           <DropdownButton className="col col-1" id="dropdown-basic-button" title={category.current}>
             <Dropdown.Item onClick={(e) => setCurrentCategory(e.target.attributes.class.ownerElement.innerText)}>
-              Alle
+              Vis alle
             </Dropdown.Item>
             {categoryData.map((e) => (
               <Dropdown.Item
@@ -42,10 +44,15 @@ const Toolbar = ({ setModalShow, category, setCurrentCategory }) => {
               </Dropdown.Item>
             ))}
           </DropdownButton>
-          <button onClick={() => setModalShow(true)} className="btn btn-primary col col-1">
+
+          <button
+            style={itemStyle}
+            onClick={() => setAddProductModalShow(true)}
+            className="btn btn-primary col col-1-auto mb-1"
+          >
             Tilføj vare
           </button>
-          <button onClick={() => signOut()} className="btn btn-danger col col-1 offset-md-9">
+          <button onClick={() => signOut()} className="btn btn-danger col col-1 mb-1 offset-md-9">
             Log ud
           </button>
         </div>
@@ -57,12 +64,24 @@ const Toolbar = ({ setModalShow, category, setCurrentCategory }) => {
 const toolbarStyle = {
   marginTop: "80px",
   marginBottom: "20px",
-  padding: "5px 20px",
+  paddingTop: "7.5px",
+  paddingBottom: "5px",
+  paddingRight: "22.5px",
+};
+
+const itemStyle = {
+  marginLeft: "5px",
 };
 
 export default connect(
   (state) => ({
     category: state.category,
   }),
-  { setModalShow, setCurrentCategory }
+  { setAddProductModalShow, setCurrentCategory, setCategoryModalShow }
 )(Toolbar);
+
+/*
+<button onClick={() => setCategoryModalShow(true)} className="btn btn-primary col col-1-auto mb-1">
+            Rediger kategorier
+          </button>
+*/
