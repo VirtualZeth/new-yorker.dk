@@ -9,9 +9,11 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const CategoryModal = ({ modals, setCategoryModalShow }) => {
+const CategoryModal = ({ modals, setCategoryModalShow, categories }) => {
   const { categoryModalShow } = modals;
+  const selectDefault = "Vælg kategori";
   const [addCategoryName, setAddCategoryName] = useState("");
+  const [selectedCategoryName, setSelectedCategoryName] = useState("");
 
   const onChange = (e) => setAddCategoryName(e.target.value);
 
@@ -26,6 +28,21 @@ const CategoryModal = ({ modals, setCategoryModalShow }) => {
       .catch((error) => console.log(error));
     setAddCategoryName("");
     setCategoryModalShow(false);
+  };
+
+  const deleteCategory = async () => {
+    if (selectedCategoryName !== selectDefault && selectedCategoryName !== "") {
+      const categoryId = categories.filter((e) => e.name === selectedCategoryName)[0].id;
+      await firebase
+        .firestore()
+        .collection("categories")
+        .doc(categoryId)
+        .delete()
+        .then(() => console.log("Category deleted successfully!"))
+        .catch((error) => console.log(error));
+      setSelectedCategoryName("");
+      setCategoryModalShow(false);
+    }
   };
 
   return (
@@ -50,10 +67,26 @@ const CategoryModal = ({ modals, setCategoryModalShow }) => {
                 placeholder="Navn"
               />
             </Form.Group>
+            <Form.Group as={Col} className="col col-3">
+              <Form.Label>Vælg kategori</Form.Label>
+              <select onChange={(e) => setSelectedCategoryName(e.target.value)} className="form-select">
+                <option>{selectDefault}</option>
+                {categories.map((e) => (
+                  <option data-id={e.id} key={e.id} value={e.name}>
+                    {e.name}
+                  </option>
+                ))}
+              </select>
+            </Form.Group>
           </Row>
           <Row>
-            <Form.Group className="mb-3">
+            <Form.Group as={Col} className="col col-3">
               <Button onClick={addCategory}>Tilføj kategori</Button>
+            </Form.Group>
+            <Form.Group as={Col} className="col col-3">
+              <Button onClick={deleteCategory} className="btn-danger">
+                Slet kategori
+              </Button>
             </Form.Group>
           </Row>
         </Form>
