@@ -16,7 +16,6 @@ import javax.mail.internet.MimeMessage;
 
 public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
 
-
     private final WeakReference<Context> context;
     private Session session;
     private String email;
@@ -68,8 +67,6 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
             mm.setSubject(subject);
             mm.setText(message);
             Transport.send(mm);
-
-//
 
         } catch (MessagingException e) {
             e.printStackTrace();
