@@ -168,4 +168,13 @@ public class SharedViewModel extends ViewModel {
             setCurrentWall(currentWall);
         }
     }
+
+    public void removeFromBasket(int position) {
+        Basket basket = mutableBasket.getValue();
+        if (basket != null) {
+            basket.getListOfWalls().remove(position);
+            mutableBasket.setValue(basket);
+            calculateBasketTotalPrice();
+        }
+    }
 }
