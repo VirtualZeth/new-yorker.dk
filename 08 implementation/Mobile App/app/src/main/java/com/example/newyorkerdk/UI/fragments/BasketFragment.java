@@ -26,6 +26,7 @@ import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWallListener {
 
@@ -57,6 +58,13 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        model.getBasket().removeObservers(requireActivity());
+        model.getBasketTotalPrice().removeObservers(requireActivity());
     }
 
     @Override
@@ -110,17 +118,18 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
                 buildWallFragment).addToBackStack(null).commit();
     }
 
-    public void getWallsInBasket() {
-
-        model.getBasket().getValue().getListOfWalls();
-
-
+    public List<Wall> getWallsInBasket() {
+        Basket basket = model.getBasket().getValue();
+        if (basket == null) {
+            return new ArrayList<>();
+        }
+        return basket.getListOfWalls();
     }
 
     @Override
     public void onClick(int position, String tag) {
         if (tag.equals("wallItem")) {
-            displayBuildWallFragmentEdit(model.getBasket().getValue().getListOfWalls().get(position));
+            displayBuildWallFragmentEdit(getWallsInBasket().get(position));
         }
 
         if (tag.equals("delete")) {

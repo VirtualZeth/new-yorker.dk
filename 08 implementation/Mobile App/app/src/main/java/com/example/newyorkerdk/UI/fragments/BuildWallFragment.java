@@ -60,7 +60,6 @@ public class BuildWallFragment extends Fragment {
         attachEditFieldListener(binding.editTextHeight);
         attachEditFieldListener(binding.editTextWidth);
         attachEditFieldListener(binding.editTextNote);
-
         binding.editTextHeight.setTag("editTextHeight");
         binding.editTextWidth.setTag("editTextWidth");
         binding.editTextNote.setTag("editTextNote");
@@ -78,9 +77,17 @@ public class BuildWallFragment extends Fragment {
         return binding.getRoot();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        model.getBasket().removeObservers(requireActivity());
+        model.getPriceEstimate().removeObservers(requireActivity());
+    }
+
     public void addWallToBasket() {
 
         model.addToBasket(model.getCurrentWall().getValue());
+        model.newCurrentWall();
     }
 
     private void attachEditFieldListener(EditText inputField) {
@@ -143,4 +150,6 @@ public class BuildWallFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container,
                 basketFragment).addToBackStack(null).commit();
     }
+
+
 }
