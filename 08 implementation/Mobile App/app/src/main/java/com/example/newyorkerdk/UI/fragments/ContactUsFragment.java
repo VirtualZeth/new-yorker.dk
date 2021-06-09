@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.newyorkerdk.R;
-import com.example.newyorkerdk.UI.fragments.MainFragment;
 import com.example.newyorkerdk.databinding.FragmentContactUsBinding;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
@@ -29,9 +28,10 @@ import com.example.newyorkerdk.usecase.sendrequest.MailService;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ContactUsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author Danijel
+ * Et fragment {@link Fragment} subclass.
+ * Benyt {@link ContactUsFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment, som er ansvarlig for at håndtere kontakt us UI
  */
 public class ContactUsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 

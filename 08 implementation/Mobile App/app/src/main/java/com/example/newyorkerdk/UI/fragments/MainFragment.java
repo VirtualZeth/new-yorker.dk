@@ -12,7 +12,11 @@ import android.view.ViewGroup;
 
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentMainBinding;
-
+/**
+ * @author Mike
+ * Benyt {@link MainFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment som er ansvarlig for at vise applikationens forside
+ */
 public class MainFragment extends Fragment {
 
     public MainFragment() {

@@ -17,7 +17,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.newyorkerdk.R;
-import com.example.newyorkerdk.UI.util.MinMaxInputFilter;
 import com.example.newyorkerdk.databinding.FragmentBuildWallBinding;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
@@ -25,9 +24,9 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 import static java.lang.Double.parseDouble;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link BuildWallFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author Mike
+ * Benyt {@link BuildWallFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment som er ansvarlig for håndtere byg væg UI'en
  */
 public class BuildWallFragment extends Fragment {
 
