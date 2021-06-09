@@ -2,6 +2,9 @@ package com.example.newyorkerdk.UI.fragments;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -14,11 +17,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentBasketBinding;
 import com.example.newyorkerdk.entities.Basket;
@@ -26,6 +24,7 @@ import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWallListener {
 
@@ -110,17 +109,18 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
                 buildWallFragment).addToBackStack(null).commit();
     }
 
-    public void getWallsInBasket() {
+    public List<Wall> getWallsInBasket() {
+        Basket basket = model.getBasket().getValue();
 
-        model.getBasket().getValue().getListOfWalls();
-
+        assert basket != null;
+        return basket.getListOfWalls();
 
     }
 
     @Override
     public void onClick(int position, String tag) {
         if (tag.equals("wallItem")) {
-            displayBuildWallFragmentEdit(model.getBasket().getValue().getListOfWalls().get(position));
+            displayBuildWallFragmentEdit(getWallsInBasket().get(position));
         }
 
         if (tag.equals("delete")) {

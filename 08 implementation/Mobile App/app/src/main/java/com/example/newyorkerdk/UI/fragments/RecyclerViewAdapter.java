@@ -10,17 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.entities.Wall;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Activity context;
     ArrayList<Wall> wallArrayList;
-    private OnWallListener listener;
+    private final OnWallListener listener;
 
 
-    public RecyclerViewAdapter(Activity context, ArrayList<Wall> wallArrayList, OnWallListener listener) {
+    public RecyclerViewAdapter(Activity context, List<Wall> wallArrayList, OnWallListener listener) {
         this.context = context;
-        this.wallArrayList = wallArrayList;
+        this.wallArrayList = (ArrayList<Wall>) wallArrayList;
         this.listener = listener;
     }
 
