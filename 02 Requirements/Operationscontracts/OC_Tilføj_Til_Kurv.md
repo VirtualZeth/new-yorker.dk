@@ -8,16 +8,10 @@ tilføjTilKurv(Wall væg)
 Bestil_Væg
 
 **Pre-conditions:**
-   
-    •    SharedViewmodel viewmodel eksisterer
-   
+      
     •    Wall væg eksisterer
     
-    •    viewmodel.currentWall er sat til væg
-
     •    Basket kurv eksisterer
-
-    •    basket er associeret med viewmodel
    
 **Post-conditions:**
 
