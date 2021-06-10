@@ -9,17 +9,13 @@ Cross-reference:
 Bestil_Væg
 
 Pre-conditions:
-
-    • SharedViewmodel viewmodel eksisterer
     
     • Basket kurv eksisterer
     
-    • kurv er associeret med viewmodel
-
     • Wall væg eksisterer
 
-    • Væg er associeret med kurv
+    • væg er associeret med kurv
 
 Post-conditions:
 
-    • viewmodel.currentWall er blevet sat til væg
+    • væg bliver vist på skærm
