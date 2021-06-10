@@ -9,13 +9,9 @@ angivFelterPåTværs(int antal)
 Bestil_Væg
 
 **Pre-conditions:**
-   
-    •  SharedViewmodel viewmodel eksisterer
-   
-    •  Wall wall eksisterer
-   
-    •  wall er associeret med viewmodel
+      
+    •  Wall væg eksisterer
    
 **Post-conditions:**
 
-    •	wall.numberOfGlassFieldsWidth er blevet sat til antal
+    •	væg.numberOfGlassFieldsWidth er blevet sat til antal
