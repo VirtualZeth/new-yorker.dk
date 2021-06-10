@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +25,11 @@ import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 import java.util.ArrayList;
-
+/**
+ * @author Mike
+ * Benyt {@link BasketFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment som er ansvarlig for at vise kurvens indhold
+ */
 public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWallListener {
 
     private SharedViewModel model;
@@ -108,13 +111,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
 
         fragmentTransaction.replace(R.id.fragment_container,
                 buildWallFragment).addToBackStack(null).commit();
-    }
-
-    public void getWallsInBasket() {
-
-        model.getBasket().getValue().getListOfWalls();
-
-
     }
 
     @Override

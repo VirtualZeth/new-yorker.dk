@@ -1,5 +1,9 @@
 package com.example.newyorkerdk.entities;
-
+/**
+ * Ansvarlig for at opbevare kontaktinformationerne
+ * til den der sender forespørgselen
+ * @author Danijel
+ */
 public class ContactForm {
 
     private String name;

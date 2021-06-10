@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.newyorkerdk.R;
-import com.example.newyorkerdk.UI.fragments.MainFragment;
 import com.example.newyorkerdk.databinding.FragmentContactUsBinding;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.ContactForm;
@@ -29,15 +28,16 @@ import com.example.newyorkerdk.usecase.sendrequest.MailService;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link ContactUsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author Danijel
+ * Et fragment {@link Fragment} subclass.
+ * Benyt {@link ContactUsFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment, som er ansvarlig for at håndtere kontakt us UI
  */
 public class ContactUsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private final ContactForm contactForm = new ContactForm();
-    private final Basket basket = new Basket();
-    private final Request request = new Request(contactForm, basket);
+    private Basket basket;
+    private Request request;
     private final MailService mailService = new MailService();
     private SharedViewModel model;
 
@@ -58,6 +58,8 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        basket = model.getBasket().getValue();
+        request = new Request(contactForm, basket);
     }
 
     @Override

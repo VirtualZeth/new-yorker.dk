@@ -1,4 +1,5 @@
 package com.example.newyorkerdk.UI.fragments;
+
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,11 @@ import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.entities.Wall;
 import java.util.ArrayList;
 
+/**
+ * Adapter som er ansvarlig for at håndtere enkelte vægge i recyclerviewet i {@link BasketFragment}
+ * @author Usamah
+ * @author Mike
+ */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Activity context;

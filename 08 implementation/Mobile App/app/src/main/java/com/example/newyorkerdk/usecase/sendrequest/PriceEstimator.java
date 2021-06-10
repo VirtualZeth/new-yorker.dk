@@ -1,10 +1,12 @@
 package com.example.newyorkerdk.usecase.sendrequest;
-
-import android.util.Log;
-
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 
+/**
+ * Ansvarlig for at beregne en prisvurdering på en
+ * {@link Wall}og/eller den samlede pris for alle {@link Wall} i {@link Basket}
+ * @author Mike
+ */
 public class PriceEstimator {
 
 

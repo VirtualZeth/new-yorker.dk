@@ -8,7 +8,11 @@ import android.os.Bundle;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.fragments.MainFragment;
 import com.example.newyorkerdk.databinding.ActivityMainBinding;
-
+/**
+ * @author Mike
+ * Et fragment {@link AppCompatActivity} subclass.
+ * Fungerer som entrypoint til vores applikation
+ */
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
