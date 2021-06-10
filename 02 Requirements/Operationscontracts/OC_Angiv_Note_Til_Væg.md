@@ -8,13 +8,9 @@ angivNoteTilVæg(String note)
 Bestil_Væg
 
 **Pre-conditions:**
-   
-    •    SharedViewmodel viewmodel eksisterer
-   
-    •    Wall wall eksisterer
-   
-    •    wall er associeret med viewmodel
-   
+      
+    •    Wall væg eksisterer
+      
 **Post-conditions:**
 
-    •    wall.note er blevet sat til note
+    •    væg.note er blevet sat til note
