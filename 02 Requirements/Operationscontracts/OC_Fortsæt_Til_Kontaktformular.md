@@ -9,13 +9,9 @@ Cross-reference:
 Bestil_Væg
 
 Pre-conditions:
-
-    • SharedViewmodel viewmodel eksisterer
    
     • Basket kurv eksisterer
-   
-    • basket er associeret med viewmodel
-	
+   	
 Post-conditions:
 
     • En ny Request instans forespørgsel er blevet skabt
