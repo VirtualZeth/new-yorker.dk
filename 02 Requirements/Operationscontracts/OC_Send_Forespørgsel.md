@@ -10,7 +10,7 @@ Bestil_Væg
 
 Pre-conditions:
    
-    • Request forespørgsel eksisterer
+     • Request forespørgsel eksisterer
 	
      • ContactForm kontaktformular eksisterer
   
@@ -18,7 +18,7 @@ Pre-conditions:
    
      • Basket kurv eksisterer
    
-     • kuv er associeret med kontaktformular
+     • kurv er associeret med kontaktformular
    
      • MailService mailService eksisterer
 	
