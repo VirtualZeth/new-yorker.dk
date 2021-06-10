@@ -9,8 +9,6 @@ Bestil_Væg
 
 **Pre-conditions:**
    
-     •    SharedViewmodel viewmodel eksisterer  
-
      •    Basket kurv eksisterer
 
      •    kurv er associeret med viewmodel
