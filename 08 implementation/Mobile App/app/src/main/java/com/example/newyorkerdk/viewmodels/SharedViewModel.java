@@ -9,18 +9,17 @@ import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
 
 
 /**
- *
+
  * Denne klasse er ansvarlig for at holde på relevant data der enten skal vises,
  * eller benyttes i {@link com.example.newyorkerdk.UI.fragments.BuildWallFragment},
  * {@link com.example.newyorkerdk.UI.fragments.BasketFragment},
  * eller {@link com.example.newyorkerdk.UI.fragments.ContactUsFragment}
- *
  * @author Mike
  */
 public class SharedViewModel extends ViewModel {
 
-    PriceEstimator priceEstimator = new PriceEstimator();
-
+    private final PriceEstimator priceEstimator = new PriceEstimator();
+    private int wallCount = 1;
     private MutableLiveData<String> mutablePriceEstimate;
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;

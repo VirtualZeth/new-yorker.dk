@@ -9,11 +9,11 @@ import android.view.ViewGroup;
 import com.example.newyorkerdk.databinding.FragmentWebviewBinding;
 
 /**
- * @author Mike
  * Et fragment {@link Fragment} subclass.
  * Benyt {@link WebViewFragment#newInstance} factory metode til
  * at skabe en ny instans af dette fragment, som er ansvarlig for at
  * vise et webview af New Yorker DK's hjemmeside
+ * @author Mike
  */
 public class WebViewFragment extends Fragment {
 

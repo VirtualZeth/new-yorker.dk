@@ -1,9 +1,6 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +21,9 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 import static java.lang.Double.parseDouble;
 
 /**
- * @author Mike
  * Benyt {@link BuildWallFragment#newInstance} factory metode til
  * at skabe en ny instans af dette fragment som er ansvarlig for håndtere byg væg UI'en
+ * @author Mike
  */
 public class BuildWallFragment extends Fragment {
 

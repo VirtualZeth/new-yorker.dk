@@ -13,9 +13,9 @@ import com.example.newyorkerdk.entities.Wall;
 import java.util.ArrayList;
 
 /**
- * @author Mike
- * @author Usamah
  * Adapter som er ansvarlig for at håndtere enkelte vægge i recyclerviewet i {@link BasketFragment}
+ * @author Usamah
+ * @author Mike
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

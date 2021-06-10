@@ -9,7 +9,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentMainBinding;
 /**

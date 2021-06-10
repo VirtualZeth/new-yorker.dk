@@ -1,5 +1,10 @@
 package com.example.newyorkerdk.entities;
-
+/**
+ * Ansvarlig for at indeholde {@link Basket} og {@link ContactForm},
+ * således at {@link com.example.newyorkerdk.usecase.sendrequest.MailService}
+ * kan sende mail indeholdende nødvendig information
+ * @author Mike
+ */
 public class Request {
 
     private final ContactForm contactForm;
