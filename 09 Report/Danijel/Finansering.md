@@ -1,0 +1,4 @@
+# Finansering
+Vi forventer at kunne sælge systemet for 30.000 kroner, da vi forventer en arbejdstid på 150 timer, prisen er også beregnet med moms det vil sige vi får en indtjening på 22.500 kroner efter moms. Systemet skal integreres med AutoCad. Derudover skal vores applikation også sende mail til kunden. Vi har ingen udgifter, da vi bruger firebase som database, hvilket er gratis med begrænsninger, det er kun muligt at have 1 GB data. men vi forventer ikke kunden kommer til at overstige det. Dog er der 25 dollars som skal betales for at kunne udgive applikationen på google play store, hvilket kunden selv skal betale.
+
+Vi har valgt at starte op som Anpartsselskab, hvilket betyder vi skal have et kapital på 40.000, hvilket vi selv vil indskyde. Vores indskud kan bruges til udbetaling af løn. Med anpartsselskab er det også muligt, at have flere ejere, hvilket er en fordel for vores virksomhed, da vi er 4 personer som skal være ejer af virksomheden.
