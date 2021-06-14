@@ -6,8 +6,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Bundle;
 import com.example.newyorkerdk.R;
+import com.example.newyorkerdk.UI.fragments.BasketFragment;
 import com.example.newyorkerdk.UI.fragments.MainFragment;
 import com.example.newyorkerdk.databinding.ActivityMainBinding;
+import com.example.newyorkerdk.viewmodels.SharedViewModel;
+
+import java.util.Observer;
+
 /**
  * @author Mike
  * Et fragment {@link AppCompatActivity} subclass.
@@ -16,6 +21,7 @@ import com.example.newyorkerdk.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    private SharedViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +31,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+
         displayMainScreenFragment();
+
+        binding.baskeImage.setOnClickListener(v -> {displayBasketFragment();});
     }
 
     private void displayMainScreenFragment() {
@@ -36,6 +45,16 @@ public class MainActivity extends AppCompatActivity {
 
         fragmentTransaction.replace(R.id.fragment_container,
                 mainFragment).addToBackStack(null).commit();
+
+    }
+    private void displayBasketFragment() {
+        BasketFragment basketFragment = BasketFragment.newInstance();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+
+        fragmentTransaction.replace(R.id.fragment_container,
+                basketFragment).addToBackStack(null).commit();
 
     }
 }
