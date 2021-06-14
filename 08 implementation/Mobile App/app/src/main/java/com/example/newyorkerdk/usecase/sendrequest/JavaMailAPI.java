@@ -14,8 +14,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * @author Danijel
+ * Sender mail og viser en pogress dialog, og bruger thread til dette
+ */
 public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
-
 
     private final WeakReference<Context> context;
     private Session session;
@@ -68,8 +71,6 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
             mm.setSubject(subject);
             mm.setText(message);
             Transport.send(mm);
-
-//
 
         } catch (MessagingException e) {
             e.printStackTrace();

@@ -1,13 +1,17 @@
 package com.example.newyorkerdk.UI.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newyorkerdk.R;
 
+/**
+ * @author Usamah
+ * Et fragment {@link AppCompatActivity} subclass.
+ * Er ansvarlig for creation og nedlukning af splashscreen
+ */
 public class SplashScreenActivity extends AppCompatActivity {
 
     @Override

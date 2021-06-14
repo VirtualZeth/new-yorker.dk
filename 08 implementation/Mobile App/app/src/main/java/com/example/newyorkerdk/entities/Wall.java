@@ -1,6 +1,10 @@
 package com.example.newyorkerdk.entities;
 import java.util.List;
 
+/**
+ * Ansvarlig for at indeholde information om den enkelte væg
+ * @author Mike
+ */
 public class Wall {
 
     private static final Double MAX_WALL_HEIGHT = 250d;
@@ -88,5 +92,18 @@ public class Wall {
 
     public void setListOfAdditions(List<Addition> listOfAdditions) {
         this.listOfAdditions = listOfAdditions;
+    }
+
+    @Override
+    public String toString() {
+        return "Wall{" +
+                "name='" + name + '\'' +
+                ", height=" + height +
+                ", width=" + width +
+                ", numberOfGlassFieldsHeight=" + numberOfGlassFieldsHeight +
+                ", numberOfGlassFieldsWidth=" + numberOfGlassFieldsWidth +
+                ", listOfAdditions=" + listOfAdditions +
+                ", price=" + price +
+                '}';
     }
 }

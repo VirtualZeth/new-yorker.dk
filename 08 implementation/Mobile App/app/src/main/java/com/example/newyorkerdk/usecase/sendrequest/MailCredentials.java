@@ -1,10 +1,13 @@
 package com.example.newyorkerdk.usecase.sendrequest;
 
+/**
+ * @author Danijel
+ * mails og adgangskoder som skal bruges til at mail funktionen virker
+ */
 public class MailCredentials {
     private static final  String EMAIL = "danijelgitanovic@gmail.com";
-    private static final  String PASSWORD = "";
+    private static final  String PASSWORD = "yzmcqoojwegmsnno";
     private static final String NewYorkerMail = "info@new-yorkwe.dk";
-
     public static String getEMAIL() {
         return EMAIL;
     }

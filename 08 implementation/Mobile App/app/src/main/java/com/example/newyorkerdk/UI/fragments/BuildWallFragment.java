@@ -1,9 +1,6 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +14,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.newyorkerdk.R;
-import com.example.newyorkerdk.UI.util.MinMaxInputFilter;
 import com.example.newyorkerdk.databinding.FragmentBuildWallBinding;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
@@ -25,9 +21,9 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 import static java.lang.Double.parseDouble;
 
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link BuildWallFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Benyt {@link BuildWallFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment som er ansvarlig for håndtere byg væg UI'en
+ * @author Mike
  */
 public class BuildWallFragment extends Fragment {
 
@@ -55,22 +51,20 @@ public class BuildWallFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
-
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
         attachEditFieldListener(binding.editTextHeight);
         attachEditFieldListener(binding.editTextWidth);
-        setFilter(binding.editTextHeight, 1, 250);
+        attachEditFieldListener(binding.editTextNote);
 
         binding.editTextHeight.setTag("editTextHeight");
         binding.editTextWidth.setTag("editTextWidth");
-        binding.noteTextview.setTag("editTextNote");
+        binding.editTextNote.setTag("editTextNote");
         binding.seekBarWidth.setTag("seekBarWidth");
         binding.seekBarHeight.setTag("seekBarHeight");
 
-
         binding.addButton.setOnClickListener(event -> addWallToBasket());
-        binding.doneButton.setOnClickListener(event -> displayBasketFragment() );
+        binding.doneButton.setOnClickListener(event -> displayBasketFragment());
 
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         model.getCurrentWall().observe(requireActivity(), this::fillFieldsWithWallData);
@@ -85,35 +79,17 @@ public class BuildWallFragment extends Fragment {
         model.addToBasket(model.getCurrentWall().getValue());
     }
 
-    private void setFilter(EditText inputField, double min, double max) {
-        inputField.setFilters(new InputFilter[]{ new MinMaxInputFilter(min, max)});
-    }
-
     private void attachEditFieldListener(EditText inputField) {
-
-        inputField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+        inputField.setOnFocusChangeListener((v, hasFocus) -> {
+            if (updatingFields || inputField.getText().toString().length() == 0) {
+                return;
             }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (updatingFields) {
-                    return;
-                }
-                String tag = inputField.getTag().toString();
-                switch (tag) {
-                    case "editTextHeight": model.setCurrentWallHeight(parseDouble(inputField.getText().toString())); break;
-                    case "editTextWidth": model.setCurrentWallWidth(parseDouble(inputField.getText().toString())); break;
-                    case "editTextNote": model.setCurrentWallNote(inputField.getText().toString()); break;
-                    default: break;
-                }
+            String tag = inputField.getTag().toString();
+            switch (tag) {
+                case "editTextHeight": model.setCurrentWallHeight(parseDouble(inputField.getText().toString())); break;
+                case "editTextWidth": model.setCurrentWallWidth(parseDouble(inputField.getText().toString())); break;
+                case "editTextNote": model.setCurrentWallNote(inputField.getText().toString()); break;
+                default: break;
             }
         });
     }
@@ -132,11 +108,13 @@ public class BuildWallFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 String tag = seekBar.getTag().toString();
+
                 switch (tag) {
                     case "seekBarHeight": model.setCurrentWallSeekBarHeight(seekBar.getProgress());break;
                     case "seekBarWidth": model.setCurrentWallSeekBarWidth(seekBar.getProgress()); break;
                     default: break;
                 }
+
             }
         });
     }

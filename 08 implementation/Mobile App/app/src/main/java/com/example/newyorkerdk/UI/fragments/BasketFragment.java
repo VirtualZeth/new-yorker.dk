@@ -25,8 +25,12 @@ import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 import java.util.ArrayList;
-
-public class BasketFragment extends Fragment {
+/**
+ * @author Mike
+ * Benyt {@link BasketFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment som er ansvarlig for at vise kurvens indhold
+ */
+public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWallListener {
 
     private SharedViewModel model;
     RecyclerViewAdapter recyclerViewAdapter;
@@ -66,13 +70,13 @@ public class BasketFragment extends Fragment {
         binding.button2.setOnClickListener(v -> displayContactUsFragment());
         model.getBasket().observe(requireActivity(), basketUpdateObserver );
         model.getBasketTotalPrice().observe(requireActivity(), totalPrice -> binding.
-                totalPriceTextView.setText(getString(R.string.total_price, String.valueOf(totalPrice))));
+                totalPriceTextView.setText(getString(R.string.total_price, totalPrice)));
 
         return binding.getRoot();
     }
 
     Observer<Basket> basketUpdateObserver = walls -> {
-        recyclerViewAdapter = new RecyclerViewAdapter(requireActivity(), (ArrayList<Wall>) walls.getListOfWalls());
+        recyclerViewAdapter = new RecyclerViewAdapter(requireActivity(), (ArrayList<Wall>) walls.getListOfWalls(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
     };
 
@@ -109,11 +113,14 @@ public class BasketFragment extends Fragment {
                 buildWallFragment).addToBackStack(null).commit();
     }
 
-    public void getWallsInBasket() {
+    @Override
+    public void onClick(int position, String tag) {
+        if (tag.equals("wallItem")) {
+            displayBuildWallFragmentEdit(model.getBasket().getValue().getListOfWalls().get(position));
+        }
 
-        model.getBasket().getValue().getListOfWalls();
-
-
+        if (tag.equals("delete")) {
+            model.removeFromBasket(position);
+        }
     }
-
 }

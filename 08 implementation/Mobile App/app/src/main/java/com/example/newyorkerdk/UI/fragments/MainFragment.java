@@ -9,14 +9,12 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentMainBinding;
-
 /**
- * A simple {@link Fragment} subclass.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * @author Mike
+ * Benyt {@link MainFragment#newInstance} factory metode til
+ * at skabe en ny instans af dette fragment som er ansvarlig for at vise applikationens forside
  */
 public class MainFragment extends Fragment {
 

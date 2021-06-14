@@ -1,5 +1,4 @@
 package com.example.newyorkerdk.viewmodels;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -8,18 +7,23 @@ import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
 
-import java.util.ArrayList;
 
+/**
 
+ * Denne klasse er ansvarlig for at holde på relevant data der enten skal vises,
+ * eller benyttes i {@link com.example.newyorkerdk.UI.fragments.BuildWallFragment},
+ * {@link com.example.newyorkerdk.UI.fragments.BasketFragment},
+ * eller {@link com.example.newyorkerdk.UI.fragments.ContactUsFragment}
+ * @author Mike
+ */
 public class SharedViewModel extends ViewModel {
 
-    PriceEstimator priceEstimator = new PriceEstimator();
-
+    private final PriceEstimator priceEstimator = new PriceEstimator();
+    private int wallCount = 1;
     private MutableLiveData<String> mutablePriceEstimate;
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
-    private MutableLiveData<ArrayList<Wall>> mutableArrayListWall;
     public SharedViewModel() {
         super();
     }
@@ -65,11 +69,12 @@ public class SharedViewModel extends ViewModel {
         }
 
         Wall newWall = new Wall();
-        newWall.setName("Wall1");
-        newWall.setWidth(1);
-        newWall.setHeight(1);
-        newWall.setNumberOfGlassFieldsHeight(1);
-        newWall.setNumberOfGlassFieldsWidth(1);
+        newWall.setName("Wall " + wallCount);
+        wallCount++;
+        newWall.setWidth(175);
+        newWall.setHeight(150);
+        newWall.setNumberOfGlassFieldsHeight(4);
+        newWall.setNumberOfGlassFieldsWidth(5);
         setCurrentWall(newWall);
         calculatePriceEstimate();
     }
@@ -105,7 +110,7 @@ public class SharedViewModel extends ViewModel {
 
         Wall currentWall = getCurrentWall().getValue();
         if (currentWall != null) {
-            String estimation = String.valueOf(priceEstimator.calculatePriceEstimate(currentWall));
+            String estimation = priceEstimator.calculatePriceEstimate(currentWall);
             currentWall.setPrice(Double.parseDouble(estimation));
             mutablePriceEstimate.setValue(estimation);
         }
@@ -166,6 +171,15 @@ public class SharedViewModel extends ViewModel {
         if (currentWall != null) {
             currentWall.setNumberOfGlassFieldsWidth(progress);
             setCurrentWall(currentWall);
+        }
+    }
+
+    public void removeFromBasket(int position) {
+        Basket basket = mutableBasket.getValue();
+        if (basket != null) {
+            basket.getListOfWalls().remove(position);
+            mutableBasket.setValue(basket);
+            calculateBasketTotalPrice();
         }
     }
 }
