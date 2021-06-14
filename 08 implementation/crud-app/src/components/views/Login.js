@@ -23,9 +23,9 @@ const Login = ({ auth, setIsAuth }) => {
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    await firebase
+    firebase
       .auth()
       .signInWithEmailAndPassword(formData.email, formData.password)
       .then(({ user }) => {

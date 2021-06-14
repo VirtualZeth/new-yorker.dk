@@ -14,7 +14,7 @@ const Table = ({ category }) => {
   });
 
   useEffect(() => {
-    firebase
+    const close = firebase
       .firestore()
       .collection("products")
       .onSnapshot((querySnapshot) => {
@@ -22,6 +22,7 @@ const Table = ({ category }) => {
         querySnapshot.forEach((doc) => items.push({ ...doc.data(), id: doc.id }));
         setProducts(items);
       });
+    return close;
   }, []);
 
   const deleteProduct = async (id) => {
