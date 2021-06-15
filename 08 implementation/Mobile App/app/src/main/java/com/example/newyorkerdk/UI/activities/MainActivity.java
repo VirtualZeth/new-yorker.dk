@@ -38,13 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedViewModel model = new ViewModelProvider(this).get(SharedViewModel.class);
 
-        //Observer som opdatere UI'et
-        final Observer<String> tottalPriceObserver = new Observer<String>() {
-            @Override
-            public void onChanged(String newTotalPrice) {
-                binding.toolbarPrice.setText(newTotalPrice);
-            }
-        };
+
+        final Observer<String> tottalPriceObserver = newTotalPrice -> binding.toolbarPrice.setText(newTotalPrice);
 
         model.getBasketTotalPrice().observe(this, tottalPriceObserver);
 
