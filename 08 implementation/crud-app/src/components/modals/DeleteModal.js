@@ -4,8 +4,9 @@ import { setDeleteModal } from "../../actions/modals";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import firebase from "../../firebase";
+import { setAlert } from "../../actions/alerts";
 
-const DeleteModal = ({ modals, setDeleteModal }) => {
+const DeleteModal = ({ modals, setDeleteModal, setAlert }) => {
   const { deleteModal } = modals;
   const deleteProduct = (id) => {
     if (id !== undefined) {
@@ -14,8 +15,8 @@ const DeleteModal = ({ modals, setDeleteModal }) => {
         .collection("products")
         .doc(id)
         .delete()
-        .then(() => console.log("Product deleted successfully!"))
-        .catch((error) => console.log(error));
+        .then(() => setAlert("success", "Vare fjernet"))
+        .catch((error) => setAlert("danger", error.code));
     }
     setDeleteModal(false, "");
   };
@@ -39,5 +40,5 @@ export default connect(
   (state) => ({
     modals: state.modals,
   }),
-  { setDeleteModal }
+  { setDeleteModal, setAlert }
 )(DeleteModal);

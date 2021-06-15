@@ -5,6 +5,7 @@ import { TrashFill, PencilSquare } from "react-bootstrap-icons/";
 import Button from "react-bootstrap/Button";
 import { setDeleteModal } from "../actions/modals";
 import DeleteModal from "./modals/DeleteModal";
+import { setAlert } from "../actions/alerts";
 
 const Table = ({ category, setDeleteModal }) => {
   const [products, setProducts] = useState([]);
@@ -36,10 +37,10 @@ const Table = ({ category, setDeleteModal }) => {
       .doc(productData.id)
       .set(productData)
       .then(() => {
-        console.log("Document successfully edited!");
+        setAlert("success", "Varen blev ændret", true);
       })
       .catch((error) => {
-        console.error("Error writing document: ", error);
+        setAlert("danger", error.code);
       });
     setProductData({
       id: "",

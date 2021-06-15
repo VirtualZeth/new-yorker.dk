@@ -22,9 +22,9 @@ const AddProductModal = ({ modals, setAddProductModalShow, categories, setAlert 
 
   const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
 
-  const addProduct = async () => {
+  const addProduct = () => {
     if (productData.category !== selectDefault)
-      await firebase
+      firebase
         .firestore()
         .collection("products")
         .add(productData)

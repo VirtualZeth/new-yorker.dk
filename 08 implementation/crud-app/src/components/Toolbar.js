@@ -23,7 +23,7 @@ const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCu
       });
   }, []);
 
-  const signOut = async () => await firebase.auth().signOut();
+  const signOut = () => firebase.auth().signOut();
 
   return (
     <Fragment>

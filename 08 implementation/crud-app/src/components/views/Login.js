@@ -30,7 +30,7 @@ const Login = ({ auth, setIsAuth, setAlert }) => {
       .auth()
       .signInWithEmailAndPassword(formData.email, formData.password)
       .then(({ user }) => {
-        console.log(`Logged in as ${user.email}`);
+        setAlert("success", `Du er nu logget ind som ${user.email}`, true);
       })
       .catch((error) => {
         setAlert("danger", error.code);

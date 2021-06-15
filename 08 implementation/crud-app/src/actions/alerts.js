@@ -5,7 +5,7 @@ export const setAlert = (displayType, msg, isMessage) => (dispatch) => {
   const id = v4();
   const message = isMessage
     ? msg
-    : ((msg) => {
+    : (() => {
         switch (msg) {
           case "auth/too-many-requests":
             return "Denne konto er midlertidig låst grundet for mange login forsøg";
