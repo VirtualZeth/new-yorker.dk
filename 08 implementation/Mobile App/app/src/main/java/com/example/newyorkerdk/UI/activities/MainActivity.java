@@ -1,17 +1,20 @@
 package com.example.newyorkerdk.UI.activities;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.os.Bundle;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.fragments.BasketFragment;
 import com.example.newyorkerdk.UI.fragments.MainFragment;
 import com.example.newyorkerdk.databinding.ActivityMainBinding;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
-
-import java.util.Observer;
 
 /**
  * @author Mike
@@ -21,7 +24,8 @@ import java.util.Observer;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    private SharedViewModel model;
+    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +36,27 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
 
+        SharedViewModel model = new ViewModelProvider(this).get(SharedViewModel.class);
+
+        //Observer som opdatere UI'et
+        final Observer<String> tottalPriceObserver = new Observer<String>() {
+            @Override
+            public void onChanged(String newTotalPrice) {
+                binding.toolbarPrice.setText(newTotalPrice);
+            }
+        };
+
+        model.getBasketTotalPrice().observe(this, tottalPriceObserver);
+
         displayMainScreenFragment();
 
         binding.baskeImage.setOnClickListener(v -> {displayBasketFragment();});
+
+
+
     }
+
+
 
     private void displayMainScreenFragment() {
         MainFragment mainFragment = MainFragment.newInstance();
