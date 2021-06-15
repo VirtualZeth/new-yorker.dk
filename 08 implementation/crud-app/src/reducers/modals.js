@@ -5,8 +5,7 @@ const initialState = {
   categoryModalShow: false,
 };
 
-// eslint-disable-next-line
-export default (state = initialState, action) => {
+const modals = (state = initialState, action) => {
   switch (action.type) {
     case SET_ADD_PRODUCT_MODAL_SHOW:
       return { ...state, addProductModalShow: action.payload };
@@ -16,3 +15,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default modals;

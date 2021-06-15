@@ -4,8 +4,7 @@ const initialState = {
   current: "Vis alle",
 };
 
-// eslint-disable-next-line
-export default (state = initialState, action) => {
+const category = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_CATEGORY:
       return { ...state, current: action.payload };
@@ -13,3 +12,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default category;
