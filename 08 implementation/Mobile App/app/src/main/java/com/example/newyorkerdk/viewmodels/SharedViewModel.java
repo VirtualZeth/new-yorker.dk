@@ -1,15 +1,24 @@
 package com.example.newyorkerdk.viewmodels;
+import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.example.newyorkerdk.data.FireStoreDB;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
-
  * Denne klasse er ansvarlig for at holde på relevant data der enten skal vises,
  * eller benyttes i {@link com.example.newyorkerdk.UI.fragments.BuildWallFragment},
  * {@link com.example.newyorkerdk.UI.fragments.BasketFragment},
@@ -17,15 +26,24 @@ import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
  * @author Mike
  */
 public class SharedViewModel extends ViewModel {
-
-    private final PriceEstimator priceEstimator = new PriceEstimator();
+    private PriceEstimator priceEstimator = new PriceEstimator();
+    private FireStoreDB fireStoreDB = new FireStoreDB();
     private int wallCount = 1;
     private MutableLiveData<String> mutablePriceEstimate;
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
+
     public SharedViewModel() {
-        super();
+        fireStoreDB.getProductPriceList().observeForever(this::reinitializePriceEstimator);
+    }
+
+    private void reinitializePriceEstimator(Map<String, Double> productPriceList) {
+        if (priceEstimator == null) {
+            priceEstimator = new PriceEstimator();
+            priceEstimator.setPriceList(productPriceList);
+        }
+        priceEstimator.setPriceList(productPriceList);
     }
 
     public LiveData<String> getPriceEstimate() {
@@ -76,7 +94,6 @@ public class SharedViewModel extends ViewModel {
         newWall.setNumberOfGlassFieldsHeight(4);
         newWall.setNumberOfGlassFieldsWidth(5);
         setCurrentWall(newWall);
-        calculatePriceEstimate();
     }
 
     public void setCurrentWall(Wall wall) {
@@ -182,4 +199,10 @@ public class SharedViewModel extends ViewModel {
             calculateBasketTotalPrice();
         }
     }
+
+    public void clearBasket() {
+        mutableBasket.setValue(new Basket());
+        calculateBasketTotalPrice();
+    }
+
 }
