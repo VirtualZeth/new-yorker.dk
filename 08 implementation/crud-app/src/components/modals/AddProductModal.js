@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import "firebase/firestore";
 import { connect } from "react-redux";
-import { setAddProductModalShow } from "../actions/modals";
+import { setAddProductModalShow } from "../../actions/modals";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { setAlert } from "../actions/alerts";
+import { setAlert } from "../../actions/alerts";
 
 const AddProductModal = ({ modals, setAddProductModalShow, categories, setAlert }) => {
   const { addProductModalShow } = modals;

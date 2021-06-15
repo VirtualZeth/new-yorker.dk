@@ -4,7 +4,7 @@ import firebase from "../firebase";
 import { TrashFill, PencilSquare } from "react-bootstrap-icons/";
 import Button from "react-bootstrap/Button";
 import { setDeleteModal } from "../actions/modals";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "./modals/DeleteModal";
 
 const Table = ({ category, setDeleteModal }) => {
   const [products, setProducts] = useState([]);

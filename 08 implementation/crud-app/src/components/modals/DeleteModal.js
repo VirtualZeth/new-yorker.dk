@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setDeleteModal } from "../actions/modals";
+import { setDeleteModal } from "../../actions/modals";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 
 const DeleteModal = ({ modals, setDeleteModal }) => {
   const { deleteModal } = modals;

@@ -6,8 +6,8 @@ import { setAddProductModalShow, setCategoryModalShow } from "../actions/modals"
 import { setCurrentCategory } from "../actions/category";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/esm/Dropdown";
-import AddProductModal from "./AddProductModal";
-import CategoryModal from "./CategoryModal";
+import AddProductModal from "./modals/AddProductModal";
+import CategoryModal from "./modals/CategoryModal";
 
 const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCurrentCategory }) => {
   const [categoryData, setCategoryData] = useState([]);
