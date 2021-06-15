@@ -8,8 +8,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { setAlert } from "../actions/alerts";
 
-const AddProductModal = ({ modals, setAddProductModalShow, categories }) => {
+const AddProductModal = ({ modals, setAddProductModalShow, categories, setAlert }) => {
   const { addProductModalShow } = modals;
   const selectDefault = "Vælg kategori";
   const [productData, setProductData] = useState({
@@ -28,10 +29,10 @@ const AddProductModal = ({ modals, setAddProductModalShow, categories }) => {
         .collection("products")
         .add(productData)
         .then((e) => {
-          console.log(`Product with id: ${e.id} added!`);
+          setAlert("success", `${productData.name} tilføjet`, true);
         })
         .catch((error) => {
-          console.log(error);
+          setAlert("danger", error.code);
         });
     setProductData({
       category: selectDefault,
@@ -115,5 +116,5 @@ export default connect(
   (state) => ({
     modals: state.modals,
   }),
-  { setAddProductModalShow }
+  { setAddProductModalShow, setAlert }
 )(AddProductModal);

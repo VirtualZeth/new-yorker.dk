@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import firebase from "../firebase";
 import { TrashFill, PencilSquare } from "react-bootstrap-icons/";
 import Button from "react-bootstrap/Button";
+import { setDeleteModal } from "../actions/modals";
+import DeleteModal from "./DeleteModal";
 
-const Table = ({ category }) => {
+const Table = ({ category, setDeleteModal }) => {
   const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState({
     id: "",
@@ -25,22 +27,10 @@ const Table = ({ category }) => {
     return close;
   }, []);
 
-  const deleteProduct = async (id) => {
-    if (id !== undefined) {
-      await firebase
-        .firestore()
-        .collection("products")
-        .doc(id)
-        .delete()
-        .then(() => console.log("Product deleted successfully!"))
-        .catch((error) => console.log(error));
-    }
-  };
-
   const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
 
-  const editProduct = async () => {
-    await firebase
+  const editProduct = () => {
+    firebase
       .firestore()
       .collection("products")
       .doc(productData.id)
@@ -113,16 +103,20 @@ const Table = ({ category }) => {
             >
               <PencilSquare color="orange" size={20} style={{ pointerEvents: "none" }} />
             </div>
-            <div data-id={item.id} style={{ cursor: "pointer" }} onClick={(e) => deleteProduct(e.target.dataset.id)}>
+            <div
+              data-id={item.id}
+              style={{ cursor: "pointer" }}
+              onClick={(e) => setDeleteModal(true, e.target.dataset.id)}
+            >
               <TrashFill color="red" size={20} style={{ pointerEvents: "none" }} />
             </div>
           </td>
         </tr>
       );
   };
-
   return (
     <div className="card container">
+      <DeleteModal />
       <table className="table">
         <thead>
           <tr>
@@ -138,6 +132,9 @@ const Table = ({ category }) => {
   );
 };
 
-export default connect((state) => ({
-  category: state.category,
-}))(Table);
+export default connect(
+  (state) => ({
+    category: state.category,
+  }),
+  { setDeleteModal }
+)(Table);

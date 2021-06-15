@@ -33,8 +33,6 @@ const Login = ({ auth, setIsAuth, setAlert }) => {
         console.log(`Logged in as ${user.email}`);
       })
       .catch((error) => {
-        console.log(error.code);
-        console.log(error.message);
         setAlert("danger", error.code);
       });
   };
