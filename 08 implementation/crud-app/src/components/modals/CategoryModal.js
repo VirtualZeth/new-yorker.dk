@@ -19,28 +19,37 @@ const CategoryModal = ({ modals, setCategoryModalShow, categories, setAlert }) =
   const onChange = (e) => setAddCategoryName(e.target.value);
 
   const addCategory = () => {
-    firebase
-      .firestore()
-      .collection("categories")
-      .add({ name: addCategoryName })
-      .then((e) => {
-        setAlert("success", `${e.name} tilføjet`, true);
-      })
-      .catch((error) => setAlert("danger", error.code));
+    const categoryName = addCategoryName.trim();
+    if (categoryName === "Nødvendige") {
+      setAlert("danger", "Navnet Nødvendige er reserveret", true);
+    } else {
+      firebase
+        .firestore()
+        .collection("categories")
+        .add({ name: categoryName })
+        .then((e) => {
+          setAlert("success", `${e.name} tilføjet`, true);
+        })
+        .catch((error) => setAlert("danger", error.code));
+    }
     setAddCategoryName("");
     setCategoryModalShow(false);
   };
 
   const deleteCategory = () => {
     if (selectedCategoryName !== selectDefault && selectedCategoryName !== "") {
-      const categoryId = categories.filter((e) => e.name === selectedCategoryName)[0].id;
-      firebase
-        .firestore()
-        .collection("categories")
-        .doc(categoryId)
-        .delete()
-        .then(() => setAlert("success", "Kategori fjernet", true))
-        .catch((error) => setAlert("danger", error.code));
+      if (selectedCategoryName.trim() === "Nødvendige") {
+        setAlert("danger", "Kategorien må ikke slettes", true);
+      } else {
+        const categoryId = categories.filter((e) => e.name === selectedCategoryName)[0].id;
+        firebase
+          .firestore()
+          .collection("categories")
+          .doc(categoryId)
+          .delete()
+          .then(() => setAlert("success", "Kategori fjernet", true))
+          .catch((error) => setAlert("danger", error.code));
+      }
       setSelectedCategoryName("");
       setCategoryModalShow(false);
     }
