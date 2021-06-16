@@ -22,15 +22,20 @@ const DeleteModal = ({ modals, setDeleteModal, setAlert }) => {
   };
   return (
     <Modal
-      size="lg"
+      size="sm"
       aria-labelledby="contained-modal-title-vcenter"
       centered
       show={deleteModal.isShow}
       onHide={() => setDeleteModal(false, "")}
     >
       <Modal.Body>
-        <Button onClick={() => deleteProduct(deleteModal.id)}>Ja</Button>
-        <Button onClick={() => setDeleteModal(false, "")}>Nej</Button>
+        <p>Er du sikker på at du vil slette varen?</p>
+        <Button className="me-3" onClick={() => deleteProduct(deleteModal.id)}>
+          Ja
+        </Button>
+        <Button className="me-3" onClick={() => setDeleteModal(false, "")}>
+          Nej
+        </Button>
       </Modal.Body>
     </Modal>
   );

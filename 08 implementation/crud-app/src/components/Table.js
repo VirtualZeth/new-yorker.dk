@@ -9,11 +9,13 @@ import { setAlert } from "../actions/alerts";
 
 const Table = ({ category, setDeleteModal }) => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [productData, setProductData] = useState({
     id: "",
     productNumber: "",
     name: "",
     price: "",
+    category: "",
   });
 
   useEffect(() => {
@@ -26,6 +28,17 @@ const Table = ({ category, setDeleteModal }) => {
         setProducts(items);
       });
     return close;
+  }, []);
+
+  useEffect(() => {
+    firebase
+      .firestore()
+      .collection("categories")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => items.push(doc.data()));
+        setCategories(items);
+      });
   }, []);
 
   const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
@@ -50,11 +63,27 @@ const Table = ({ category, setDeleteModal }) => {
     });
   };
 
+  const onCategoryChange = (name) => setProductData({ ...productData, category: name });
+
   const tableItem = (item) => {
     if (item.category !== category.current && category.current !== "Vis alle") return null;
     if (item.id === productData.id) {
       return (
         <tr key={item.id}>
+          <td>
+            <select onChange={(e) => onCategoryChange(e.target.value)} defaultValue={item.name} className="form-select">
+              <option name={item.category} value={item.category}>
+                {item.category}
+              </option>
+              {categories
+                .filter((e) => item.category !== e.name)
+                .map((e) => (
+                  <option name={e.name} key={`${item.id}&&${e.name}`}>
+                    {e.name}
+                  </option>
+                ))}
+            </select>
+          </td>
           <td>
             <input
               name="productNumber"
@@ -93,6 +122,7 @@ const Table = ({ category, setDeleteModal }) => {
     } else
       return (
         <tr key={item.id}>
+          <td>{item.category}</td>
           <td>{item.productNumber}</td>
           <td>{item.name}</td>
           <td>{item.price}</td>
@@ -121,6 +151,7 @@ const Table = ({ category, setDeleteModal }) => {
       <table className="table">
         <thead>
           <tr>
+            <th scope="col">Kategori</th>
             <th scope="col">Varenummer</th>
             <th scope="col">Navn</th>
             <th scope="col">Pris</th>
