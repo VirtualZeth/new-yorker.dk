@@ -1,4 +1,5 @@
 package com.example.newyorkerdk.entities;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class Wall {
     private double width;
     private int numberOfGlassFieldsHeight;
     private int numberOfGlassFieldsWidth;
-    private List<Addition> listOfAdditions;
+    private List<Addition> listOfAdditions = new ArrayList<>();
     private double price;
 
     public double getPrice() {

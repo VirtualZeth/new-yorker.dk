@@ -1,22 +1,34 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
 
 import com.example.newyorkerdk.R;
+import com.example.newyorkerdk.UI.activities.MainActivity;
+import com.example.newyorkerdk.data.FireStoreDB;
 import com.example.newyorkerdk.databinding.FragmentBuildWallBinding;
+import com.example.newyorkerdk.entities.Addition;
 import com.example.newyorkerdk.entities.Wall;
+import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
@@ -44,11 +56,13 @@ public class BuildWallFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         updatingFields = false;
+        
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
@@ -65,18 +79,25 @@ public class BuildWallFragment extends Fragment {
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
         binding.doneButton.setOnClickListener(event -> displayBasketFragment());
-
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        new ViewModelProvider.NewInstanceFactory().create(SharedViewModel.class);
         model.getCurrentWall().observe(requireActivity(), this::fillFieldsWithWallData);
         model.getPriceEstimate().observe(requireActivity(), priceEstimate ->
-                binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)
-                ));
+                binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
+        model.getAdditions().observe(requireActivity(), additions -> {
+
+        });
+
         return binding.getRoot();
+    }
+
+    private void buildAdditions() {
     }
 
     public void addWallToBasket() {
 
         model.addToBasket(model.getCurrentWall().getValue());
+
     }
 
     private void attachEditFieldListener(EditText inputField) {

@@ -1,9 +1,8 @@
 package com.example.newyorkerdk.usecase.sendrequest;
-import android.os.Build;
+
 import android.util.Log;
 
-import androidx.annotation.RequiresApi;
-
+import com.example.newyorkerdk.entities.Addition;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 
@@ -17,15 +16,12 @@ import java.util.Map;
  */
 public class PriceEstimator {
 
-    private static final Double GLASS_FIELD_PRICE = 985d;
-    private static final Double GLASS_FIELD_SIZE_ADDITION = 485d;
     private static final Double DELIVERY_PRICE = 800d;
     private Map<String, Double> prices = new HashMap<>();
 
-
     public PriceEstimator() {
-        prices.put("glas", 200d);
-        prices.put("extra", 200d);
+        prices.put("Glasfelt", 100d);
+        prices.put("extra", 1000d);
     }
 
     public void setPriceList(Map<String, Double> prices) {
@@ -60,15 +56,25 @@ public class PriceEstimator {
 
     public String calculatePriceEstimate(Wall wall) {
 
-        double fieldPrice = prices.get("glas");
+        double fieldPrice = prices.get("Glasfelt");
 
         if (calculateFieldArea(calculateFieldHeight(wall), calculateFieldWidth(wall)) > 5000) {
-            fieldPrice += prices.get("extra");
+            fieldPrice += 500d;
         }
+        Double additionsTotal = calculateAdditionTotal(wall);
 
-        return String.valueOf(calculateAmountOfFields(wall) * fieldPrice + DELIVERY_PRICE);
+        return String.valueOf(calculateAmountOfFields(wall) * fieldPrice + additionsTotal +  DELIVERY_PRICE) ;
     }
 
+    public Double calculateAdditionTotal(Wall wall) {
+        Double sum = 0d;
+        for (Addition addition:wall.getListOfAdditions()
+             ) {
+            sum += addition.getPrice();
+        }
+
+        return sum;
+    }
 
     public Double calculateBasketTotal(Basket basket) {
 

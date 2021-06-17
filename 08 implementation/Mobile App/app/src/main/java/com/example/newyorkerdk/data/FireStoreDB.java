@@ -8,50 +8,35 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class FireStoreDB {
 
+
+    private static final FireStoreDB instance = new FireStoreDB();
+
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
     private final MutableLiveData<Map<String, Double>> productPriceList = new MutableLiveData<>();
+    private final MutableLiveData<List<String>> categoriesList = new MutableLiveData<>();
 
     public FireStoreDB() {
-
-        getProductsData();
     }
 
-    private void getProductsData() {
-        CollectionReference colRef = database.collection("products");
-        colRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot collection = task.getResult();
-                if (collection != null) {
-                    List<DocumentSnapshot> documents = collection.getDocuments();
-                    HashMap<String, Double> productPrices = new HashMap<>();
-                    for (DocumentSnapshot documentSnapshot:documents) {
-                        productPrices.put(documentSnapshot.getString("name"), documentSnapshot.getDouble("price"));
-                    }
-                    productPrices.put("glas", 400d);
-                    productPrices.put("extra", 400d);
-                    setProductsPrices(productPrices);
-                }
-            } else {
-                Log.d("eq", "get failed with ", task.getException());
-            }
-        });
-    }
-    public void setProductsPrices(Map<String, Double> productPrices) {
-        this.productPriceList.postValue(productPrices);
+    public static FireStoreDB getInstance() {
+        return instance;
     }
 
-    public LiveData<Map<String, Double>> getProductPriceList() {
-        return productPriceList;
+    public FirebaseFirestore getDatabase() {
+        return database;
     }
 }
 
