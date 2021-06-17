@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import "firebase/firestore";
 import { connect } from "react-redux";
-import { setAddProductModalShow } from "../actions/modals";
+import { setAddProductModalShow } from "../../actions/modals";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { setAlert } from "../../actions/alerts";
 
-const AddProductModal = ({ modals, setAddProductModalShow, categories }) => {
+const AddProductModal = ({ modals, setAddProductModalShow, categories, setAlert }) => {
   const { addProductModalShow } = modals;
   const selectDefault = "Vælg kategori";
   const [productData, setProductData] = useState({
@@ -21,17 +22,17 @@ const AddProductModal = ({ modals, setAddProductModalShow, categories }) => {
 
   const onChange = (e) => setProductData({ ...productData, [e.target.name]: e.target.value });
 
-  const addProduct = async () => {
+  const addProduct = () => {
     if (productData.category !== selectDefault)
-      await firebase
+      firebase
         .firestore()
         .collection("products")
         .add(productData)
         .then((e) => {
-          console.log(`Product with id: ${e.id} added!`);
+          setAlert("success", `${productData.name} tilføjet`, true);
         })
         .catch((error) => {
-          console.log(error);
+          setAlert("danger", error.code);
         });
     setProductData({
       category: selectDefault,
@@ -115,5 +116,5 @@ export default connect(
   (state) => ({
     modals: state.modals,
   }),
-  { setAddProductModalShow }
+  { setAddProductModalShow, setAlert }
 )(AddProductModal);
