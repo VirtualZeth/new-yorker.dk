@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import firebase from "../firebase";
 import "firebase/firestore";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAddProductModalShow, setCategoryModalShow } from "../actions/modals";
 import { setCurrentCategory } from "../actions/category";
@@ -54,7 +55,10 @@ const Toolbar = ({ setAddProductModalShow, setCategoryModalShow, category, setCu
           >
             Tilføj vare
           </button>
-          <button onClick={() => signOut()} className="btn btn-danger col col-1 mb-1 offset-md-6">
+          <Link to="/settings" className="btn btn-primary col col-1 mb-1 offset-md-4">
+            Settings
+          </Link>
+          <button onClick={() => signOut()} className="btn btn-danger col col-1 mb-1 mx-1">
             Log ud
           </button>
         </div>

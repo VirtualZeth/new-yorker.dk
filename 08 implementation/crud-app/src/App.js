@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 
+import Settings from "./components/views/Settings";
 import Dashboard from "./components/views/Dashboard";
 import Login from "./components/views/Login";
 import Alert from "./components/Alert";
@@ -19,6 +20,7 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/dashboard" component={Dashboard} />
+          <Route exact path="/settings" component={Settings} />
         </Switch>
       </Router>
     </Provider>
