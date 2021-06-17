@@ -38,18 +38,16 @@ const CategoryModal = ({ modals, setCategoryModalShow, categories, setAlert }) =
 
   const deleteCategory = () => {
     if (selectedCategoryName !== selectDefault && selectedCategoryName !== "") {
-      if (selectedCategoryName.trim() === "Nødvendige") {
-        setAlert("danger", "Kategorien må ikke slettes", true);
-      } else {
-        const categoryId = categories.filter((e) => e.name === selectedCategoryName)[0].id;
-        firebase
-          .firestore()
-          .collection("categories")
-          .doc(categoryId)
-          .delete()
-          .then(() => setAlert("success", "Kategori fjernet", true))
-          .catch((error) => setAlert("danger", error.code));
-      }
+      const categoryId = categories.filter((e) => e.name === selectedCategoryName)[0].id;
+
+      firebase
+        .firestore()
+        .collection("categories")
+        .doc(categoryId)
+        .delete()
+        .then(() => setAlert("success", "Kategori fjernet", true))
+        .catch((error) => setAlert("danger", error.code));
+
       setSelectedCategoryName("");
       setCategoryModalShow(false);
     }
@@ -81,11 +79,13 @@ const CategoryModal = ({ modals, setCategoryModalShow, categories, setAlert }) =
               <Form.Label>Vælg kategori</Form.Label>
               <select onChange={(e) => setSelectedCategoryName(e.target.value)} className="form-select">
                 <option>{selectDefault}</option>
-                {categories.map((e) => (
-                  <option data-id={e.id} key={e.id} value={e.name}>
-                    {e.name}
-                  </option>
-                ))}
+                {categories
+                  .filter((e) => e.name !== "Nødvendige")
+                  .map((e) => (
+                    <option data-id={e.id} key={e.id} value={e.name}>
+                      {e.name}
+                    </option>
+                  ))}
               </select>
             </Form.Group>
           </Row>

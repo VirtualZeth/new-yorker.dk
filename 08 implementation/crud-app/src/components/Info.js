@@ -13,15 +13,16 @@ const Info = ({ setAlert }) => {
   });
 
   useEffect(() => {
-    const close = firebase
+    firebase
       .firestore()
       .collection("info")
       .doc("info")
-      .onSnapshot((doc) => {
-        setFormData(doc.data());
+      .get()
+      .then((doc) => setFormData(doc.data()))
+      .catch((error) => {
+        setAlert("danger", error.code);
       });
-    return close;
-  }, []);
+  }, [setAlert]);
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
   const onSubmit = (e) => {

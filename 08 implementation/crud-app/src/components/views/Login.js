@@ -38,7 +38,7 @@ const Login = ({ auth, setIsAuth, setAlert }) => {
   };
 
   return auth.isAuth ? (
-    <Redirect to="/dashboard" />
+    <Redirect to="/skrivebord" />
   ) : (
     <Fragment>
       <div id="login_container" className="container-sm d-flex justify-content-center">

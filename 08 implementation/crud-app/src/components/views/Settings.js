@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import firebase from "../../firebase";
 import { setIsAuth } from "../../actions/auth";
 import Info from "../Info";
+import Toolbar from "../Toolbar/Toolbar";
 
 const Settings = ({ auth, setIsAuth }) => {
   const { isAuth } = auth;
@@ -17,6 +18,7 @@ const Settings = ({ auth, setIsAuth }) => {
 
   return isAuth ? (
     <div className="container">
+      <Toolbar view="Settings" />
       <Info />
     </div>
   ) : (
