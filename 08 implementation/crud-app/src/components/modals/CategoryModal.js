@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import firebase from "../firebase";
+import firebase from "../../firebase";
 import "firebase/firestore";
 import { connect } from "react-redux";
-import { setCategoryModalShow } from "../actions/modals";
+import { setCategoryModalShow } from "../../actions/modals";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { setAlert } from "../../actions/alerts";
 
-const CategoryModal = ({ modals, setCategoryModalShow, categories }) => {
+const CategoryModal = ({ modals, setCategoryModalShow, categories, setAlert }) => {
   const { categoryModalShow } = modals;
   const selectDefault = "Vælg kategori";
   const [addCategoryName, setAddCategoryName] = useState("");
@@ -17,29 +18,38 @@ const CategoryModal = ({ modals, setCategoryModalShow, categories }) => {
 
   const onChange = (e) => setAddCategoryName(e.target.value);
 
-  const addCategory = async () => {
-    await firebase
-      .firestore()
-      .collection("categories")
-      .add({ name: addCategoryName })
-      .then((e) => {
-        console.log(`Category with id ${e.id} added!`);
-      })
-      .catch((error) => console.log(error));
+  const addCategory = () => {
+    const categoryName = addCategoryName.trim();
+    if (categoryName === "Nødvendige") {
+      setAlert("danger", "Navnet Nødvendige er reserveret", true);
+    } else {
+      firebase
+        .firestore()
+        .collection("categories")
+        .add({ name: categoryName })
+        .then((e) => {
+          setAlert("success", `${e.name} tilføjet`, true);
+        })
+        .catch((error) => setAlert("danger", error.code));
+    }
     setAddCategoryName("");
     setCategoryModalShow(false);
   };
 
-  const deleteCategory = async () => {
+  const deleteCategory = () => {
     if (selectedCategoryName !== selectDefault && selectedCategoryName !== "") {
-      const categoryId = categories.filter((e) => e.name === selectedCategoryName)[0].id;
-      await firebase
-        .firestore()
-        .collection("categories")
-        .doc(categoryId)
-        .delete()
-        .then(() => console.log("Category deleted successfully!"))
-        .catch((error) => console.log(error));
+      if (selectedCategoryName.trim() === "Nødvendige") {
+        setAlert("danger", "Kategorien må ikke slettes", true);
+      } else {
+        const categoryId = categories.filter((e) => e.name === selectedCategoryName)[0].id;
+        firebase
+          .firestore()
+          .collection("categories")
+          .doc(categoryId)
+          .delete()
+          .then(() => setAlert("success", "Kategori fjernet", true))
+          .catch((error) => setAlert("danger", error.code));
+      }
       setSelectedCategoryName("");
       setCategoryModalShow(false);
     }
@@ -99,5 +109,5 @@ export default connect(
   (state) => ({
     modals: state.modals,
   }),
-  { setCategoryModalShow }
+  { setCategoryModalShow, setAlert }
 )(CategoryModal);

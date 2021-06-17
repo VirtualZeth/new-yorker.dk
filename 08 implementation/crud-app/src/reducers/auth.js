@@ -4,8 +4,7 @@ const initialState = {
   isAuth: false,
 };
 
-// eslint-disable-next-line
-export default (state = initialState, action) => {
+const auth = (state = initialState, action) => {
   switch (action.type) {
     case SET_IS_AUTH:
       return { ...state, isAuth: action.payload };
@@ -13,3 +12,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default auth;

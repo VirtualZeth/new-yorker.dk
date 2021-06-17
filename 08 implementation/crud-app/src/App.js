@@ -5,6 +5,7 @@ import store from "./store";
 
 import Dashboard from "./components/views/Dashboard";
 import Login from "./components/views/Login";
+import Alert from "./components/Alert";
 
 import "./styling/App.css";
 
@@ -12,6 +13,9 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <div style={{ position: "absolute", top: "2.5vh", right: "2.5vh" }}>
+          <Alert />
+        </div>
         <Switch>
           <Route exact path="/" component={Login} />
           <Route exact path="/dashboard" component={Dashboard} />
