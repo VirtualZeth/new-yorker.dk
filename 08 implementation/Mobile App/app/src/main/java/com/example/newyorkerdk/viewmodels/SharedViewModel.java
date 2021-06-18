@@ -133,6 +133,7 @@ public class SharedViewModel extends ViewModel {
             mutableBasket.setValue(basket);
             calculateBasketTotalPrice();
         }
+        newCurrentWall();
     }
 
     public void calculatePriceEstimate() {
