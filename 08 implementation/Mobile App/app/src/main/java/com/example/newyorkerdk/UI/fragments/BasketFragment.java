@@ -86,6 +86,13 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         return binding.getRoot();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        model.getBasket().removeObservers(this);
+        model.getBasketTotalPrice().removeObservers(this);
+    }
+
     private void clearWallsFromBasket() {
         new AlertDialog.Builder(getContext())
                 .setTitle("Slet kurv")
