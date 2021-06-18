@@ -48,7 +48,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         viewHolder.note_textfield.setText(String.valueOf(wall.getName()));
         viewHolder.price_textfield.setText(context.getString(R.string.price, String.valueOf(wall.getPrice())));
 
-        viewHolder.note_textfield.setOnClickListener(v -> viewHolder.note_textfield.setText("hi"));
     }
 
 

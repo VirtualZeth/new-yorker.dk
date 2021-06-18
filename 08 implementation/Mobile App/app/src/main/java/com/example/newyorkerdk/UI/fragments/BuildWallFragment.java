@@ -1,10 +1,13 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -65,17 +68,18 @@ public class BuildWallFragment extends Fragment {
 
         // Inflate the layout for this fragment
         binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
-        attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
-        attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
-        attachEditFieldListener(binding.editTextHeight);
-        attachEditFieldListener(binding.editTextWidth);
-        attachEditFieldListener(binding.editTextNote);
-
         binding.editTextHeight.setTag("editTextHeight");
         binding.editTextWidth.setTag("editTextWidth");
         binding.editTextNote.setTag("editTextNote");
         binding.seekBarWidth.setTag("seekBarWidth");
         binding.seekBarHeight.setTag("seekBarHeight");
+        attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
+        attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
+        attachEditFieldListener(binding.editTextHeight);
+        attachEditFieldListener(binding.editTextWidth);
+       attachEditFieldListener(binding.editTextNote);
+
+
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
         binding.doneButton.setOnClickListener(event -> displayBasketFragment());
@@ -105,10 +109,12 @@ public class BuildWallFragment extends Fragment {
         expandableListView.setAdapter(expandableListAdapter);
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-            model.addAdditionToWall(
-                    additions.get(
-                            expandableListTitle.get(groupPosition))
-                            .get(childPosition));
+
+                model.addAdditionToWall(
+                        additions.get(
+                                expandableListTitle.get(groupPosition))
+                                .get(childPosition));
+
             return false;
         });
     }
@@ -116,22 +122,47 @@ public class BuildWallFragment extends Fragment {
     public void addWallToBasket() {
 
         model.addToBasket(model.getCurrentWall().getValue());
-
     }
 
     private void attachEditFieldListener(EditText inputField) {
-        inputField.setOnFocusChangeListener((v, hasFocus) -> {
-            if (updatingFields || inputField.getText().toString().length() == 0) {
-                return;
-            }
-            String tag = inputField.getTag().toString();
-            switch (tag) {
-                case "editTextHeight": model.setCurrentWallHeight(parseDouble(inputField.getText().toString())); break;
-                case "editTextWidth": model.setCurrentWallWidth(parseDouble(inputField.getText().toString())); break;
-                case "editTextNote": model.setCurrentWallNote(inputField.getText().toString()); break;
-                default: break;
-            }
-        });
+
+        if (!inputField.getTag().equals("editTextNote")) {
+            inputField.setOnFocusChangeListener((v, hasFocus) -> {
+                if (updatingFields || inputField.getText().toString().length() == 0) {
+                    return;
+                }
+                String tag = inputField.getTag().toString();
+                switch (tag) {
+                    case "editTextHeight":
+                        model.setCurrentWallHeight(parseDouble(inputField.getText().toString()));
+                        break;
+                    case "editTextWidth":
+                        model.setCurrentWallWidth(parseDouble(inputField.getText().toString()));
+                        break;
+                    default:
+                        break;
+                }
+            });
+        } else {
+            inputField.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (!updatingFields) {
+                        model.setCurrentWallNote(s.toString());
+                    }
+                }
+            });
+        }
     }
 
     private void attachSeekBarListener(SeekBar seekBar, TextView seekBarTextField) {
