@@ -22,12 +22,15 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.newyorkerdk.R;
+import com.example.newyorkerdk.UI.adapters.RecyclerViewAdapter;
 import com.example.newyorkerdk.databinding.FragmentBasketBinding;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Mike
  * Benyt {@link BasketFragment#newInstance} factory metode til
@@ -73,8 +76,9 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         binding.button2.setOnClickListener(v -> displayContactUsFragment());
         binding.clear.setOnClickListener(v -> clearWallsFromBasket());
         model.getBasket().observe(requireActivity(), basketUpdateObserver);
-        model.getBasketTotalPrice().observe(requireActivity(), totalPrice -> binding.
-                totalPriceTextView.setText(getString(R.string.total_price, totalPrice)));
+        model.getBasketTotalPrice().observe(requireActivity(), totalPrice -> {
+            binding.totalPriceTextView.setText(getString(R.string.total_price, totalPrice));
+        });
 
 
         return binding.getRoot();
@@ -125,7 +129,13 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
     @Override
     public void onClick(int position, String tag) {
         if (tag.equals("wallItem")) {
-            displayBuildWallFragmentEdit(model.getBasket().getValue().getListOfWalls().get(position));
+            Basket basket = model.getBasket().getValue();
+
+            if (basket != null) {
+                List<Wall> listOfwalls = basket.getListOfWalls();
+                Wall wall = listOfwalls.get(position);
+                displayBuildWallFragmentEdit(wall);
+            }
         }
 
         if (tag.equals("delete")) {
