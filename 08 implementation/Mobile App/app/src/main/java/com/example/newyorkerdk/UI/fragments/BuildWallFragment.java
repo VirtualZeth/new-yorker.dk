@@ -1,22 +1,32 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.newyorkerdk.R;
+import com.example.newyorkerdk.UI.adapters.AdditionsExpandableListAdapter;
 import com.example.newyorkerdk.databinding.FragmentBuildWallBinding;
+import com.example.newyorkerdk.entities.Addition;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
@@ -31,6 +41,10 @@ public class BuildWallFragment extends Fragment {
     private SharedViewModel model;
     private boolean updatingFields;
 
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private List<String> expandableListTitle;
+    private HashMap<String, ArrayList<Addition>> expandableListDetail;
 
     public BuildWallFragment() {
         // Required empty public constructor
@@ -44,11 +58,13 @@ public class BuildWallFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         updatingFields = false;
+        
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
@@ -65,18 +81,36 @@ public class BuildWallFragment extends Fragment {
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
         binding.doneButton.setOnClickListener(event -> displayBasketFragment());
-
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
+        new ViewModelProvider.NewInstanceFactory().create(SharedViewModel.class);
         model.getCurrentWall().observe(requireActivity(), this::fillFieldsWithWallData);
         model.getPriceEstimate().observe(requireActivity(), priceEstimate ->
-                binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)
-                ));
+                binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
+        model.getAdditions().observe(requireActivity(), this::buildAdditions);
+
         return binding.getRoot();
+    }
+
+    private void buildAdditions(HashMap<String, ArrayList<Addition>> additions) {
+        Log.d("expand", "inside build additions");
+        expandableListView = binding.expandableListView;
+        expandableListTitle = new ArrayList<>(additions.keySet());
+        expandableListAdapter = new AdditionsExpandableListAdapter(requireActivity(), expandableListTitle, additions);
+        expandableListView.setAdapter(expandableListAdapter);
+
+        expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            model.addAdditionToWall(
+                    additions.get(
+                            expandableListTitle.get(groupPosition))
+                            .get(childPosition));
+            return false;
+        });
     }
 
     public void addWallToBasket() {
 
         model.addToBasket(model.getCurrentWall().getValue());
+
     }
 
     private void attachEditFieldListener(EditText inputField) {

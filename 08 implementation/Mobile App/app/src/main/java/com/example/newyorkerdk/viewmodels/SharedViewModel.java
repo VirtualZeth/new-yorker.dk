@@ -1,15 +1,31 @@
 package com.example.newyorkerdk.viewmodels;
+import android.os.Build;
+import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.newyorkerdk.data.FireStoreDB;
+import com.example.newyorkerdk.entities.Addition;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
 
+/**
  * Denne klasse er ansvarlig for at holde på relevant data der enten skal vises,
  * eller benyttes i {@link com.example.newyorkerdk.UI.fragments.BuildWallFragment},
  * {@link com.example.newyorkerdk.UI.fragments.BasketFragment},
@@ -18,14 +34,32 @@ import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
  */
 public class SharedViewModel extends ViewModel {
 
-    private final PriceEstimator priceEstimator = new PriceEstimator();
+    private PriceEstimator priceEstimator = new PriceEstimator();
+    private final FireStoreDB fireStoreDB = FireStoreDB.getInstance();
     private int wallCount = 1;
     private MutableLiveData<String> mutablePriceEstimate;
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
+    private MutableLiveData<HashMap<String, ArrayList<Addition>>> mutableHashMapOfAdditions;
+
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public SharedViewModel() {
-        super();
+        setAdditionssData();
+        setProductsData();
+    }
+
+    private void reinitializePriceEstimator(Map<String, Double> productPriceList) {
+        if (priceEstimator == null) {
+            priceEstimator = new PriceEstimator();
+            priceEstimator.setPriceList(productPriceList);
+            Log.d("viewmodel", productPriceList.toString());
+            return;
+        }
+        Log.d("viewmodel", productPriceList.toString());
+
+        priceEstimator.setPriceList(productPriceList);
     }
 
     public LiveData<String> getPriceEstimate() {
@@ -76,7 +110,6 @@ public class SharedViewModel extends ViewModel {
         newWall.setNumberOfGlassFieldsHeight(4);
         newWall.setNumberOfGlassFieldsWidth(5);
         setCurrentWall(newWall);
-        calculatePriceEstimate();
     }
 
     public void setCurrentWall(Wall wall) {
@@ -185,5 +218,71 @@ public class SharedViewModel extends ViewModel {
     public void clearWallsFromBasket() {
         mutableBasket.setValue(new Basket());
         calculateBasketTotalPrice();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void setAdditionssData() {
+        FirebaseFirestore database = fireStoreDB.getDatabase();
+        CollectionReference colRef = database.collection("products");
+        colRef.whereNotEqualTo("category", "Nødvendige").get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot collection = task.getResult();
+                if (collection != null) {
+                    List<DocumentSnapshot> documents = collection.getDocuments();
+                    HashMap<String, ArrayList<Addition>> additions = new HashMap<>();
+
+                    for (DocumentSnapshot documentSnapshot:documents) {
+
+                        additions.computeIfAbsent(documentSnapshot.getString("category"), document
+                                -> new ArrayList<>()).add(documentSnapshot.toObject(Addition.class));
+                    }
+
+                    if (mutableHashMapOfAdditions == null) {
+                        mutableHashMapOfAdditions = new MutableLiveData<>();
+                    }
+                    mutableHashMapOfAdditions.setValue(additions);
+                }
+            } else {
+                Log.d("eq", "get failed with ", task.getException());
+            }
+        });
+    }
+
+    private void setProductsData() {
+        FirebaseFirestore database = fireStoreDB.getDatabase();
+        CollectionReference colRef = database.collection("products");
+        colRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                QuerySnapshot collection = task.getResult();
+                if (collection != null) {
+                    List<DocumentSnapshot> documents = collection.getDocuments();
+                    HashMap<String, Double> productPrices = new HashMap<>();
+                    for (DocumentSnapshot documentSnapshot:documents) {
+                        productPrices.put(documentSnapshot.getString("name"),
+                                Double.valueOf(Objects.requireNonNull(documentSnapshot.getString("price"))));
+                    }
+                    reinitializePriceEstimator(productPrices);
+                }
+            } else {
+                Log.d("eq", "get failed with ", task.getException());
+            }
+        });
+    }
+
+    public LiveData<HashMap<String, ArrayList<Addition>>> getAdditions() {
+
+        if (mutableHashMapOfAdditions == null) {
+            mutableHashMapOfAdditions = new MutableLiveData<>();
+        }
+
+        return mutableHashMapOfAdditions;
+    }
+
+    public void addAdditionToWall(Addition addition) {
+        if (mutableCurrentWall.getValue() != null) {
+            Wall wall = mutableCurrentWall.getValue();
+            wall.getListOfAdditions().add(addition);
+            setCurrentWall(wall);
+        }
     }
 }

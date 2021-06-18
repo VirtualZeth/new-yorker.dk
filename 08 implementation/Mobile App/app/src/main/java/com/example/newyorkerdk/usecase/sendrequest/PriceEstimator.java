@@ -1,6 +1,13 @@
 package com.example.newyorkerdk.usecase.sendrequest;
+
+import android.util.Log;
+
+import com.example.newyorkerdk.entities.Addition;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Ansvarlig for at beregne en prisvurdering på en
@@ -9,16 +16,22 @@ import com.example.newyorkerdk.entities.Wall;
  */
 public class PriceEstimator {
 
-
-    private static final Double GLASS_FIELD_PRICE = 985d;
-    private static final Double GLASS_FIELD_SIZE_ADDITION = 485d;
     private static final Double DELIVERY_PRICE = 800d;
+    private Map<String, Double> prices = new HashMap<>();
 
+    public PriceEstimator() {
+        prices.put("Glasfelt", 100d);
+        prices.put("extra", 1000d);
+    }
 
+    public void setPriceList(Map<String, Double> prices) {
+        this.prices = prices;
+    }
 
     public double calculateFieldHeight(Wall wall) {
 
         Double wallHeight = wall.getHeight();
+
         Integer amountOfPanelsHeight = wall.getNumberOfGlassFieldsHeight();
 
         return wallHeight / amountOfPanelsHeight;
@@ -43,14 +56,25 @@ public class PriceEstimator {
 
     public String calculatePriceEstimate(Wall wall) {
 
-        double fieldPrice = GLASS_FIELD_PRICE;
-        if (calculateFieldArea(calculateFieldHeight(wall), calculateFieldWidth(wall)) > 5000) {
-            fieldPrice += GLASS_FIELD_SIZE_ADDITION;
-        }
+        double fieldPrice = prices.get("Glasfelt");
 
-        return String.valueOf(calculateAmountOfFields(wall) * fieldPrice + DELIVERY_PRICE);
+        if (calculateFieldArea(calculateFieldHeight(wall), calculateFieldWidth(wall)) > 5000) {
+            fieldPrice += 500d;
+        }
+        Double additionsTotal = calculateAdditionTotal(wall);
+
+        return String.valueOf(calculateAmountOfFields(wall) * fieldPrice + additionsTotal +  DELIVERY_PRICE) ;
     }
 
+    public Double calculateAdditionTotal(Wall wall) {
+        Double sum = 0d;
+        for (Addition addition:wall.getListOfAdditions()
+             ) {
+            sum += addition.getPrice();
+        }
+
+        return sum;
+    }
 
     public Double calculateBasketTotal(Basket basket) {
 

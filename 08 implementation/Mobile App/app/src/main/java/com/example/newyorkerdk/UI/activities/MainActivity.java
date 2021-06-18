@@ -1,10 +1,14 @@
 package com.example.newyorkerdk.UI.activities;
 
+import androidx.annotation.RequiresApi;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+
+import android.os.Build;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,7 +28,9 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
-    
+    SharedViewModel model;
+    @RequiresApi(api = Build.VERSION_CODES.N)
+
 
 
     @Override
@@ -34,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        model = new ViewModelProvider(this).get(SharedViewModel.class);
 
 
         SharedViewModel model = new ViewModelProvider(this).get(SharedViewModel.class);
@@ -50,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
 
     private void displayMainScreenFragment() {
         MainFragment mainFragment = MainFragment.newInstance();
