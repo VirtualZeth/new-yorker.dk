@@ -94,8 +94,8 @@ public class BuildWallFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         model.getCurrentWall().removeObservers(requireActivity());
         model.getPriceEstimate().removeObservers(requireActivity());
         model.getAdditions().removeObservers(requireActivity());
