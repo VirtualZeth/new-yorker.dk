@@ -1,4 +1,4 @@
-package com.example.newyorkerdk.UI.fragments;
+package com.example.newyorkerdk.UI.adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.newyorkerdk.R;
+import com.example.newyorkerdk.UI.fragments.BasketFragment;
 import com.example.newyorkerdk.entities.Wall;
 import java.util.ArrayList;
 

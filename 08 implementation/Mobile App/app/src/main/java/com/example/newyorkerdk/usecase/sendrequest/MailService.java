@@ -14,6 +14,7 @@ import com.example.newyorkerdk.entities.Request;
 
 public class MailService {
 
+
     public void sendMail(Context context, Request request) {
 
         ContactForm contactForm = request.getContactForm();

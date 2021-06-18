@@ -32,17 +32,15 @@ import java.util.Objects;
  * @author Mike
  */
 public class SharedViewModel extends ViewModel {
+
     private PriceEstimator priceEstimator = new PriceEstimator();
-    private FireStoreDB fireStoreDB = FireStoreDB.getInstance();
+    private final FireStoreDB fireStoreDB = FireStoreDB.getInstance();
     private int wallCount = 1;
     private MutableLiveData<String> mutablePriceEstimate;
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
-    private MutableLiveData<ArrayList<String>> mutableCategories;
     private MutableLiveData<HashMap<String, ArrayList<Addition>>> mutableHashMapOfAdditions;
-    private MutableLiveData<HashMap<String, Double>> mutableProductsPriceData;
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -69,15 +67,6 @@ public class SharedViewModel extends ViewModel {
             mutablePriceEstimate = new MutableLiveData<>();
         }
         return mutablePriceEstimate;
-    }
-
-    public LiveData<ArrayList<String>> getCategories() {
-        if (mutableCategories == null) {
-            mutableCategories = new MutableLiveData<>();
-            mutableCategories.setValue(new ArrayList<>());
-        }
-
-        return mutableCategories;
     }
 
     public LiveData<Basket> getBasket() {
@@ -226,11 +215,6 @@ public class SharedViewModel extends ViewModel {
         }
     }
 
-    public void clearBasket() {
-        mutableBasket.setValue(new Basket());
-        calculateBasketTotalPrice();
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void setAdditionssData() {
         FirebaseFirestore database = fireStoreDB.getDatabase();
@@ -240,7 +224,7 @@ public class SharedViewModel extends ViewModel {
                 QuerySnapshot collection = task.getResult();
                 if (collection != null) {
                     List<DocumentSnapshot> documents = collection.getDocuments();
-                    HashMap<String, List<Addition>> additions = new HashMap<>();
+                    HashMap<String, ArrayList<Addition>> additions = new HashMap<>();
 
                     for (DocumentSnapshot documentSnapshot:documents) {
 
@@ -248,7 +232,10 @@ public class SharedViewModel extends ViewModel {
                                 -> new ArrayList<>()).add(documentSnapshot.toObject(Addition.class));
                     }
 
-                    Log.d("addition", additions.get("Paneler").get(0).getName());
+                    if (mutableHashMapOfAdditions == null) {
+                        mutableHashMapOfAdditions = new MutableLiveData<>();
+                    }
+                    mutableHashMapOfAdditions.setValue(additions);
                 }
             } else {
                 Log.d("eq", "get failed with ", task.getException());
@@ -284,5 +271,13 @@ public class SharedViewModel extends ViewModel {
         }
 
         return mutableHashMapOfAdditions;
+    }
+
+    public void addAdditionToWall(Addition addition) {
+        if (mutableCurrentWall.getValue() != null) {
+            Wall wall = mutableCurrentWall.getValue();
+            wall.getListOfAdditions().add(addition);
+            setCurrentWall(wall);
+        }
     }
 }
