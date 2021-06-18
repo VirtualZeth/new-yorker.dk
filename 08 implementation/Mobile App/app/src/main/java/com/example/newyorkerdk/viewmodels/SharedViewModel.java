@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
 
 /**
  * Denne klasse er ansvarlig for at holde på relevant data der enten skal vises,
@@ -213,6 +214,10 @@ public class SharedViewModel extends ViewModel {
             mutableBasket.setValue(basket);
             calculateBasketTotalPrice();
         }
+    }
+    public void clearWallsFromBasket() {
+        mutableBasket.setValue(new Basket());
+        calculateBasketTotalPrice();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
