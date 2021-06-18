@@ -182,4 +182,8 @@ public class SharedViewModel extends ViewModel {
             calculateBasketTotalPrice();
         }
     }
+    public void clearWallsFromBasket() {
+        mutableBasket.setValue(new Basket());
+        calculateBasketTotalPrice();
+    }
 }
