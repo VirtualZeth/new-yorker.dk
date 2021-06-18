@@ -1,9 +1,11 @@
 package com.example.newyorkerdk.UI.fragments;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -81,7 +83,17 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
     }
 
     private void clearWallsFromBasket() {
-        model.clearWallsFromBasket();
+        new AlertDialog.Builder(getContext())
+                .setTitle("Slet kurv")
+                .setMessage("Er du sikker på at du vil slette kurven?")
+                .setPositiveButton("Slet", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        model.clearWallsFromBasket();                    }
+                })
+
+                .setNegativeButton("Annuller", null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
     Observer<Basket> basketUpdateObserver = walls -> {
