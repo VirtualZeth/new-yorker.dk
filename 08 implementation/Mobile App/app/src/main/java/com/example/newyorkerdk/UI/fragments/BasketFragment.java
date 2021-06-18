@@ -14,9 +14,12 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.renderscript.ScriptGroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.databinding.FragmentBasketBinding;
@@ -36,6 +39,7 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
     RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView recyclerView;
     FragmentBasketBinding binding;
+    ArrayList<Wall> wallArrayList;
 
     public BasketFragment() {
         // Required empty public constructor
@@ -56,7 +60,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         assert horizontalDivider != null;
         horizontalDecoration.setDrawable(horizontalDivider);
         recyclerView.addItemDecoration(horizontalDecoration);
-
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
@@ -68,11 +71,17 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
 
         binding.button.setOnClickListener(v -> displayBuildWallFragmentNewWall());
         binding.button2.setOnClickListener(v -> displayContactUsFragment());
-        model.getBasket().observe(requireActivity(), basketUpdateObserver );
+        binding.clear.setOnClickListener(v -> clearWallsFromBasket());
+        model.getBasket().observe(requireActivity(), basketUpdateObserver);
         model.getBasketTotalPrice().observe(requireActivity(), totalPrice -> binding.
                 totalPriceTextView.setText(getString(R.string.total_price, totalPrice)));
 
+
         return binding.getRoot();
+    }
+
+    private void clearWallsFromBasket() {
+        model.clearWallsFromBasket();
     }
 
     Observer<Basket> basketUpdateObserver = walls -> {
@@ -123,4 +132,5 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
             model.removeFromBasket(position);
         }
     }
+
 }

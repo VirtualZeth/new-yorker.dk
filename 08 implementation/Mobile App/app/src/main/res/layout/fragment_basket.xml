@@ -46,6 +46,18 @@
         app:layout_constraintStart_toEndOf="@+id/button"
         tools:ignore="OnClick" />
 
+    <Button
+        android:id="@+id/clear"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="304dp"
+        android:layout_marginBottom="108dp"
+        android:background="#F44336"
+        android:text="@string/slet_alt"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="OnClick" />
+
     <TextView
         android:id="@+id/totalPriceTextView"
         android:layout_width="wrap_content"
