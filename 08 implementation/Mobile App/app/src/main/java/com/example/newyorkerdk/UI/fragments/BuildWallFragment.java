@@ -44,7 +44,6 @@ public class BuildWallFragment extends Fragment {
     private ExpandableListView expandableListView;
     private ExpandableListAdapter expandableListAdapter;
     private List<String> expandableListTitle;
-    private HashMap<String, ArrayList<Addition>> expandableListDetail;
 
     public BuildWallFragment() {
         // Required empty public constructor
@@ -58,7 +57,6 @@ public class BuildWallFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         updatingFields = false;
-        
     }
 
     @Override
@@ -89,6 +87,14 @@ public class BuildWallFragment extends Fragment {
         model.getAdditions().observe(requireActivity(), this::buildAdditions);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        model.getCurrentWall().removeObservers(this);
+        model.getPriceEstimate().removeObservers(this);
+        model.getAdditions().removeObservers(this);
     }
 
     private void buildAdditions(HashMap<String, ArrayList<Addition>> additions) {
