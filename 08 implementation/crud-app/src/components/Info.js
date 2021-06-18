@@ -38,20 +38,23 @@ const Info = ({ setAlert }) => {
       });
   };
   return (
-    <Form onSubmit={(e) => onSubmit(e)}>
-      <Form.Group>
+    <Form className="card p-3" onSubmit={(e) => onSubmit(e)}>
+      <h3>Information</h3>
+      <Form.Group className="my-2">
         <Form.Label>Email</Form.Label>
         <Form.Control name="email" value={formData.email} onChange={(e) => onChange(e)} />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className="my-2">
         <Form.Label>Hjemmesidekatalog</Form.Label>
         <Form.Control name="website" value={formData.website} onChange={(e) => onChange(e)} />
       </Form.Group>
-      <Form.Group>
+      <Form.Group className="my-2">
         <Form.Label>Telefonnummer</Form.Label>
         <Form.Control name="phone" value={formData.phone} onChange={(e) => onChange(e)} />
       </Form.Group>
-      <Button type="submit">Ændre</Button>
+      <Button className="mt-2" type="submit">
+        Ændre
+      </Button>
     </Form>
   );
 };
