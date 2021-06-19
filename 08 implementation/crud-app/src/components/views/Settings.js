@@ -5,7 +5,7 @@ import firebase from "../../firebase";
 import { setIsAuth } from "../../actions/auth";
 import Info from "../Info";
 import Toolbar from "../Toolbar/Toolbar";
-import Supplier from "../Supplier";
+import Dealers from "../Dealers";
 
 const Settings = ({ auth, setIsAuth }) => {
   const { isAuth } = auth;
@@ -25,7 +25,7 @@ const Settings = ({ auth, setIsAuth }) => {
           <Info />
         </div>
         <div className="col">
-          <Supplier />
+          <Dealers />
         </div>
       </div>
     </div>
