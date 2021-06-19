@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import firebase from "../firebase";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
@@ -13,9 +14,21 @@ const Dealers = () => {
     phone: "",
   });
 
+  useEffect(() => {
+    const close = firebase
+      .firestore()
+      .collection("dealers")
+      .onSnapshot((querySnapshot) => {
+        const items = [];
+        querySnapshot.forEach((doc) => items.push(doc.data()));
+        setDealers({ ...dealers, list: items });
+      });
+    return close;
+  }, [dealers]);
+
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const deleteDealer = () => {};
+  const deleteDealer = (id) => {};
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -24,8 +37,15 @@ const Dealers = () => {
   return (
     <Form className="card p-3" onSubmit={(e) => onSubmit(e)}>
       <h3>Forhandlere</h3>
-      <Form.Group>
-        <select></select>
+      <Form.Group className="my-2">
+        <div className="row px-2">
+          <select className="form-select col mx-1">
+            {dealers.list.map((e) => (
+              <option>{e.name}</option>
+            ))}
+          </select>
+          <Button className="col-1 mx-1">+</Button>
+        </div>
       </Form.Group>
       <Form.Group className="my-2">
         <Form.Label>Navn</Form.Label>
