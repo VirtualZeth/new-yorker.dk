@@ -44,8 +44,11 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
     RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView recyclerView;
     FragmentBasketBinding binding;
-    ArrayList<Wall> wallArrayList;
 
+    Observer<Basket> basketUpdateObserver = walls -> {
+        recyclerViewAdapter = new RecyclerViewAdapter(requireActivity(), (ArrayList<Wall>) walls.getListOfWalls(), this);
+        recyclerView.setAdapter(recyclerViewAdapter);
+    };
     public BasketFragment() {
         // Required empty public constructor
     }
@@ -82,19 +85,18 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
             binding.totalPriceTextView.setText(getString(R.string.total_price, totalPrice));
         });
 
-
         return binding.getRoot();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        model.getBasket().removeObservers(this);
-        model.getBasketTotalPrice().removeObservers(this);
+    public void onDestroy() {
+        super.onDestroy();
+        model.getBasket().removeObservers(requireActivity());
+        model.getBasketTotalPrice().removeObservers(requireActivity());
     }
 
     private void clearWallsFromBasket() {
-        new AlertDialog.Builder(getContext())
+        new AlertDialog.Builder(requireContext())
                 .setTitle("Slet kurv")
                 .setMessage("Er du sikker på at du vil slette kurven?")
                 .setPositiveButton("Slet", new DialogInterface.OnClickListener() {
@@ -107,10 +109,7 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
                 .show();
     }
 
-    Observer<Basket> basketUpdateObserver = walls -> {
-        recyclerViewAdapter = new RecyclerViewAdapter(requireActivity(), (ArrayList<Wall>) walls.getListOfWalls(), this);
-        recyclerView.setAdapter(recyclerViewAdapter);
-    };
+
 
 
     public void displayContactUsFragment() {

@@ -94,11 +94,11 @@ public class BuildWallFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
-        model.getCurrentWall().removeObservers(this);
-        model.getPriceEstimate().removeObservers(this);
-        model.getAdditions().removeObservers(this);
+    public void onDestroy() {
+        super.onDestroy();
+        model.getCurrentWall().removeObservers(requireActivity());
+        model.getPriceEstimate().removeObservers(requireActivity());
+        model.getAdditions().removeObservers(requireActivity());
     }
 
     private void buildAdditions(HashMap<String, ArrayList<Addition>> additions) {
