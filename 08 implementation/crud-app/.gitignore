@@ -22,5 +22,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-#environment variables
+# environment variables
 .env
+
+# firebase
+*.firebase
+*.firebaserc
+firebase.json

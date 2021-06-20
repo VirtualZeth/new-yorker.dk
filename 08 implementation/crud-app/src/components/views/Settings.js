@@ -2,13 +2,12 @@ import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import firebase from "../../firebase";
-import "firebase/auth";
 import { setIsAuth } from "../../actions/auth";
-import PropTypes from "prop-types";
-import Table from "../Table";
+import Info from "../Info";
 import Toolbar from "../Toolbar/Toolbar";
+import Dealers from "../Dealers";
 
-const Dashboard = ({ auth, setIsAuth }) => {
+const Settings = ({ auth, setIsAuth }) => {
   const { isAuth } = auth;
   useEffect(() => {
     const close = firebase.auth().onAuthStateChanged((user) => {
@@ -18,18 +17,21 @@ const Dashboard = ({ auth, setIsAuth }) => {
     return close;
   }, [isAuth, setIsAuth]);
 
-  return auth.isAuth ? (
+  return isAuth ? (
     <div className="container">
-      <Toolbar view="Dashboard" />
-      <Table />
+      <Toolbar view="Settings" />
+      <div className="row">
+        <div className="col">
+          <Info />
+        </div>
+        <div className="col">
+          <Dealers />
+        </div>
+      </div>
     </div>
   ) : (
     <Redirect to="/" />
   );
-};
-
-Dashboard.propTypes = {
-  auth: PropTypes.object.isRequired,
 };
 
 export default connect(
@@ -37,4 +39,4 @@ export default connect(
     auth: state.auth,
   }),
   { setIsAuth }
-)(Dashboard);
+)(Settings);

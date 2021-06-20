@@ -146,7 +146,7 @@ const Table = ({ category, setDeleteModal }) => {
       );
   };
   return (
-    <div className="card container">
+    <div className="card p-3">
       <DeleteModal />
       <table className="table">
         <thead>
