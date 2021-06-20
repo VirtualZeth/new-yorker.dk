@@ -39,11 +39,11 @@ const DashboardTool = ({ btn2, setAddProductModalShow, setCategoryModalShow, cat
           </Dropdown.Item>
         ))}
       </DropdownButton>
-      <button onClick={() => setCategoryModalShow(true)} className={btn2}>
-        Rediger kategorier
-      </button>
-      <button onClick={() => setAddProductModalShow(true)} className={`${btn2} me-auto`}>
+      <button onClick={() => setAddProductModalShow(true)} className={btn2}>
         Tilføj vare
+      </button>
+      <button onClick={() => setCategoryModalShow(true)} className={`${btn2} me-auto`}>
+        Rediger kategorier
       </button>
     </Fragment>
   );

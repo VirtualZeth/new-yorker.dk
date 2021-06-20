@@ -62,21 +62,21 @@ const CategoryModal = ({ modals, setCategoryModalShow, categories, setAlert }) =
       onHide={() => setCategoryModalShow(false)}
     >
       <Modal.Body>
-        <Form>
+        <Form className="p-2">
           <Row className="mb-3">
-            <Form.Group as={Col} className="col col-3">
-              <Form.Label>Kategorinavn</Form.Label>
+            <Form.Group as={Col} className="col col-4 mx-5">
+              <h4>Tilføj Kategori</h4>
               <Form.Control
                 name="name"
                 value={addCategoryName}
                 onChange={(e) => {
                   onChange(e);
                 }}
-                placeholder="Navn"
+                placeholder="Kategorinavn"
               />
             </Form.Group>
-            <Form.Group as={Col} className="col col-3">
-              <Form.Label>Vælg kategori</Form.Label>
+            <Form.Group as={Col} className="col col-4 mx-5">
+              <h4>Slet Kategori</h4>
               <select onChange={(e) => setSelectedCategoryName(e.target.value)} className="form-select">
                 <option>{selectDefault}</option>
                 {categories
@@ -90,10 +90,10 @@ const CategoryModal = ({ modals, setCategoryModalShow, categories, setAlert }) =
             </Form.Group>
           </Row>
           <Row>
-            <Form.Group as={Col} className="col col-3">
+            <Form.Group as={Col} className="col col-4 mx-5">
               <Button onClick={addCategory}>Tilføj kategori</Button>
             </Form.Group>
-            <Form.Group as={Col} className="col col-3">
+            <Form.Group as={Col} className="col col-4 mx-5">
               <Button onClick={deleteCategory} className="btn-danger">
                 Slet kategori
               </Button>
