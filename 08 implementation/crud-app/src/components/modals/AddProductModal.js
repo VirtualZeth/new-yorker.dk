@@ -28,7 +28,7 @@ const AddProductModal = ({ modals, setAddProductModalShow, categories, setAlert 
         .firestore()
         .collection("products")
         .add(productData)
-        .then((e) => {
+        .then(() => {
           setAlert("success", `${productData.name} tilføjet`, true);
         })
         .catch((error) => {
@@ -44,13 +44,7 @@ const AddProductModal = ({ modals, setAddProductModalShow, categories, setAlert 
   };
 
   return (
-    <Modal
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-      show={addProductModalShow}
-      onHide={() => setAddProductModalShow(false)}
-    >
+    <Modal size="lg" centered show={addProductModalShow} onHide={() => setAddProductModalShow(false)}>
       <Modal.Body>
         <Form>
           <Row className="mb-3">
