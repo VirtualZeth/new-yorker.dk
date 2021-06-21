@@ -7,7 +7,7 @@ import java.util.List;
  * @author Mike
  */
 public class Wall {
-
+    private static int wallCount = 1;
     private static final Double MAX_WALL_HEIGHT = 250d;
     private static final Double MIN_WALL_HEIGHT = 10d;
     private static final Double MAX_FIELD_HEIGHT = 60d;
@@ -20,6 +20,10 @@ public class Wall {
     private int numberOfGlassFieldsWidth;
     private List<Addition> listOfAdditions = new ArrayList<>();
     private double price;
+
+    public Wall() {
+        this.name = "Wall " + wallCount++;
+    }
 
     public double getPrice() {
         return price;

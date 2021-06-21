@@ -36,7 +36,6 @@ public class SharedViewModel extends ViewModel {
 
     private PriceEstimator priceEstimator = new PriceEstimator();
     private final FireStoreDB fireStoreDB = FireStoreDB.getInstance();
-    private int wallCount = 1;
     private MutableLiveData<String> mutablePriceEstimate;
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
@@ -103,8 +102,6 @@ public class SharedViewModel extends ViewModel {
         }
 
         Wall newWall = new Wall();
-        newWall.setName("Wall " + wallCount);
-        wallCount++;
         newWall.setWidth(175);
         newWall.setHeight(150);
         newWall.setNumberOfGlassFieldsHeight(4);
@@ -279,7 +276,28 @@ public class SharedViewModel extends ViewModel {
         return mutableHashMapOfAdditions;
     }
 
-    public void addAdditionToWall(Addition addition) {
+    public void toggleAddition(Addition addition) {
+        Wall wall = mutableCurrentWall.getValue();
+
+        if (wall == null) return;
+        if (wall.getListOfAdditions().contains(addition)) {
+            removeAdditionFromWall(addition);
+        } else {
+            addAdditionToWall(addition);
+        }
+
+    }
+
+    private void removeAdditionFromWall(Addition addition) {
+        if (mutableCurrentWall.getValue() != null) {
+            Wall wall = mutableCurrentWall.getValue();
+            wall.getListOfAdditions().remove(addition);
+            setCurrentWall(wall);
+        }
+    }
+
+    private void addAdditionToWall(Addition addition) {
+
         if (mutableCurrentWall.getValue() != null) {
             Wall wall = mutableCurrentWall.getValue();
             wall.getListOfAdditions().add(addition);
