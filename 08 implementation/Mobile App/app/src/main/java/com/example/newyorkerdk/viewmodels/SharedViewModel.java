@@ -276,28 +276,7 @@ public class SharedViewModel extends ViewModel {
         return mutableHashMapOfAdditions;
     }
 
-    public void toggleAddition(Addition addition) {
-        Wall wall = mutableCurrentWall.getValue();
-
-        if (wall == null) return;
-        if (wall.getListOfAdditions().contains(addition)) {
-            removeAdditionFromWall(addition);
-        } else {
-            addAdditionToWall(addition);
-        }
-
-    }
-
-    private void removeAdditionFromWall(Addition addition) {
-        if (mutableCurrentWall.getValue() != null) {
-            Wall wall = mutableCurrentWall.getValue();
-            wall.getListOfAdditions().remove(addition);
-            setCurrentWall(wall);
-        }
-    }
-
-    private void addAdditionToWall(Addition addition) {
-
+    public void addAdditionToWall(Addition addition) {
         if (mutableCurrentWall.getValue() != null) {
             Wall wall = mutableCurrentWall.getValue();
             wall.getListOfAdditions().add(addition);
