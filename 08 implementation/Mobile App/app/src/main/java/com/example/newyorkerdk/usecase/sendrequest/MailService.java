@@ -17,12 +17,14 @@ public class MailService {
     public void sendMail(Context context, Request request) {
 
         ContactForm contactForm = request.getContactForm();
+        Basket basket = request.getBasket();
+        String mail = MailCredentials.getEMAIL();
 
-        String mail = MailCredentials.getNewYorkerMail();
         String subject = "Forespørgsel fra: " + contactForm.getName();
         String message = "Kontakt oplysninger:\n" + contactForm.getName() + "\n" +
                 contactForm.getEmail() + "\n" + contactForm.getPhonenumber() + "\n" + contactForm.getCity() +
-                "\nValgte leverandør: \n" + contactForm.getSupplier() + "\n" + "\nBesked fra kunden: \n" + contactForm.getNote();
+                "\nValgt leverandør: " + contactForm.getSupplier() + "\n" + "\nBesked fra kunden: \n" + contactForm.getNote() + '\n' +
+                "Forespørgelsen indeholder følgende vægge:\n" + basket ;
 
         JavaMailAPI javaMailAPI = new JavaMailAPI(context , mail , subject , message );
         javaMailAPI.execute();
