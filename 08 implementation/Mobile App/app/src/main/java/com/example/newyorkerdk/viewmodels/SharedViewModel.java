@@ -53,10 +53,8 @@ public class SharedViewModel extends ViewModel {
         if (priceEstimator == null) {
             priceEstimator = new PriceEstimator();
             priceEstimator.setPriceList(productPriceList);
-            Log.d("viewmodel", productPriceList.toString());
             return;
         }
-        Log.d("viewmodel", productPriceList.toString());
 
         priceEstimator.setPriceList(productPriceList);
     }
