@@ -51,10 +51,9 @@
         android:layout_width="90dp"
         android:layout_height="40dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="40dp"
         android:background="#F44336"
         android:text="@string/slet_alt"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/totalPriceTextView"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="OnClick" />
 
@@ -63,17 +62,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginBottom="56dp"
         android:text="@string/total"
-        android:textSize="26dp"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toEndOf="@+id/textView" />
+        android:textSize="26dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        android:layout_width="409dp"
-        android:layout_height="399dp"
+        android:layout_width="match_parent"
+        android:layout_height="375dp"
+        android:layout_marginTop="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -83,12 +85,14 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="36dp"
         android:text="Total:"
         android:textColor="@color/black"
         android:textSize="26dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
