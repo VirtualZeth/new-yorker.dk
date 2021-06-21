@@ -18,4 +18,15 @@ public class Basket {
     public List<Wall> getListOfWalls() {
         return listOfWalls;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder wallInformation = new StringBuilder();
+
+        for (Wall wall: listOfWalls) {
+            wallInformation.append(wall);
+        }
+
+        return wallInformation.toString();
+    }
 }

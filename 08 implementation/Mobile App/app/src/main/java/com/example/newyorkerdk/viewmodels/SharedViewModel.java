@@ -116,7 +116,6 @@ public class SharedViewModel extends ViewModel {
         if (mutableCurrentWall == null) {
             mutableCurrentWall = new MutableLiveData<>();
         }
-
         Wall newWall = Wall.getWall();
         setCurrentWall(newWall);
         setSuggestedFieldsHeight();
