@@ -95,20 +95,24 @@ public class Wall {
         return listOfAdditions;
     }
 
-    public void setListOfAdditions(List<Addition> listOfAdditions) {
-        this.listOfAdditions = listOfAdditions;
-    }
-
     @Override
     public String toString() {
-        return "Wall{" +
-                "name='" + name + '\'' +
-                ", height=" + height +
-                ", width=" + width +
-                ", numberOfGlassFieldsHeight=" + numberOfGlassFieldsHeight +
-                ", numberOfGlassFieldsWidth=" + numberOfGlassFieldsWidth +
-                ", listOfAdditions=" + listOfAdditions +
-                ", price=" + price +
-                '}';
+
+        StringBuilder additionsInformation = new StringBuilder();
+        if (listOfAdditions.isEmpty()) {
+            additionsInformation.append("Ingen.");
+        } else {
+            for (Addition addition: this.getListOfAdditions()) {
+                additionsInformation.append(addition);
+            }
+        }
+
+        return  "Note: " + name + '\n' +
+                "Bredde: " + width + "cm" + '\n' +
+                "Højde: " + height + "cm" + '\n' +
+                "Antal fag:" + numberOfGlassFieldsWidth + '\n' +
+                "Antal glasfelter per fag: " + numberOfGlassFieldsHeight + '\n' +
+                "tilføjelser: " + additionsInformation + '\n' +
+                "totalpris: " + price + "kr\n";
     }
 }
