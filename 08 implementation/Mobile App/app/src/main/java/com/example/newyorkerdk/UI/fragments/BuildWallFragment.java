@@ -72,6 +72,8 @@ public class BuildWallFragment extends Fragment {
         attachEditFieldListenerHeight(binding.editTextHeight);
         attachEditFieldListenerWidth(binding.editTextWidth);
         attachEditFieldListener(binding.editTextNote);
+        binding.seekBarWidth.setTag("seekBarWidth");
+        binding.seekBarHeight.setTag("seekBarHeight");
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
         binding.doneButton.setOnClickListener(event -> displayBasketFragment());
