@@ -100,12 +100,8 @@ public class SharedViewModel extends ViewModel {
         if (mutableCurrentWall == null) {
             mutableCurrentWall = new MutableLiveData<>();
         }
+        Wall newWall = Wall.getWall();
 
-        Wall newWall = new Wall();
-        newWall.setWidth(175);
-        newWall.setHeight(150);
-        newWall.setNumberOfGlassFieldsHeight(4);
-        newWall.setNumberOfGlassFieldsWidth(5);
         setCurrentWall(newWall);
     }
 

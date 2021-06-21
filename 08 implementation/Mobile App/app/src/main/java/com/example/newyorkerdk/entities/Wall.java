@@ -21,8 +21,14 @@ public class Wall {
     private List<Addition> listOfAdditions = new ArrayList<>();
     private double price;
 
-    public Wall() {
-        this.name = "Wall " + wallCount++;
+    public static Wall getWall() {
+        Wall newWall = new Wall();
+        newWall.name = "Wall " + wallCount++;
+        newWall.setWidth(175);
+        newWall.setHeight(150);
+        newWall.setNumberOfGlassFieldsHeight(4);
+        newWall.setNumberOfGlassFieldsWidth(5);
+        return newWall;
     }
 
     public double getPrice() {
