@@ -39,17 +39,13 @@ public class Wall {
 
 
     private void setSuggestedFieldsWidth() {
-
         if (height <= 45) this.suggestedFieldsWidth =  1;
         this.suggestedFieldsWidth = (int) Math.round(width/45);
-        Log.d("suggestedfieldsWidth", String.valueOf(this.suggestedFieldsWidth));
     }
 
     private void setSuggestedFieldsHeight() {
         if (width <= 60) suggestedFieldsHeight = 1;
         suggestedFieldsHeight = (int) Math.round(height/60);
-        return newWall;
-
     }
 
     public double getPrice() {
