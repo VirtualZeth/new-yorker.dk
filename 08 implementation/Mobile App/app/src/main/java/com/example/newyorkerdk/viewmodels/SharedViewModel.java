@@ -129,12 +129,11 @@ public class SharedViewModel extends ViewModel {
             mutableCurrentWall = new MutableLiveData<>();
         }
         mutableCurrentWall.setValue(wall);
-
         calculatePriceEstimate();
     }
 
     private void setSuggestedFieldsHeight() {
-        Log.d("height", "recursive");
+        Log.d("viewmodeæ", "setsuggestedFieldsHeight");
         if (mutableSuggestedFieldsHeight == null) {
             mutableSuggestedFieldsHeight = new MutableLiveData<>();
         }
@@ -145,7 +144,7 @@ public class SharedViewModel extends ViewModel {
     }
 
     private void setSuggestedFieldsWidth() {
-        Log.d("Widtht", "recursive");
+        Log.d("viewmodeæ", "setsuggestedFieldsWidth");
         if (mutableSuggestedFieldsWidth == null) {
             mutableSuggestedFieldsWidth = new MutableLiveData<>();
         }
