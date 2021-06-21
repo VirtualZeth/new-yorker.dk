@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -110,7 +109,7 @@ public class BuildWallFragment extends Fragment {
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
-                model.addAdditionToWall(
+                model.toggleAddition(
                         additions.get(
                                 expandableListTitle.get(groupPosition))
                                 .get(childPosition));

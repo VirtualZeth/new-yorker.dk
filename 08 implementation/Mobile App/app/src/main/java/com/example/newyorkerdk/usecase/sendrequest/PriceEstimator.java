@@ -1,11 +1,9 @@
 package com.example.newyorkerdk.usecase.sendrequest;
 
-import android.util.Log;
 
 import com.example.newyorkerdk.entities.Addition;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
-
 import java.util.HashMap;
 import java.util.Map;
 
