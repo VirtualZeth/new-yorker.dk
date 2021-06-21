@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -77,7 +76,7 @@ public class BuildWallFragment extends Fragment {
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
         attachEditFieldListener(binding.editTextHeight);
         attachEditFieldListener(binding.editTextWidth);
-       attachEditFieldListener(binding.editTextNote);
+        attachEditFieldListener(binding.editTextNote);
 
 
 
@@ -89,8 +88,24 @@ public class BuildWallFragment extends Fragment {
         model.getPriceEstimate().observe(requireActivity(), priceEstimate ->
                 binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
         model.getAdditions().observe(requireActivity(), this::buildAdditions);
+        model.getMutableSuggestedFieldsHeight().observe(requireActivity(),
+                this::setSeekbarHeight);
+        model.getMutableSuggestedFieldsWidth().observe(requireActivity(),
+                this::setSeekbarWidth);
 
         return binding.getRoot();
+    }
+
+    private void setSeekbarWidth(Integer suggestedFieldsWidth) {
+
+        binding.seekBarWidth.setProgress(suggestedFieldsWidth);
+        model.setCurrentWallSeekBarWidth(suggestedFieldsWidth);
+    }
+
+    private void setSeekbarHeight(Integer suggestedFieldsHeight) {
+
+        binding.seekBarHeight.setProgress(suggestedFieldsHeight);
+        model.setCurrentWallSeekBarHeight(suggestedFieldsHeight);
     }
 
     @Override
@@ -102,7 +117,6 @@ public class BuildWallFragment extends Fragment {
     }
 
     private void buildAdditions(HashMap<String, ArrayList<Addition>> additions) {
-        Log.d("expand", "inside build additions");
         expandableListView = binding.expandableListView;
         expandableListTitle = new ArrayList<>(additions.keySet());
         expandableListAdapter = new AdditionsExpandableListAdapter(requireActivity(), expandableListTitle, additions);
@@ -110,7 +124,7 @@ public class BuildWallFragment extends Fragment {
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
-                model.addAdditionToWall(
+                model.toggleAddition(
                         additions.get(
                                 expandableListTitle.get(groupPosition))
                                 .get(childPosition));
@@ -185,7 +199,6 @@ public class BuildWallFragment extends Fragment {
                     case "seekBarWidth": model.setCurrentWallSeekBarWidth(seekBar.getProgress()); break;
                     default: break;
                 }
-
             }
         });
     }
