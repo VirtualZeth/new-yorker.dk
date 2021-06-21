@@ -110,7 +110,7 @@ public class BuildWallFragment extends Fragment {
 
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
 
-                model.addAdditionToWall(
+                model.toggleAddition(
                         additions.get(
                                 expandableListTitle.get(groupPosition))
                                 .get(childPosition));
