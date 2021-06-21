@@ -1,4 +1,6 @@
 package com.example.newyorkerdk.entities;
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,8 @@ public class Wall {
     private static final Double MAX_FIELD_HEIGHT = 60d;
     private static final Double MAX_FIELD_WIDTH = 45d;
     private static final Double MIN_WALL_WIDTH = 10d;
+    private int suggestedFieldsHeight;
+    private int suggestedFieldsWidth;
     private String name;
     private double height;
     private double width;
@@ -28,7 +32,24 @@ public class Wall {
         newWall.setHeight(150);
         newWall.setNumberOfGlassFieldsHeight(4);
         newWall.setNumberOfGlassFieldsWidth(5);
+        newWall.setSuggestedFieldsHeight();
+        newWall.setSuggestedFieldsWidth();
         return newWall;
+    }
+
+
+    private void setSuggestedFieldsWidth() {
+
+        if (height <= 45) this.suggestedFieldsWidth =  1;
+        this.suggestedFieldsWidth = (int) Math.round(width/45);
+        Log.d("suggestedfieldsWidth", String.valueOf(this.suggestedFieldsWidth));
+    }
+
+    private void setSuggestedFieldsHeight() {
+        if (width <= 60) suggestedFieldsHeight = 1;
+        suggestedFieldsHeight = (int) Math.round(height/60);
+        return newWall;
+
     }
 
     public double getPrice() {
@@ -41,6 +62,14 @@ public class Wall {
 
     public String getName() {
         return name;
+    }
+
+    public int getSuggestedFieldsHeight() {
+        return suggestedFieldsHeight;
+    }
+
+    public int getSuggestedFieldsWidth() {
+        return suggestedFieldsWidth;
     }
 
     public void setName(String name) {
@@ -60,6 +89,7 @@ public class Wall {
         } else {
             this.height = height;
         }
+        setSuggestedFieldsHeight();
     }
 
     public double getWidth() {
@@ -72,6 +102,7 @@ public class Wall {
         } else {
             this.width = width;
         }
+        setSuggestedFieldsWidth();
     }
     public int calculateMinAmountOfFieldsWidth(double wallWidth) {
 

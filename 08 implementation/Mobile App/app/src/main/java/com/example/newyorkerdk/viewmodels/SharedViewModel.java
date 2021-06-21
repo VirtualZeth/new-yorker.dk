@@ -34,6 +34,8 @@ import java.util.Objects;
  */
 public class SharedViewModel extends ViewModel {
 
+    private MutableLiveData<Integer> mutableSuggestedFieldsHeight;
+    private MutableLiveData<Integer> mutableSuggestedFieldsWidth;
     private PriceEstimator priceEstimator = new PriceEstimator();
     private final FireStoreDB fireStoreDB = FireStoreDB.getInstance();
     private MutableLiveData<String> mutablePriceEstimate;
@@ -47,6 +49,20 @@ public class SharedViewModel extends ViewModel {
     public SharedViewModel() {
         setAdditionssData();
         setProductsData();
+    }
+
+    public MutableLiveData<Integer> getMutableSuggestedFieldsHeight() {
+        if (mutableSuggestedFieldsHeight == null) {
+            mutableSuggestedFieldsHeight = new MutableLiveData<>();
+        }
+        return mutableSuggestedFieldsHeight;
+    }
+
+    public MutableLiveData<Integer> getMutableSuggestedFieldsWidth() {
+        if (mutableSuggestedFieldsWidth == null) {
+            mutableSuggestedFieldsWidth = new MutableLiveData<>();
+        }
+        return mutableSuggestedFieldsWidth;
     }
 
     private void reinitializePriceEstimator(Map<String, Double> productPriceList) {
@@ -101,8 +117,9 @@ public class SharedViewModel extends ViewModel {
             mutableCurrentWall = new MutableLiveData<>();
         }
         Wall newWall = Wall.getWall();
-
         setCurrentWall(newWall);
+        setSuggestedFieldsHeight();
+        setSuggestedFieldsWidth();
     }
 
     public void setCurrentWall(Wall wall) {
@@ -112,6 +129,28 @@ public class SharedViewModel extends ViewModel {
         }
         mutableCurrentWall.setValue(wall);
         calculatePriceEstimate();
+    }
+
+    private void setSuggestedFieldsHeight() {
+        Log.d("viewmodeæ", "setsuggestedFieldsHeight");
+        if (mutableSuggestedFieldsHeight == null) {
+            mutableSuggestedFieldsHeight = new MutableLiveData<>();
+        }
+        Wall wall = getCurrentWall().getValue();
+        if (wall != null) {
+            mutableSuggestedFieldsHeight.setValue(wall.getSuggestedFieldsHeight());
+        }
+    }
+
+    private void setSuggestedFieldsWidth() {
+        Log.d("viewmodeæ", "setsuggestedFieldsWidth");
+        if (mutableSuggestedFieldsWidth == null) {
+            mutableSuggestedFieldsWidth = new MutableLiveData<>();
+        }
+        Wall wall = getCurrentWall().getValue();
+        if (wall != null) {
+            mutableSuggestedFieldsWidth.setValue(wall.getSuggestedFieldsWidth());
+        }
     }
 
     public void addToBasket(Wall wall) {
@@ -163,6 +202,7 @@ public class SharedViewModel extends ViewModel {
             currentWall.setHeight(height);
             setCurrentWall(currentWall);
         }
+        setSuggestedFieldsHeight();
     }
 
     public void setCurrentWallWidth(double width) {
@@ -172,6 +212,7 @@ public class SharedViewModel extends ViewModel {
             currentWall.setWidth(width);
             setCurrentWall(currentWall);
         }
+        setSuggestedFieldsWidth();
     }
 
     public void setCurrentWallNote(String note) {

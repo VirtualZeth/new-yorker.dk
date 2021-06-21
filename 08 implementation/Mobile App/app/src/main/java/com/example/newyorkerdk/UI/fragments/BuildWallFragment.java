@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
@@ -68,18 +67,13 @@ public class BuildWallFragment extends Fragment {
 
         // Inflate the layout for this fragment
         binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
-        binding.editTextHeight.setTag("editTextHeight");
-        binding.editTextWidth.setTag("editTextWidth");
-        binding.editTextNote.setTag("editTextNote");
-        binding.seekBarWidth.setTag("seekBarWidth");
-        binding.seekBarHeight.setTag("seekBarHeight");
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
-        attachEditFieldListener(binding.editTextHeight);
-        attachEditFieldListener(binding.editTextWidth);
-       attachEditFieldListener(binding.editTextNote);
-
-
+        attachEditFieldListenerHeight(binding.editTextHeight);
+        attachEditFieldListenerWidth(binding.editTextWidth);
+        attachEditFieldListener(binding.editTextNote);
+        binding.seekBarWidth.setTag("seekBarWidth");
+        binding.seekBarHeight.setTag("seekBarHeight");
 
         binding.addButton.setOnClickListener(event -> addWallToBasket());
         binding.doneButton.setOnClickListener(event -> displayBasketFragment());
@@ -89,8 +83,24 @@ public class BuildWallFragment extends Fragment {
         model.getPriceEstimate().observe(requireActivity(), priceEstimate ->
                 binding.priceValueTextfield.setText(getString(R.string.price, priceEstimate)));
         model.getAdditions().observe(requireActivity(), this::buildAdditions);
+        model.getMutableSuggestedFieldsHeight().observe(requireActivity(),
+                this::setSeekbarHeight);
+        model.getMutableSuggestedFieldsWidth().observe(requireActivity(),
+                this::setSeekbarWidth);
 
         return binding.getRoot();
+    }
+
+    private void setSeekbarWidth(Integer suggestedFieldsWidth) {
+
+        binding.seekBarWidth.setProgress(suggestedFieldsWidth);
+        model.setCurrentWallSeekBarWidth(suggestedFieldsWidth);
+    }
+
+    private void setSeekbarHeight(Integer suggestedFieldsHeight) {
+
+        binding.seekBarHeight.setProgress(suggestedFieldsHeight);
+        model.setCurrentWallSeekBarHeight(suggestedFieldsHeight);
     }
 
     @Override
@@ -102,7 +112,6 @@ public class BuildWallFragment extends Fragment {
     }
 
     private void buildAdditions(HashMap<String, ArrayList<Addition>> additions) {
-        Log.d("expand", "inside build additions");
         expandableListView = binding.expandableListView;
         expandableListTitle = new ArrayList<>(additions.keySet());
         expandableListAdapter = new AdditionsExpandableListAdapter(requireActivity(), expandableListTitle, additions);
@@ -124,45 +133,71 @@ public class BuildWallFragment extends Fragment {
         model.addToBasket(model.getCurrentWall().getValue());
     }
 
+    private void attachEditFieldListenerHeight(EditText inputfield) {
+
+
+        inputfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!updatingFields || inputfield.getText().toString().length() == 0) {
+                    model.setCurrentWallHeight(parseDouble(inputfield.getText().toString()));
+                }
+            }
+        });
+    }
+    private void attachEditFieldListenerWidth(EditText inputfield) {
+
+        inputfield.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!updatingFields || inputfield.getText().toString().length() == 0) {
+                    model.setCurrentWallWidth(parseDouble(inputfield.getText().toString()));
+                }
+            }
+        });
+    }
+
     private void attachEditFieldListener(EditText inputField) {
 
-        if (!inputField.getTag().equals("editTextNote")) {
-            inputField.setOnFocusChangeListener((v, hasFocus) -> {
-                if (updatingFields || inputField.getText().toString().length() == 0) {
-                    return;
-                }
-                String tag = inputField.getTag().toString();
-                switch (tag) {
-                    case "editTextHeight":
-                        model.setCurrentWallHeight(parseDouble(inputField.getText().toString()));
-                        break;
-                    case "editTextWidth":
-                        model.setCurrentWallWidth(parseDouble(inputField.getText().toString()));
-                        break;
-                    default:
-                        break;
-                }
-            });
-        } else {
-            inputField.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                }
+        inputField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
 
-                }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                @Override
-                public void afterTextChanged(Editable s) {
-                    if (!updatingFields) {
-                        model.setCurrentWallNote(s.toString());
-                    }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!updatingFields) {
+                    model.setCurrentWallNote(s.toString());
                 }
-            });
-        }
+            }
+        });
     }
 
     private void attachSeekBarListener(SeekBar seekBar, TextView seekBarTextField) {
@@ -185,7 +220,6 @@ public class BuildWallFragment extends Fragment {
                     case "seekBarWidth": model.setCurrentWallSeekBarWidth(seekBar.getProgress()); break;
                     default: break;
                 }
-
             }
         });
     }
