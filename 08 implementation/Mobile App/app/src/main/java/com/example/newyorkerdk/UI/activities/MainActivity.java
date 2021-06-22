@@ -39,24 +39,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         model = new ViewModelProvider(this).get(SharedViewModel.class);
-
         final Observer<String> tottalPriceObserver = newTotalPrice -> binding.toolbarPrice.setText(newTotalPrice);
-
-
         model.getBasketTotalPrice().observe(this, tottalPriceObserver);
         binding.baskeImage.setOnClickListener(v -> displayBasketFragment());
-
 
         displayMainScreenFragment();
     }
 
     private void displayMainScreenFragment() {
-
         MainFragment mainFragment = MainFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container,
                 mainFragment).addToBackStack(null).commit();
 
@@ -66,14 +60,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container,
                 basketFragment).addToBackStack(null).commit();
     }
 
     @Override
     public void onBackPressed() {
-
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (currentFragment instanceof MainFragment) {
             return;
@@ -82,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             displayMainScreenFragment();
             return;
         }
-
         new AlertDialog.Builder(this)
                 .setTitle("Gå tilbage")
                 .setMessage("Er du sikker på at du vil gå tilbage til forsiden? Din kurvs indhold vil ikke blive slettet")

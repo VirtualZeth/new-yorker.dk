@@ -44,7 +44,6 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
 
     String failText = "Feltet skal udfyldes";
 
-
     FragmentContactUsBinding binding;
     public ContactUsFragment() {
         // Required empty public constructor
@@ -149,14 +148,11 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
         fragmentTransaction.replace(R.id.fragment_container,
                 mainFragment).addToBackStack(null).commit();
     }
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String choosenSupplier = parent.getItemAtPosition(position).toString();
         contactForm.setSupplier(choosenSupplier);
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }

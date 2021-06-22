@@ -6,9 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.newyorkerdk.R;
-import com.example.newyorkerdk.entities.Wall;
-
-import java.util.ArrayList;
 
 /**
  * @author Usamah

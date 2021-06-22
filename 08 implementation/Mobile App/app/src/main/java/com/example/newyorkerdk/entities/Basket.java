@@ -15,15 +15,12 @@ public class Basket {
     public void addWall(Wall wall) {
         listOfWalls.add(wall);
     }
-
     public List<Wall> getListOfWalls() {
         return listOfWalls;
     }
-
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
-    
 
     @Override
     public String toString() {
@@ -35,7 +32,6 @@ public class Basket {
         }
         wallInformation.append("\n").append("Pris i alt: ")
                 .append(totalPrice).append(" kr.");
-
 
         return wallInformation.toString();
     }

@@ -12,15 +12,7 @@ public class Addition {
     private String price;
     private String productNumber;
     private String category;
-
-
-    public Addition() {
-    }
-
-    public Addition(String name, String price) {
-        this.name = name;
-        this.price = price;
-    }
+    public Addition() {}
 
     public String getId() {
         return id;

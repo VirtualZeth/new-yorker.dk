@@ -27,16 +27,13 @@ public class PriceEstimator {
     }
 
     public double calculateFieldHeight(Wall wall) {
-
         Double wallHeight = wall.getHeight();
-
         Integer amountOfPanelsHeight = wall.getNumberOfGlassFieldsHeight();
 
         return wallHeight / amountOfPanelsHeight;
     }
 
     public double calculateFieldWidth(Wall wall) {
-
         Double wallHeight = wall.getWidth();
         Integer amountOfPanelsWidth = wall.getNumberOfGlassFieldsWidth();
 
@@ -44,18 +41,14 @@ public class PriceEstimator {
     }
 
     public double calculateFieldArea(Double height, Double width) {
-
         return height * width;
     }
     private int calculateAmountOfFields(Wall wall) {
-
         return wall.getNumberOfGlassFieldsWidth() * wall.getNumberOfGlassFieldsHeight();
     }
 
     public String calculatePriceEstimate(Wall wall) {
-
         double fieldPrice = prices.get("Glasfelt");
-
         if (calculateFieldArea(calculateFieldHeight(wall), calculateFieldWidth(wall)) > 5000) {
             fieldPrice += 500d;
         }
@@ -75,7 +68,6 @@ public class PriceEstimator {
     }
 
     public Double calculateBasketTotal(Basket basket) {
-
         if (basket.getListOfWalls().isEmpty()) {
             return 0d;
         }

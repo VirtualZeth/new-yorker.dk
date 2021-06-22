@@ -31,7 +31,6 @@ public class WebViewFragment extends Fragment {
 
         return webViewFragment;
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +38,9 @@ public class WebViewFragment extends Fragment {
             this.pageName = getArguments().getString(PAGE_NAME);
         }
     }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding = FragmentWebviewBinding.inflate(getLayoutInflater());
         binding.webview.getSettings().setJavaScriptEnabled(true);
         showPage();
@@ -51,7 +48,6 @@ public class WebViewFragment extends Fragment {
     }
 
     private void showPage() {
-
         if (getArguments() == null) {
             return;
         }

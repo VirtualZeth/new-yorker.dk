@@ -81,7 +81,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         @Override
         public void onClick(View v) {
-
             listener.onClick(getAdapterPosition(), v.getTag().toString());
         }
     }

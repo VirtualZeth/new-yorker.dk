@@ -38,7 +38,6 @@ public class MainFragment extends Fragment {
 
         return binding.getRoot();
     }
-
     private void displayBuildWallFragment() {
         BuildWallFragment buildWallFragment = BuildWallFragment.newInstance();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -47,7 +46,6 @@ public class MainFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container,
                 buildWallFragment).addToBackStack(null).commit();
     }
-
     private void displayPriceExamplesWebView() {
         WebViewFragment webViewFragment = WebViewFragment.newInstance("priceExample");
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
@@ -56,7 +54,6 @@ public class MainFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragment_container, webViewFragment)
                 .addToBackStack(null).commit();
     }
-
     private void displayKontaktUsWebview() {
         WebViewFragment webViewFragment = WebViewFragment.newInstance("contactUs");
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();

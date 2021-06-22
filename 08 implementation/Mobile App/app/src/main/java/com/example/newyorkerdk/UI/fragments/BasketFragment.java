@@ -40,7 +40,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
     RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView recyclerView;
     FragmentBasketBinding binding;
-
     Observer<Basket> basketUpdateObserver = walls -> {
         recyclerViewAdapter = new RecyclerViewAdapter(requireActivity(), (ArrayList<Wall>) walls.getListOfWalls(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -72,7 +71,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         binding.button.setOnClickListener(v -> displayBuildWallFragmentNewWall());
         binding.button2.setOnClickListener(v -> displayContactUsFragment());
         binding.clear.setOnClickListener(v -> clearWallsFromBasket());
@@ -89,32 +87,24 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         model.getBasket().removeObservers(requireActivity());
         model.getBasketTotalPrice().removeObservers(requireActivity());
     }
-
     private void clearWallsFromBasket() {
         new AlertDialog.Builder(requireContext())
                 .setTitle("Slet kurv")
                 .setMessage("Er du sikker på at du vil slette kurven?")
                 .setPositiveButton("Slet", (dialog, which) -> model.clearWallsFromBasket())
-
                 .setNegativeButton("Annuller", null)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
     }
-
-
-
-
     public void displayContactUsFragment() {
 
         ContactUsFragment contactUsFragment = ContactUsFragment.newInstance();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container, contactUsFragment)
                 .addToBackStack(null).commit();
     }
-
     private void displayBuildWallFragmentNewWall() {
         model.newCurrentWall();
         BuildWallFragment buildWallFragment = BuildWallFragment.newInstance();
@@ -124,18 +114,15 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         fragmentTransaction.replace(R.id.fragment_container,
                 buildWallFragment).addToBackStack(null).commit();
     }
-
     private void displayBuildWallFragmentEdit(Wall wall) {
         model.setCurrentWall(wall);
         BuildWallFragment buildWallFragment = BuildWallFragment.newInstance();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container,
                 buildWallFragment).addToBackStack(null).commit();
     }
-
     @Override
     public void onClick(int position, String tag) {
         if (tag.equals("wallItem")) {
@@ -152,5 +139,4 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
             model.removeFromBasket(position);
         }
     }
-
 }

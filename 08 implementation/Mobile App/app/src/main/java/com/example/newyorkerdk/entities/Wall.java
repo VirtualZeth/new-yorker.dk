@@ -15,17 +15,14 @@ public class Wall {
     private static final Double MAX_FIELD_HEIGHT = 60d;
     private static final Double MAX_FIELD_WIDTH = 150d;
     private static final Double MIN_WALL_WIDTH = 10d;
-    private int minAmountOfFieldsWidth;
-    private int maxAmountOfFieldsWidth;
-    private int minAmountOfFieldsHeight;
-    private int maxAmountOfFieldsHeight;
-    private int suggestedFieldsHeight;
-    private int suggestedFieldsWidth;
+
     private String name;
-    private double height;
     private double width;
+    private double height;
     private int numberOfGlassFieldsHeight;
     private int numberOfGlassFieldsWidth;
+    private int suggestedFieldsHeight;
+    private int suggestedFieldsWidth;
     private final List<Addition> listOfAdditions = new ArrayList<>();
     private double price;
 
@@ -37,6 +34,7 @@ public class Wall {
         newWall.setHeight(150);
         newWall.setNumberOfGlassFieldsHeight(4);
         newWall.setNumberOfGlassFieldsWidth(5);
+
         int suggestedFieldHeight = newWall.calculateSuggestedFieldsHeight(newWall.getHeight());
         newWall.setSuggestedFieldsHeight(suggestedFieldHeight);
 
@@ -51,16 +49,17 @@ public class Wall {
     }
 
     private void setSuggestedFieldsHeight(int suggestedFieldsHeight) {
-
         this.suggestedFieldsHeight = suggestedFieldsHeight;
     }
 
     private int calculateSuggestedFieldsWidth(Double width) {
         if (height <= 45) this.suggestedFieldsWidth =  1;
+
         return (int) Math.round(width/45);
     }
     private int calculateSuggestedFieldsHeight(Double height) {
         if (width <= 60) suggestedFieldsHeight = 1;
+
         return (int) Math.round(height/60);
     }
     public double getPrice() {
@@ -90,9 +89,7 @@ public class Wall {
     public double getHeight() {
         return height;
     }
-
     public void setHeight(double height) {
-
         if (height > MAX_WALL_HEIGHT) {
             this.height = MAX_WALL_HEIGHT;
         } else if (height < MIN_WALL_HEIGHT) {
@@ -100,6 +97,7 @@ public class Wall {
         } else {
             this.height = height;
         }
+
         int suggestedFieldHeight = calculateSuggestedFieldsHeight(height);
         setSuggestedFieldsHeight(suggestedFieldHeight);
     }
@@ -116,27 +114,6 @@ public class Wall {
         int suggestedFieldWidth = calculateSuggestedFieldsWidth(width);
         setSuggestedFieldsWidth(suggestedFieldWidth);
     }
-
-    public int calculateMinAmountOfFieldsWidth(double wallWidth) {
-
-        return (int) (wallWidth / MAX_FIELD_WIDTH);
-    }
-
-    public int calculateMinAmountOfFieldsHeight(double wallHeight) {
-
-        return (int) (wallHeight / MAX_WALL_HEIGHT);
-    }
-
-    public int calculateMaxAmountOfFieldsWidth(double wallHeight) {
-
-        return (int) (wallHeight / MAX_WALL_HEIGHT);
-    }
-
-    public int calculateMaxAmountOfFieldsMax(double wallHeight) {
-
-        return (int) (wallHeight / MAX_WALL_HEIGHT);
-    }
-
     public int getNumberOfGlassFieldsHeight() {
         return numberOfGlassFieldsHeight;
     }

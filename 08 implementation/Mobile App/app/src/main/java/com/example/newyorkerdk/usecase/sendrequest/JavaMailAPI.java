@@ -50,7 +50,6 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
     protected Void doInBackground(Void... params) {
 
         Properties props = new Properties();
-
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
@@ -77,5 +76,4 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
         }
         return null;
     }
-
 }
