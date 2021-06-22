@@ -37,7 +37,6 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 public class ContactUsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private final ContactForm contactForm = new ContactForm();
-    private Basket basket;
     private Request request;
     private final MailService mailService = new MailService();
     private SharedViewModel model;
@@ -58,7 +57,7 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        basket = model.getBasket().getValue();
+        Basket basket = model.getBasket().getValue();
         request = new Request(contactForm, basket);
     }
 
