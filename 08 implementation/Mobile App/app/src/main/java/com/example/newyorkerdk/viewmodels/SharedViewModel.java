@@ -24,8 +24,6 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
-
-/**
  * Denne klasse er ansvarlig for at holde på relevant data der enten skal vises,
  * eller benyttes i {@link com.example.newyorkerdk.UI.fragments.BuildWallFragment},
  * {@link com.example.newyorkerdk.UI.fragments.BasketFragment},

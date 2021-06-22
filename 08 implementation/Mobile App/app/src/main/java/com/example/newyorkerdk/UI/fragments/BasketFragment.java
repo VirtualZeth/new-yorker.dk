@@ -3,6 +3,9 @@ package com.example.newyorkerdk.UI.fragments;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -15,13 +18,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.renderscript.ScriptGroup;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.adapters.RecyclerViewAdapter;
@@ -81,9 +77,8 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         binding.button2.setOnClickListener(v -> displayContactUsFragment());
         binding.clear.setOnClickListener(v -> clearWallsFromBasket());
         model.getBasket().observe(requireActivity(), basketUpdateObserver);
-        model.getBasketTotalPrice().observe(requireActivity(), totalPrice -> {
-            binding.totalPriceTextView.setText(getString(R.string.total_price, totalPrice));
-        });
+        model.getBasketTotalPrice().observe(requireActivity(), totalPrice ->
+                binding.totalPriceTextView.setText(getString(R.string.total_price, totalPrice)));
 
         return binding.getRoot();
     }
@@ -99,10 +94,7 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         new AlertDialog.Builder(requireContext())
                 .setTitle("Slet kurv")
                 .setMessage("Er du sikker på at du vil slette kurven?")
-                .setPositiveButton("Slet", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        model.clearWallsFromBasket();                    }
-                })
+                .setPositiveButton("Slet", (dialog, which) -> model.clearWallsFromBasket())
 
                 .setNegativeButton("Annuller", null)
                 .setIcon(android.R.drawable.ic_dialog_alert)

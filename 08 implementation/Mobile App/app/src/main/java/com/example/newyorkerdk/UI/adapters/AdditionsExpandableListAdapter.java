@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.entities.Addition;

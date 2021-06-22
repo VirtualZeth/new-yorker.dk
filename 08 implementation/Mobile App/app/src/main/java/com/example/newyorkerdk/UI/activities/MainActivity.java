@@ -1,22 +1,18 @@
 package com.example.newyorkerdk.UI.activities;
 
+import android.os.Build;
+import android.os.Bundle;
+
 import androidx.annotation.RequiresApi;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.DialogInterface;
-import android.os.Build;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Bundle;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.fragments.BasketFragment;
 import com.example.newyorkerdk.UI.fragments.MainFragment;
@@ -48,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         model.getBasketTotalPrice().observe(this, tottalPriceObserver);
-        binding.baskeImage.setOnClickListener(v -> {displayBasketFragment();});
+        binding.baskeImage.setOnClickListener(v -> displayBasketFragment());
 
 
         displayMainScreenFragment();

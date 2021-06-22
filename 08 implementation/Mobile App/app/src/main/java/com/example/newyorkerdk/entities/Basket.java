@@ -23,6 +23,7 @@ public class Basket {
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
+    
 
     @Override
     public String toString() {

@@ -2,7 +2,6 @@ package com.example.newyorkerdk.UI.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,8 +16,6 @@ import java.util.ArrayList;
  * Er ansvarlig for creation og nedlukning af splashscreen
  */
 public class SplashScreenActivity extends AppCompatActivity {
-
-    ArrayList<Wall> wallArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
