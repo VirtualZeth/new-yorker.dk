@@ -1,5 +1,7 @@
 package com.example.newyorkerdk.entities;
 
+import androidx.annotation.NonNull;
+
 /**
  * Klasse som er ansvarlig for at indeholde information om tillæg,
  * kan ikke eksistere uden ligge i et {@link Wall} objekt
@@ -12,7 +14,10 @@ public class Addition {
     private String price;
     private String productNumber;
     private String category;
-    public Addition() {}
+
+    public Addition() {
+        //This constructor is empty as its used by firebase to initialize an Addition object with toObject()
+    }
 
     public String getId() {
         return id;
@@ -46,6 +51,7 @@ public class Addition {
         this.category = category;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return name + '\n' +
