@@ -1,12 +1,14 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -32,6 +34,7 @@ import java.util.List;
  * Benyt {@link BasketFragment#newInstance} factory metode til
  * at skabe en ny instans af dette fragment som er ansvarlig for at vise kurvens indhold
  */
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWallListener {
 
     private SharedViewModel model;

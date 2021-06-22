@@ -21,10 +21,9 @@ import javax.mail.internet.MimeMessage;
 public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
 
     private final WeakReference<Context> context;
-    private Session session;
-    private String email;
-    private String subject;
-    private String message;
+    private final String email;
+    private final String subject;
+    private final String message;
     private ProgressDialog mProgressDialog;
 
     public JavaMailAPI(Context context, String email, String subject, String message) {
@@ -56,8 +55,9 @@ public class JavaMailAPI extends AsyncTask<Void,Void,Void> {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.port", "465");
 
-        session = Session.getDefaultInstance(props,
+        Session session = Session.getDefaultInstance(props,
                 new javax.mail.Authenticator() {
+                    @Override
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(MailCredentials.getEMAIL(), MailCredentials.getPASSWORD());
                     }
