@@ -59,24 +59,9 @@ public class PriceEstimator {
 
     public Double calculateAdditionTotal(Wall wall) {
         Double sum = 0d;
-        for (Addition addition:wall.getListOfAdditions()
-             ) {
+        for (Addition addition:wall.getListOfAdditions()) {
             sum += addition.getPrice();
         }
-
         return sum;
-    }
-
-    public Double calculateBasketTotal(Basket basket) {
-        if (basket.getListOfWalls().isEmpty()) {
-            return 0d;
-        }
-        double total = 0;
-
-        for (Wall wall : basket.getListOfWalls()) {
-            total += Double.parseDouble(calculatePriceEstimate(wall));
-        }
-
-        return total;
     }
 }

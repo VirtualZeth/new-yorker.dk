@@ -15,13 +15,21 @@ public class Basket {
     private double totalPrice;
 
     public void addWall(Wall wall) {
+        totalPrice += wall.getPrice();
         listOfWalls.add(wall);
+    }
+
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void removeWall(int position) {
+        Wall wall = listOfWalls.get(position);
+        totalPrice -= wall.getPrice();
+        listOfWalls.remove(position);
     }
     public List<Wall> getListOfWalls() {
         return listOfWalls;
-    }
-    public void setTotalPrice(double totalPrice) {
-        this.totalPrice = totalPrice;
     }
 
     @NonNull

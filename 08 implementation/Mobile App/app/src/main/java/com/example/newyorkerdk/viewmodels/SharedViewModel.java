@@ -1,4 +1,5 @@
 package com.example.newyorkerdk.viewmodels;
+
 import android.os.Build;
 import android.util.Log;
 
@@ -12,16 +13,10 @@ import com.example.newyorkerdk.entities.Addition;
 import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.usecase.sendrequest.PriceEstimator;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Denne klasse er ansvarlig for at holde på relevant data der enten skal vises,
@@ -30,26 +25,27 @@ import java.util.Objects;
  * eller {@link com.example.newyorkerdk.UI.fragments.ContactUsFragment}
  * @author Mike
  */
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class SharedViewModel extends ViewModel {
 
     private MutableLiveData<Integer> mutableSuggestedFieldsHeight;
     private MutableLiveData<Integer> mutableSuggestedFieldsWidth;
-    private PriceEstimator priceEstimator = new PriceEstimator();
-    private final FireStoreDB fireStoreDB = FireStoreDB.getInstance();
+    private PriceEstimator priceEstimator;
     private MutableLiveData<String> mutablePriceEstimate;
     private MutableLiveData<String> mutableBasketTotalPrice;
     private MutableLiveData<Basket> mutableBasket;
     private MutableLiveData<Wall> mutableCurrentWall;
-    private MutableLiveData<HashMap<String, ArrayList<Addition>>> mutableHashMapOfAdditions;
+    private MutableLiveData<HashMap<String, ArrayList<Addition>>> mutableHashMapOfAdditions = new MutableLiveData<>();
 
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public SharedViewModel() {
-        setAdditionssData();
-        setProductsData();
+        FireStoreDB fireStoreDB = FireStoreDB.getInstance();
+        fireStoreDB.getLiveProductsData().observeForever(this::initializePriceEstimator);
+        fireStoreDB.getMutableHashMapOfAdditions().observeForever(additionsData ->
+                mutableHashMapOfAdditions.setValue(additionsData));
     }
 
-    public MutableLiveData<Integer> getMutableSuggestedFieldsHeight() {
+    public LiveData<Integer> getMutableSuggestedFieldsHeight() {
         if (mutableSuggestedFieldsHeight == null) {
             mutableSuggestedFieldsHeight = new MutableLiveData<>();
         }
@@ -57,7 +53,7 @@ public class SharedViewModel extends ViewModel {
         return mutableSuggestedFieldsHeight;
     }
 
-    public MutableLiveData<Integer> getMutableSuggestedFieldsWidth() {
+    public LiveData<Integer> getMutableSuggestedFieldsWidth() {
         if (mutableSuggestedFieldsWidth == null) {
             mutableSuggestedFieldsWidth = new MutableLiveData<>();
         }
@@ -65,7 +61,7 @@ public class SharedViewModel extends ViewModel {
         return mutableSuggestedFieldsWidth;
     }
 
-    private void reinitializePriceEstimator(Map<String, Double> productPriceList) {
+    private void initializePriceEstimator(Map<String, Double> productPriceList) {
         if (priceEstimator == null) {
             priceEstimator = new PriceEstimator();
             priceEstimator.setPriceList(productPriceList);
@@ -179,9 +175,8 @@ public class SharedViewModel extends ViewModel {
         }
         Basket basket = getBasket().getValue();
         if (basket != null) {
-            String totalPrice = priceEstimator.calculateBasketTotal(basket).toString();
+            String totalPrice = String.valueOf(basket.getTotalPrice());
             mutableBasketTotalPrice.setValue(totalPrice);
-            basket.setTotalPrice(Double.parseDouble(totalPrice));
         }
     }
 
@@ -229,7 +224,7 @@ public class SharedViewModel extends ViewModel {
     public void removeFromBasket(int position) {
         Basket basket = mutableBasket.getValue();
         if (basket != null) {
-            basket.getListOfWalls().remove(position);
+            basket.removeWall(position);
             mutableBasket.setValue(basket);
             calculateBasketTotalPrice();
         }
@@ -238,50 +233,7 @@ public class SharedViewModel extends ViewModel {
         mutableBasket.setValue(new Basket());
         calculateBasketTotalPrice();
     }
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setAdditionssData() {
-        FirebaseFirestore database = fireStoreDB.getDatabase();
-        CollectionReference colRef = database.collection("products");
-        colRef.whereNotEqualTo("category", "Nødvendige").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot collection = task.getResult();
-                if (collection != null) {
-                    List<DocumentSnapshot> documents = collection.getDocuments();
-                    HashMap<String, ArrayList<Addition>> additions = new HashMap<>();
-                    for (DocumentSnapshot documentSnapshot:documents) {
-                        additions.computeIfAbsent(documentSnapshot.getString("category"), document
-                                -> new ArrayList<>()).add(documentSnapshot.toObject(Addition.class));
-                    }
-                    if (mutableHashMapOfAdditions == null) {
-                        mutableHashMapOfAdditions = new MutableLiveData<>();
-                    }
-                    mutableHashMapOfAdditions.setValue(additions);
-                }
-            } else {
-                Log.d("eq", "get failed with ", task.getException());
-            }
-        });
-    }
-    private void setProductsData() {
-        FirebaseFirestore database = fireStoreDB.getDatabase();
-        CollectionReference colRef = database.collection("products");
-        colRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                QuerySnapshot collection = task.getResult();
-                if (collection != null) {
-                    List<DocumentSnapshot> documents = collection.getDocuments();
-                    HashMap<String, Double> productPrices = new HashMap<>();
-                    for (DocumentSnapshot documentSnapshot:documents) {
-                        productPrices.put(documentSnapshot.getString("name"),
-                                Double.valueOf(Objects.requireNonNull(documentSnapshot.getString("price"))));
-                    }
-                    reinitializePriceEstimator(productPrices);
-                }
-            } else {
-                Log.d("eq", "get failed with ", task.getException());
-            }
-        });
-    }
+
     public LiveData<HashMap<String, ArrayList<Addition>>> getAdditions() {
         if (mutableHashMapOfAdditions == null) {
             mutableHashMapOfAdditions = new MutableLiveData<>();
@@ -292,27 +244,9 @@ public class SharedViewModel extends ViewModel {
 
     public void toggleAddition(Addition addition) {
         Wall wall = mutableCurrentWall.getValue();
-
-        if (wall == null) return;
-        if (wall.getListOfAdditions().contains(addition)) {
-            removeAdditionFromWall(addition);
-        } else {
-            addAdditionToWall(addition);
-        }
-    }
-
-    private void removeAdditionFromWall(Addition addition) {
-        if (mutableCurrentWall.getValue() != null) {
-            Wall wall = mutableCurrentWall.getValue();
-            wall.getListOfAdditions().remove(addition);
-            setCurrentWall(wall);
-        }
-    }
-
-    private void addAdditionToWall(Addition addition) {
-        if (mutableCurrentWall.getValue() != null) {
-            Wall wall = mutableCurrentWall.getValue();
-            wall.getListOfAdditions().add(addition);
+        if (wall != null) {
+            Log.d("additionToggle", "im toggled");
+            wall.toggleAddition(addition);
             setCurrentWall(wall);
         }
     }

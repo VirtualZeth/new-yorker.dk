@@ -1,5 +1,6 @@
 package com.example.newyorkerdk.UI.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,6 +37,7 @@ import static java.lang.Double.parseDouble;
  * at skabe en ny instans af dette fragment som er ansvarlig for håndtere byg væg UI'en
  * @author Mike
  */
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class BuildWallFragment extends Fragment {
 
     private FragmentBuildWallBinding binding;
