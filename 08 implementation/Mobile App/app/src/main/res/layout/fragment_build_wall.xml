@@ -64,7 +64,8 @@
         android:layout_height="wrap_content"
         android:text="@string/panel_count_height_text"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/panelcount_height_fextfield"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editText_Height"
         app:layout_constraintTop_toTopOf="@+id/panelcount_height_fextfield" />
 
     <SeekBar
@@ -81,10 +82,10 @@
         android:id="@+id/seekBar_height"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
         android:layout_marginTop="32dp"
         android:max="30"
         android:min="1"
+        app:layout_constraintEnd_toEndOf="@+id/panelcount_width_textfield"
         app:layout_constraintStart_toStartOf="@+id/panelcount_width_textfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_width_textfield" />
 
