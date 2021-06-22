@@ -47,7 +47,6 @@ public class BuildWallFragment extends Fragment {
     public BuildWallFragment() {
         // Required empty public constructor
     }
-
     public static BuildWallFragment newInstance() {
         return new BuildWallFragment();
     }
