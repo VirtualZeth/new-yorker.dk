@@ -1,9 +1,11 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -34,6 +36,7 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
  * Benyt {@link ContactUsFragment#newInstance} factory metode til
  * at skabe en ny instans af dette fragment, som er ansvarlig for at håndtere kontakt us UI
  */
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class ContactUsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private final ContactForm contactForm = new ContactForm();

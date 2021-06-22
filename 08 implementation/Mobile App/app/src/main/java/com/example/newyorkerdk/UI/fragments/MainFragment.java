@@ -1,8 +1,10 @@
 package com.example.newyorkerdk.UI.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -16,6 +18,7 @@ import com.example.newyorkerdk.databinding.FragmentMainBinding;
  * Benyt {@link MainFragment#newInstance} factory metode til
  * at skabe en ny instans af dette fragment som er ansvarlig for at vise applikationens forside
  */
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class MainFragment extends Fragment {
 
     public MainFragment() {
