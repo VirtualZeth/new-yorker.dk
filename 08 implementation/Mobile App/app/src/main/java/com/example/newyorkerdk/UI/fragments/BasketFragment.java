@@ -1,6 +1,5 @@
 package com.example.newyorkerdk.UI.fragments;
 
-import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,7 +25,6 @@ import com.example.newyorkerdk.entities.Basket;
 import com.example.newyorkerdk.entities.Wall;
 import com.example.newyorkerdk.viewmodels.SharedViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,17 +39,15 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
     RecyclerView recyclerView;
     FragmentBasketBinding binding;
     Observer<Basket> basketUpdateObserver = walls -> {
-        recyclerViewAdapter = new RecyclerViewAdapter(requireActivity(), (ArrayList<Wall>) walls.getListOfWalls(), this);
+        recyclerViewAdapter = new RecyclerViewAdapter(requireActivity(), walls.getListOfWalls(), this);
         recyclerView.setAdapter(recyclerViewAdapter);
     };
     public BasketFragment() {
         // Required empty public constructor
     }
-
     public static BasketFragment newInstance() {
         return new BasketFragment();
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +63,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
         binding.recyclerview.setLayoutManager(new LinearLayoutManager(requireActivity()));
 
     }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -80,7 +75,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
 
         return binding.getRoot();
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -97,7 +91,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
                 .show();
     }
     public void displayContactUsFragment() {
-
         ContactUsFragment contactUsFragment = ContactUsFragment.newInstance();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
@@ -134,7 +127,6 @@ public class BasketFragment extends Fragment implements RecyclerViewAdapter.OnWa
                 displayBuildWallFragmentEdit(wall);
             }
         }
-
         if (tag.equals("delete")) {
             model.removeFromBasket(position);
         }
