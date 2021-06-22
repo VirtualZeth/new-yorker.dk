@@ -26,6 +26,7 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Double.parseDouble;
 
@@ -39,9 +40,6 @@ public class BuildWallFragment extends Fragment {
     private FragmentBuildWallBinding binding;
     private SharedViewModel model;
     private boolean updatingFields;
-    private ExpandableListView expandableListView;
-    private ExpandableListAdapter expandableListAdapter;
-    private List<String> expandableListTitle;
 
     public BuildWallFragment() {
         // Required empty public constructor
@@ -105,16 +103,15 @@ public class BuildWallFragment extends Fragment {
     }
 
     private void buildAdditions(HashMap<String, ArrayList<Addition>> additions) {
-        expandableListView = binding.expandableListView;
-        expandableListTitle = new ArrayList<>(additions.keySet());
-        expandableListAdapter = new AdditionsExpandableListAdapter(requireActivity(), expandableListTitle, additions);
+        ExpandableListView expandableListView = binding.expandableListView;
+        List<String> expandableListTitle = new ArrayList<>(additions.keySet());
+        ExpandableListAdapter expandableListAdapter = new AdditionsExpandableListAdapter(requireActivity(), expandableListTitle, additions);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
                 model.toggleAddition(
-                        additions.get(
-                                expandableListTitle.get(groupPosition))
+                        Objects.requireNonNull(additions.get(
+                                expandableListTitle.get(groupPosition)))
                                 .get(childPosition));
-
             return false;
         });
     }
