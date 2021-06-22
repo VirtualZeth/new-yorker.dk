@@ -40,16 +40,12 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
     private Request request;
     private final MailService mailService = new MailService();
     private SharedViewModel model;
-
-    String failText = "Feltet skal udfyldes";
-
     FragmentContactUsBinding binding;
+
     public ContactUsFragment() {
         // Required empty public constructor
     }
-
     public static ContactUsFragment newInstance() {
-
         return new ContactUsFragment();
     }
 
@@ -110,6 +106,7 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
             TextView numberFail = requireActivity().findViewById(R.id.textViewNumberFail);
             TextView cityFail = requireActivity().findViewById(R.id.textViewCityFail);
             TextView supplierFail = requireActivity().findViewById(R.id.textViewSupplierFail);
+            String failText = "Feltet skal udfyldes";
 
             if (contactForm.getName().equals("")){nameFail.setText(failText);}
             else nameFail.setText("");

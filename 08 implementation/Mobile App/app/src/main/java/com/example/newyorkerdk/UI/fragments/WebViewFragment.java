@@ -21,7 +21,7 @@ public class WebViewFragment extends Fragment {
     private static final String PAGE_NAME = "page_name";
     private String pageName;
 
-    public WebViewFragment() { }
+    public WebViewFragment() {}
 
     public static WebViewFragment newInstance(String pageName) {
         WebViewFragment webViewFragment = new WebViewFragment();
