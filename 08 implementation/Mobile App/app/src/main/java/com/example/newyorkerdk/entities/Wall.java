@@ -1,5 +1,7 @@
 package com.example.newyorkerdk.entities;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -132,6 +134,7 @@ public class Wall {
         return listOfAdditions;
     }
 
+    @NonNull
     @Override
     public String toString() {
 

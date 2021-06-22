@@ -1,5 +1,7 @@
 package com.example.newyorkerdk.entities;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -22,6 +24,7 @@ public class Basket {
         this.totalPrice = totalPrice;
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder wallInformation = new StringBuilder();
