@@ -21,10 +21,10 @@ public class MailService {
         String mail = MailCredentials.getEMAIL();
 
         String subject = "Forespørgsel fra: " + contactForm.getName();
-        String message = "Kontakt oplysninger:\n" + contactForm.getName() + "\n" +
-                contactForm.getEmail() + "\n" + contactForm.getPhonenumber() + "\n" + contactForm.getCity() +
-                "\nValgt leverandør: " + contactForm.getSupplier() + "\n" + "\nBesked fra kunden: \n" + contactForm.getNote() + '\n' +
-                "Forespørgelsen indeholder følgende vægge:\n" + basket ;
+        String message = "Kontakt oplysninger:\n" + "Navn: " + contactForm.getName() + "\n" +
+                "email: "+ contactForm.getEmail() + "\n" + "Telefonnummer: " + contactForm.getPhonenumber() + "\n" + "By: " + contactForm.getCity() +
+                "\nValgt forhandler: " + contactForm.getSupplier() + "\n" + "\nBesked fra kunden: \n" + contactForm.getNote() + "\n\n" +
+                "Forespørgelsen indeholder følgende vægge:\n\n" + basket;
 
         JavaMailAPI javaMailAPI = new JavaMailAPI(context , mail , subject , message );
         javaMailAPI.execute();

@@ -9,7 +9,8 @@ import java.util.List;
  */
 public class Basket {
 
-    private List<Wall> listOfWalls = new ArrayList<>();
+    private final List<Wall> listOfWalls = new ArrayList<>();
+    private double totalPrice;
 
     public void addWall(Wall wall) {
         listOfWalls.add(wall);
@@ -19,13 +20,21 @@ public class Basket {
         return listOfWalls;
     }
 
+    public void setTotalPrice(double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     @Override
     public String toString() {
         StringBuilder wallInformation = new StringBuilder();
 
         for (Wall wall: listOfWalls) {
             wallInformation.append(wall);
+            wallInformation.append("\n");
         }
+        wallInformation.append("\n").append("Pris i alt: ")
+                .append(totalPrice).append(" kr.");
+
 
         return wallInformation.toString();
     }

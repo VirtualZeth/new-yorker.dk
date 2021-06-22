@@ -1,7 +1,5 @@
 package com.example.newyorkerdk.entities;
 
-import androidx.annotation.NonNull;
-
 /**
  * Klasse som er ansvarlig for at indeholde information om tillæg,
  * kan ikke eksistere uden ligge i et {@link Wall} objekt
@@ -60,6 +58,6 @@ public class Addition {
     public String toString() {
         return name + '\n' +
                 "Pris: " + price + '\n' +
-                "produktnummer: " + productNumber + "\n\n";
+                "produktnummer: " + productNumber + "\n";
     }
 }
