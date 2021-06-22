@@ -3,6 +3,8 @@ package com.example.newyorkerdk.UI.adapters;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -21,15 +23,15 @@ public class AdditionsExpandableListAdapter extends BaseExpandableListAdapter {
     private final HashMap<String, ArrayList<Addition>> expandableListDetail;
 
     public AdditionsExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                          HashMap<String, ArrayList<Addition>> expandableListDetail) {
+                                          Map<String, ArrayList<Addition>> expandableListDetail) {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
-        this.expandableListDetail = expandableListDetail;
+        this.expandableListDetail = (HashMap<String, ArrayList<Addition>>) expandableListDetail;
     }
 
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
+        return Objects.requireNonNull(this.expandableListDetail.get(this.expandableListTitle.get(listPosition)))
                 .get(expandedListPosition);
     }
 
@@ -55,7 +57,7 @@ public class AdditionsExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
+        return Objects.requireNonNull(this.expandableListDetail.get(this.expandableListTitle.get(listPosition)))
                 .size();
     }
     @Override
