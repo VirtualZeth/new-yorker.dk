@@ -134,6 +134,22 @@ public class Wall {
         return listOfAdditions;
     }
 
+    public void toggleAddition(Addition addition) {
+        if (listOfAdditions.contains(addition)) {
+            removeAdditionFromWall(addition);
+        } else {
+            addAdditionToWall(addition);
+        }
+    }
+
+    public void removeAdditionFromWall(Addition addition) {
+        listOfAdditions.remove(addition);
+    }
+
+    public void addAdditionToWall(Addition addition) {
+        listOfAdditions.add(addition);
+    }
+
     @NonNull
     @Override
     public String toString() {
