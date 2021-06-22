@@ -15,11 +15,9 @@ public class MailCredentials {
     public static String getEMAIL() {
         return EMAIL;
     }
-
     public static String getPASSWORD() {
         return PASSWORD;
     }
-
     public static String getNewYorkerMail() {
         return NewYorkerMail;
     }

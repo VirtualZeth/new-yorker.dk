@@ -1,9 +1,6 @@
 package com.example.newyorkerdk.UI.fragments;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +26,7 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static java.lang.Double.parseDouble;
 
@@ -42,10 +40,6 @@ public class BuildWallFragment extends Fragment {
     private FragmentBuildWallBinding binding;
     private SharedViewModel model;
     private boolean updatingFields;
-
-    private ExpandableListView expandableListView;
-    private ExpandableListAdapter expandableListAdapter;
-    private List<String> expandableListTitle;
 
     public BuildWallFragment() {
         // Required empty public constructor
@@ -64,18 +58,18 @@ public class BuildWallFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // Inflate the layout for this fragment
         binding = FragmentBuildWallBinding.inflate(getLayoutInflater());
         attachSeekBarListener(binding.seekBarHeight, binding.seekbarHeightTextfield);
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
         attachEditFieldListenerHeight(binding.editTextHeight);
         attachEditFieldListenerWidth(binding.editTextWidth);
+
         binding.seekBarWidth.setTag("seekBarWidth");
         binding.seekBarHeight.setTag("seekBarHeight");
-
         binding.addButton.setOnClickListener(event -> addWallToBasket());
         binding.doneButton.setOnClickListener(event -> displayBasketFragment());
+
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
         new ViewModelProvider.NewInstanceFactory().create(SharedViewModel.class);
         model.getCurrentWall().observe(requireActivity(), this::fillFieldsWithWallData);
@@ -91,13 +85,11 @@ public class BuildWallFragment extends Fragment {
     }
 
     private void setSeekbarWidth(Integer suggestedFieldsWidth) {
-
         binding.seekBarWidth.setProgress(suggestedFieldsWidth);
         model.setCurrentWallSeekBarWidth(suggestedFieldsWidth);
     }
 
     private void setSeekbarHeight(Integer suggestedFieldsHeight) {
-
         binding.seekBarHeight.setProgress(suggestedFieldsHeight);
         model.setCurrentWallSeekBarHeight(suggestedFieldsHeight);
     }
@@ -111,30 +103,25 @@ public class BuildWallFragment extends Fragment {
     }
 
     private void buildAdditions(HashMap<String, ArrayList<Addition>> additions) {
-        expandableListView = binding.expandableListView;
-        expandableListTitle = new ArrayList<>(additions.keySet());
-        expandableListAdapter = new AdditionsExpandableListAdapter(requireActivity(), expandableListTitle, additions);
+        ExpandableListView expandableListView = binding.expandableListView;
+        List<String> expandableListTitle = new ArrayList<>(additions.keySet());
+        ExpandableListAdapter expandableListAdapter = new AdditionsExpandableListAdapter(requireActivity(), expandableListTitle, additions);
         expandableListView.setAdapter(expandableListAdapter);
-
         expandableListView.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
-
                 model.toggleAddition(
-                        additions.get(
-                                expandableListTitle.get(groupPosition))
+                        Objects.requireNonNull(additions.get(
+                                expandableListTitle.get(groupPosition)))
                                 .get(childPosition));
-
             return false;
         });
     }
 
     public void addWallToBasket() {
-
         model.setCurrentWallNote(binding.editTextNote.getText().toString());
         model.addToBasket(model.getCurrentWall().getValue());
     }
 
     private void attachEditFieldListenerHeight(EditText inputfield) {
-
         inputfield.setOnFocusChangeListener((v, hasFocus) -> {
             if (!updatingFields || inputfield.getText().toString().length() == 0) {
                 model.setCurrentWallHeight(parseDouble(inputfield.getText().toString()));
@@ -142,8 +129,6 @@ public class BuildWallFragment extends Fragment {
         });
     }
     private void attachEditFieldListenerWidth(EditText inputfield) {
-
-
         inputfield.setOnFocusChangeListener((v, hasFocus) -> {
             if (!updatingFields || inputfield.getText().toString().length() == 0) {
                 model.setCurrentWallWidth(parseDouble(inputfield.getText().toString()));
@@ -152,7 +137,6 @@ public class BuildWallFragment extends Fragment {
     }
 
     private void attachSeekBarListener(SeekBar seekBar, TextView seekBarTextField) {
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -165,7 +149,6 @@ public class BuildWallFragment extends Fragment {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 String tag = seekBar.getTag().toString();
-
                 switch (tag) {
                     case "seekBarHeight": model.setCurrentWallSeekBarHeight(seekBar.getProgress());break;
                     case "seekBarWidth": model.setCurrentWallSeekBarWidth(seekBar.getProgress()); break;
@@ -176,7 +159,6 @@ public class BuildWallFragment extends Fragment {
     }
 
     private void fillFieldsWithWallData(Wall wall) {
-
         updatingFields = true;
         binding.editTextHeight.setText(String.valueOf(wall.getHeight()));
         binding.editTextWidth.setText(String.valueOf(wall.getWidth()));
@@ -187,7 +169,6 @@ public class BuildWallFragment extends Fragment {
     }
 
     public void displayBasketFragment() {
-
         BasketFragment basketFragment = BasketFragment.newInstance();
         FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager

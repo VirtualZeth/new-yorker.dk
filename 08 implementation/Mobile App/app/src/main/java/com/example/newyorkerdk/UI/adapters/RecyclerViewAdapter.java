@@ -12,6 +12,7 @@ import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.fragments.BasketFragment;
 import com.example.newyorkerdk.entities.Wall;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter som er ansvarlig for at håndtere enkelte vægge i recyclerviewet i {@link BasketFragment}
@@ -22,35 +23,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     Activity context;
     ArrayList<Wall> wallArrayList;
-    private OnWallListener listener;
+    private final OnWallListener listener;
 
-
-    public RecyclerViewAdapter(Activity context, ArrayList<Wall> wallArrayList, OnWallListener listener) {
+    public RecyclerViewAdapter(Activity context, List<Wall> wallArrayList, OnWallListener listener) {
         this.context = context;
-        this.wallArrayList = wallArrayList;
+        this.wallArrayList = (ArrayList<Wall>) wallArrayList;
         this.listener = listener;
     }
-
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View rootView = LayoutInflater.from(context).inflate(R.layout.item,parent,false);
         return new RecyclerViewViewHolder(rootView, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
         Wall wall = wallArrayList.get(position);
         RecyclerViewViewHolder viewHolder= (RecyclerViewViewHolder) holder;
         viewHolder.note_textfield.setText(String.valueOf(wall.getName()));
         viewHolder.price_textfield.setText(context.getString(R.string.price, String.valueOf(wall.getPrice())));
-
     }
-
-
 
     @Override
     public int getItemCount() {
@@ -65,23 +59,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ImageView delete_button;
         OnWallListener listener;
 
-
         public RecyclerViewViewHolder(@NonNull View itemView, OnWallListener listener) {
             super(itemView);
             this.listener = listener;
-            note_textfield = (TextView) itemView.findViewById(R.id.wall_note_textview);
-            price_textfield = (TextView) itemView.findViewById(R.id.wall_price_textview);
-            delete_button = (ImageView) itemView.findViewById(R.id.recycler_delete);
+            note_textfield = itemView.findViewById(R.id.wall_note_textview);
+            price_textfield = itemView.findViewById(R.id.wall_price_textview);
+            delete_button = itemView.findViewById(R.id.recycler_delete);
             itemView.setTag("wallItem");
             delete_button.setTag("delete");
             price_textfield.setOnClickListener(this);
             itemView.setOnClickListener(this);
             delete_button.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View v) {
-
             listener.onClick(getAdapterPosition(), v.getTag().toString());
         }
     }

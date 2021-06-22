@@ -15,11 +15,10 @@ import com.example.newyorkerdk.entities.Request;
 public class MailService {
 
     public void sendMail(Context context, Request request) {
-
         ContactForm contactForm = request.getContactForm();
         Basket basket = request.getBasket();
-        String mail = MailCredentials.getEMAIL();
 
+        String mail = MailCredentials.getEMAIL();
         String subject = "Forespørgsel fra: " + contactForm.getName();
         String message = "Kontakt oplysninger:\n" + "Navn: " + contactForm.getName() + "\n" +
                 "email: "+ contactForm.getEmail() + "\n" + "Telefonnummer: " + contactForm.getPhonenumber() + "\n" + "By: " + contactForm.getCity() +

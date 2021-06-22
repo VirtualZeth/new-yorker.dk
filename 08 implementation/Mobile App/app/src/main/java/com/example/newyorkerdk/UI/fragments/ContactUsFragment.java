@@ -37,21 +37,15 @@ import com.example.newyorkerdk.viewmodels.SharedViewModel;
 public class ContactUsFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     private final ContactForm contactForm = new ContactForm();
-    private Basket basket;
     private Request request;
     private final MailService mailService = new MailService();
     private SharedViewModel model;
-
-    String failText = "Feltet skal udfyldes";
-
-
     FragmentContactUsBinding binding;
+
     public ContactUsFragment() {
         // Required empty public constructor
     }
-
     public static ContactUsFragment newInstance() {
-
         return new ContactUsFragment();
     }
 
@@ -59,7 +53,7 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         model = new ViewModelProvider(requireActivity()).get(SharedViewModel.class);
-        basket = model.getBasket().getValue();
+        Basket basket = model.getBasket().getValue();
         request = new Request(contactForm, basket);
     }
 
@@ -112,6 +106,7 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
             TextView numberFail = requireActivity().findViewById(R.id.textViewNumberFail);
             TextView cityFail = requireActivity().findViewById(R.id.textViewCityFail);
             TextView supplierFail = requireActivity().findViewById(R.id.textViewSupplierFail);
+            String failText = "Feltet skal udfyldes";
 
             if (contactForm.getName().equals("")){nameFail.setText(failText);}
             else nameFail.setText("");
@@ -149,14 +144,11 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
         fragmentTransaction.replace(R.id.fragment_container,
                 mainFragment).addToBackStack(null).commit();
     }
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String choosenSupplier = parent.getItemAtPosition(position).toString();
         contactForm.setSupplier(choosenSupplier);
     }
-
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }

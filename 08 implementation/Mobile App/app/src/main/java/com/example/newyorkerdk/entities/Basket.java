@@ -1,5 +1,7 @@
 package com.example.newyorkerdk.entities;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -15,15 +17,14 @@ public class Basket {
     public void addWall(Wall wall) {
         listOfWalls.add(wall);
     }
-
     public List<Wall> getListOfWalls() {
         return listOfWalls;
     }
-
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
+    @NonNull
     @Override
     public String toString() {
         StringBuilder wallInformation = new StringBuilder();
@@ -34,7 +35,6 @@ public class Basket {
         }
         wallInformation.append("\n").append("Pris i alt: ")
                 .append(totalPrice).append(" kr.");
-
 
         return wallInformation.toString();
     }

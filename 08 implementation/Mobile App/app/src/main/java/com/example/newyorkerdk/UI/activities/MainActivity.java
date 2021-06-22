@@ -1,22 +1,18 @@
 package com.example.newyorkerdk.UI.activities;
 
+import android.os.Build;
+import android.os.Bundle;
+
 import androidx.annotation.RequiresApi;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.content.DialogInterface;
-import android.os.Build;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.os.Bundle;
 import com.example.newyorkerdk.R;
 import com.example.newyorkerdk.UI.fragments.BasketFragment;
 import com.example.newyorkerdk.UI.fragments.MainFragment;
@@ -43,24 +39,18 @@ public class MainActivity extends AppCompatActivity {
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         model = new ViewModelProvider(this).get(SharedViewModel.class);
-
         final Observer<String> tottalPriceObserver = newTotalPrice -> binding.toolbarPrice.setText(newTotalPrice);
-
-
         model.getBasketTotalPrice().observe(this, tottalPriceObserver);
-        binding.baskeImage.setOnClickListener(v -> {displayBasketFragment();});
-
+        binding.baskeImage.setOnClickListener(v -> displayBasketFragment());
 
         displayMainScreenFragment();
     }
 
     private void displayMainScreenFragment() {
-
         MainFragment mainFragment = MainFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container,
                 mainFragment).addToBackStack(null).commit();
 
@@ -70,14 +60,12 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager
                 .beginTransaction();
-
         fragmentTransaction.replace(R.id.fragment_container,
                 basketFragment).addToBackStack(null).commit();
     }
 
     @Override
     public void onBackPressed() {
-
         Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
         if (currentFragment instanceof MainFragment) {
             return;
@@ -86,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
             displayMainScreenFragment();
             return;
         }
-
         new AlertDialog.Builder(this)
                 .setTitle("Gå tilbage")
                 .setMessage("Er du sikker på at du vil gå tilbage til forsiden? Din kurvs indhold vil ikke blive slettet")
