@@ -69,10 +69,8 @@ public class SharedViewModel extends ViewModel {
         if (priceEstimator == null) {
             priceEstimator = new PriceEstimator();
             priceEstimator.setPriceList(productPriceList);
-            Log.d("viewmodel", productPriceList.toString());
             return;
         }
-        Log.d("viewmodel", productPriceList.toString());
 
         priceEstimator.setPriceList(productPriceList);
     }
@@ -190,8 +188,9 @@ public class SharedViewModel extends ViewModel {
         Basket basket = getBasket().getValue();
 
         if (basket != null) {
-            mutableBasketTotalPrice.setValue(
-                    String.valueOf(priceEstimator.calculateBasketTotal(basket)));
+            String totalPrice = priceEstimator.calculateBasketTotal(basket).toString();
+            mutableBasketTotalPrice.setValue(totalPrice);
+            basket.setTotalPrice(Double.parseDouble(totalPrice));
         }
     }
 
@@ -250,6 +249,7 @@ public class SharedViewModel extends ViewModel {
             calculateBasketTotalPrice();
         }
     }
+
     public void clearWallsFromBasket() {
         mutableBasket.setValue(new Basket());
         calculateBasketTotalPrice();
@@ -322,7 +322,6 @@ public class SharedViewModel extends ViewModel {
         } else {
             addAdditionToWall(addition);
         }
-
     }
 
     private void removeAdditionFromWall(Addition addition) {

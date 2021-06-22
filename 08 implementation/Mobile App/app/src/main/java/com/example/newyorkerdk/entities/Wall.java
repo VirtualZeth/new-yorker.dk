@@ -1,5 +1,4 @@
 package com.example.newyorkerdk.entities;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +8,17 @@ import java.util.List;
  * @author Mike
  */
 public class Wall {
+
     private static int wallCount = 1;
     private static final Double MAX_WALL_HEIGHT = 250d;
     private static final Double MIN_WALL_HEIGHT = 10d;
     private static final Double MAX_FIELD_HEIGHT = 60d;
-    private static final Double MAX_FIELD_WIDTH = 45d;
+    private static final Double MAX_FIELD_WIDTH = 150d;
     private static final Double MIN_WALL_WIDTH = 10d;
+    private int minAmountOfFieldsWidth;
+    private int maxAmountOfFieldsWidth;
+    private int minAmountOfFieldsHeight;
+    private int maxAmountOfFieldsHeight;
     private int suggestedFieldsHeight;
     private int suggestedFieldsWidth;
     private String name;
@@ -22,32 +26,43 @@ public class Wall {
     private double width;
     private int numberOfGlassFieldsHeight;
     private int numberOfGlassFieldsWidth;
-    private List<Addition> listOfAdditions = new ArrayList<>();
+    private final List<Addition> listOfAdditions = new ArrayList<>();
     private double price;
 
     public static Wall getWall() {
+
         Wall newWall = new Wall();
         newWall.name = "Wall " + wallCount++;
         newWall.setWidth(175);
         newWall.setHeight(150);
         newWall.setNumberOfGlassFieldsHeight(4);
         newWall.setNumberOfGlassFieldsWidth(5);
-        newWall.setSuggestedFieldsHeight();
-        newWall.setSuggestedFieldsWidth();
+        int suggestedFieldHeight = newWall.calculateSuggestedFieldsHeight(newWall.getHeight());
+        newWall.setSuggestedFieldsHeight(suggestedFieldHeight);
+
+        int suggestedFieldWidth = newWall.calculateSuggestedFieldsWidth(newWall.getWidth());
+        newWall.setSuggestedFieldsWidth(suggestedFieldWidth);
+
         return newWall;
     }
 
+    private void setSuggestedFieldsWidth(int suggestedFieldsWidth) {
+        this.suggestedFieldsWidth = suggestedFieldsWidth;
+    }
 
-    private void setSuggestedFieldsWidth() {
+    private void setSuggestedFieldsHeight(int suggestedFieldsHeight) {
+
+        this.suggestedFieldsHeight = suggestedFieldsHeight;
+    }
+
+    private int calculateSuggestedFieldsWidth(Double width) {
         if (height <= 45) this.suggestedFieldsWidth =  1;
-        this.suggestedFieldsWidth = (int) Math.round(width/45);
+        return (int) Math.round(width/45);
     }
-
-    private void setSuggestedFieldsHeight() {
+    private int calculateSuggestedFieldsHeight(Double height) {
         if (width <= 60) suggestedFieldsHeight = 1;
-        suggestedFieldsHeight = (int) Math.round(height/60);
+        return (int) Math.round(height/60);
     }
-
     public double getPrice() {
         return price;
     }
@@ -85,9 +100,9 @@ public class Wall {
         } else {
             this.height = height;
         }
-        setSuggestedFieldsHeight();
+        int suggestedFieldHeight = calculateSuggestedFieldsHeight(height);
+        setSuggestedFieldsHeight(suggestedFieldHeight);
     }
-
     public double getWidth() {
         return width;
     }
@@ -98,14 +113,26 @@ public class Wall {
         } else {
             this.width = width;
         }
-        setSuggestedFieldsWidth();
+        int suggestedFieldWidth = calculateSuggestedFieldsWidth(width);
+        setSuggestedFieldsWidth(suggestedFieldWidth);
     }
+
     public int calculateMinAmountOfFieldsWidth(double wallWidth) {
 
         return (int) (wallWidth / MAX_FIELD_WIDTH);
     }
 
     public int calculateMinAmountOfFieldsHeight(double wallHeight) {
+
+        return (int) (wallHeight / MAX_WALL_HEIGHT);
+    }
+
+    public int calculateMaxAmountOfFieldsWidth(double wallHeight) {
+
+        return (int) (wallHeight / MAX_WALL_HEIGHT);
+    }
+
+    public int calculateMaxAmountOfFieldsMax(double wallHeight) {
 
         return (int) (wallHeight / MAX_WALL_HEIGHT);
     }
@@ -141,11 +168,11 @@ public class Wall {
         }
 
         return  "Note: " + name + '\n' +
-                "Bredde: " + width + "cm" + '\n' +
-                "Højde: " + height + "cm" + '\n' +
+                "Bredde: " + width + " cm" + '\n' +
+                "Højde: " + height + " cm" + '\n' +
                 "Antal fag:" + numberOfGlassFieldsWidth + '\n' +
-                "Antal glasfelter per fag: " + numberOfGlassFieldsHeight + '\n' +
-                "tilføjelser: " + additionsInformation + '\n' +
-                "totalpris: " + price + "kr\n";
+                "Antal glasfelter per fag: " + numberOfGlassFieldsHeight +
+                "Tillæg: " + additionsInformation +
+                "Pris for væg: " + price + " kr\n";
     }
 }
