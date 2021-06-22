@@ -10,7 +10,7 @@ public class FireStoreDB {
 
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
 
-    public FireStoreDB() {}
+    private FireStoreDB() {}
 
     public static FireStoreDB getInstance() {
         return instance;
