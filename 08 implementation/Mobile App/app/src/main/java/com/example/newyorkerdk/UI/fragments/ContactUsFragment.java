@@ -124,7 +124,7 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
             if (contactForm.getCity().equals("")){cityFail.setText(failText);}
             else cityFail.setText("");
 
-            if (contactForm.getSupplier().equals("Vælg leverandør")){supplierFail.setText("Vælg en leverandør");}
+            if (contactForm.getSupplier().equals("Vælg forhandler")){supplierFail.setText("Vælg en forhandler");}
             else supplierFail.setText("");
         }
 
