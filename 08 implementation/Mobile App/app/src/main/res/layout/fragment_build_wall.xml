@@ -7,47 +7,47 @@
     tools:context=".UI.fragments.BuildWallFragment">
 
     <TextView
-        android:id="@+id/height_textfield"
+        android:id="@+id/width_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/width"
-        app:layout_constraintStart_toStartOf="@+id/editText_Height"
+        app:layout_constraintStart_toStartOf="@+id/editText_Width"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
     <TextView
-        android:id="@+id/width_textfield"
+        android:id="@+id/height_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/height"
-        app:layout_constraintStart_toStartOf="@+id/editText_Width"
-        app:layout_constraintTop_toTopOf="@+id/height_textfield" />
+        app:layout_constraintStart_toStartOf="@+id/editText_Height"
+        app:layout_constraintTop_toTopOf="@+id/width_textfield" />
 
     <EditText
-        android:id="@+id/editText_Height"
+        android:id="@+id/editText_Width"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
         android:layout_marginTop="4dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintEnd_toStartOf="@+id/editText_Width"
+        app:layout_constraintEnd_toStartOf="@+id/editText_Height"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/height_textfield" />
+        app:layout_constraintTop_toBottomOf="@+id/width_textfield" />
 
     <EditText
-        android:id="@+id/editText_Width"
+        android:id="@+id/editText_Height"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:inputType="numberDecimal"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editText_Height"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editText_Width"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/editText_Height" />
+        app:layout_constraintStart_toEndOf="@+id/editText_Width" />
 
     <TextView
         android:id="@+id/panelcount_height_fextfield"
@@ -55,8 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="@string/panel_count_width_text"
-        app:layout_constraintStart_toStartOf="@+id/editText_Height"
-        app:layout_constraintTop_toBottomOf="@+id/editText_Height" />
+        app:layout_constraintStart_toStartOf="@+id/editText_Width"
+        app:layout_constraintTop_toBottomOf="@+id/editText_Width" />
 
     <TextView
         android:id="@+id/panelcount_width_textfield"
@@ -68,25 +68,23 @@
         app:layout_constraintTop_toTopOf="@+id/panelcount_height_fextfield" />
 
     <SeekBar
-        android:id="@+id/seekBar_height"
+        android:id="@+id/seekBar_width"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="35dp"
-        android:max="10"
+        android:max="30"
         android:min="1"
-        android:progress="1"
         app:layout_constraintStart_toStartOf="@+id/panelcount_height_fextfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_height_fextfield" />
 
     <SeekBar
-        android:id="@+id/seekBar_width"
+        android:id="@+id/seekBar_height"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="35dp"
-        android:max="10"
+        android:layout_marginTop="32dp"
+        android:max="30"
         android:min="1"
-        android:progress="1"
         app:layout_constraintStart_toStartOf="@+id/panelcount_width_textfield"
         app:layout_constraintTop_toBottomOf="@+id/panelcount_width_textfield" />
 
@@ -96,8 +94,8 @@
         android:layout_height="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/additions"
-        app:layout_constraintStart_toStartOf="@+id/seekBar_height"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar_height" />
+        app:layout_constraintStart_toStartOf="@+id/seekBar_width"
+        app:layout_constraintTop_toBottomOf="@+id/seekBar_width" />
 
     <TextView
         android:id="@+id/price_textfield"
@@ -105,7 +103,7 @@
         android:layout_height="wrap_content"
 
         android:text="@string/price_estimate"
-        app:layout_constraintStart_toEndOf="@+id/editText_note"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_height"
         app:layout_constraintTop_toTopOf="@+id/note_textview" />
 
     <TextView
@@ -152,24 +150,24 @@
         app:srcCompat="@drawable/wall" />
 
     <TextView
-        android:id="@+id/seekbar_height_textfield"
+        android:id="@+id/seekbar_width_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar_height"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar_height"
-        app:layout_constraintStart_toStartOf="@+id/seekBar_height" />
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_width"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_width"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_width" />
 
     <TextView
-        android:id="@+id/seekbar_width_textfield"
+        android:id="@+id/seekbar_height_textfield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="9dp"
         android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/seekBar_width"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar_width"
-        app:layout_constraintStart_toStartOf="@+id/seekBar_width" />
+        app:layout_constraintBottom_toTopOf="@+id/seekBar_height"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_height"
+        app:layout_constraintStart_toStartOf="@+id/seekBar_height" />
 
     <TextView
         android:id="@+id/note_textview"
@@ -197,7 +195,7 @@
         android:layout_height="wrap_content"
         android:text="cm"
         app:layout_constraintBottom_toBottomOf="@+id/width_unit_textfield"
-        app:layout_constraintStart_toEndOf="@+id/editText_Height"
+        app:layout_constraintStart_toEndOf="@+id/editText_Width"
         app:layout_constraintTop_toTopOf="@+id/width_unit_textfield" />
 
     <TextView
@@ -205,9 +203,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="cm"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_Width"
-        app:layout_constraintStart_toEndOf="@+id/editText_Width"
-        app:layout_constraintTop_toTopOf="@+id/editText_Width" />
+        app:layout_constraintBottom_toBottomOf="@+id/editText_Height"
+        app:layout_constraintStart_toEndOf="@+id/editText_Height"
+        app:layout_constraintTop_toTopOf="@+id/editText_Height" />
 
     <ExpandableListView
         android:id="@+id/expandableListView"
@@ -216,7 +214,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar_width"
+        app:layout_constraintEnd_toEndOf="@+id/seekBar_height"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/additions_textfield"
         app:layout_constraintTop_toBottomOf="@+id/additions_textfield" />

@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +130,12 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
         }
 
        else {
-       mailService.sendMail(context, request);
+            try {
+                mailService.sendMail(context, request);
+                model.clearWallsFromBasket();
+            } catch (Exception e) {
+                Log.d("ContactUsFragment", e.toString());
+            }
        displayMainFragment();
        }
     }

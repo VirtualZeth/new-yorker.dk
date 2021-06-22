@@ -71,7 +71,6 @@ public class BuildWallFragment extends Fragment {
         attachSeekBarListener(binding.seekBarWidth, binding.seekbarWidthTextfield);
         attachEditFieldListenerHeight(binding.editTextHeight);
         attachEditFieldListenerWidth(binding.editTextWidth);
-        attachEditFieldListener(binding.editTextNote);
         binding.seekBarWidth.setTag("seekBarWidth");
         binding.seekBarHeight.setTag("seekBarHeight");
 
@@ -130,72 +129,24 @@ public class BuildWallFragment extends Fragment {
 
     public void addWallToBasket() {
 
+        model.setCurrentWallNote(binding.editTextNote.getText().toString());
         model.addToBasket(model.getCurrentWall().getValue());
     }
 
     private void attachEditFieldListenerHeight(EditText inputfield) {
 
-
-        inputfield.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!updatingFields || inputfield.getText().toString().length() == 0) {
-                    model.setCurrentWallHeight(parseDouble(inputfield.getText().toString()));
-                }
+        inputfield.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!updatingFields || inputfield.getText().toString().length() == 0) {
+                model.setCurrentWallHeight(parseDouble(inputfield.getText().toString()));
             }
         });
     }
     private void attachEditFieldListenerWidth(EditText inputfield) {
 
-        inputfield.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!updatingFields || inputfield.getText().toString().length() == 0) {
-                    model.setCurrentWallWidth(parseDouble(inputfield.getText().toString()));
-                }
-            }
-        });
-    }
-
-    private void attachEditFieldListener(EditText inputField) {
-
-
-        inputField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (!updatingFields) {
-                    model.setCurrentWallNote(s.toString());
-                }
+        inputfield.setOnFocusChangeListener((v, hasFocus) -> {
+            if (!updatingFields || inputfield.getText().toString().length() == 0) {
+                model.setCurrentWallWidth(parseDouble(inputfield.getText().toString()));
             }
         });
     }

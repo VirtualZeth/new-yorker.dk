@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="56dp"
-        android:text="@string/total"
+        android:text="@string/total_zero"
         android:textColor="@color/black"
         android:textSize="26dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView"
