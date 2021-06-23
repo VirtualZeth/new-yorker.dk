@@ -58,4 +58,9 @@ public class Addition {
                 "Pris: " + price + '\n' +
                 "produktnummer: " + productNumber + "\n";
     }
+
+    public String simpleToString() {
+        return name + '\n' +
+                "Pris: " + price + "\n\n";
+    }
 }
