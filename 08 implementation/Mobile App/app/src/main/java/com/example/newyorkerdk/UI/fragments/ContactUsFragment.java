@@ -102,7 +102,7 @@ public class ContactUsFragment extends Fragment implements AdapterView.OnItemSel
 
     private void sendMail(Context context, Request request) {
 
-        if ((contactForm.getName().equals("")) || (contactForm.getEmail().equals("")) || (contactForm.getPhonenumber().equals("")) || (contactForm.getCity().equals("")) || (contactForm.getSupplier().equals("Vælg leverandør"))){
+        if ((contactForm.getName().equals("")) || (contactForm.getEmail().equals("")) || (contactForm.getPhonenumber().equals("")) || (contactForm.getCity().equals("")) || (contactForm.getSupplier().equals("Vælg forhandler"))){
 
             TextView nameFail = requireActivity().findViewById(R.id.textViewNameFail);
             TextView emailFail = requireActivity().findViewById(R.id.textViewEmailFail);
