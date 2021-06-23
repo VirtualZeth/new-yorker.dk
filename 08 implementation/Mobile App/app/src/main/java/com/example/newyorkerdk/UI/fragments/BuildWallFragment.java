@@ -160,6 +160,7 @@ public class BuildWallFragment extends Fragment {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void fillFieldsWithWallData(Wall wall) {
         updatingFields = true;
         binding.editTextHeight.setText(String.valueOf(wall.getHeight()));
@@ -167,6 +168,10 @@ public class BuildWallFragment extends Fragment {
         binding.seekBarHeight.setProgress(wall.getNumberOfGlassFieldsHeight());
         binding.seekBarWidth.setProgress(wall.getNumberOfGlassFieldsWidth());
         binding.editTextNote.setText(wall.getName());
+        binding.seekBarHeight.setMax(wall.calculateMaxFieldCountHeight());
+        binding.seekBarHeight.setMin(wall.calculateMinFieldCountdHeight());
+        binding.seekBarWidth.setMax(wall.calculateMaxFieldCountWidth());
+        binding.seekBarWidth.setMin(wall.calculateMinFieldCountWidth());
         updatingFields = false;
     }
 

@@ -13,6 +13,11 @@
     <string name="fors_t">Forsæt</string>
     <string name="price"> %s kr</string>
     <string name="total_price">%s kr</string>
+    <string name="width_basket">W: %s </string>
+    <string name="height_basket">H: %s </string>
+    <string name="fields_height_basket">Glas I H: %s </string>
+    <string name="fields_width_basket">Antal fag: %s </string>
+
     <string name="done">Færdig</string>
     <string name="add">Tilføj</string>
     <string name="price_estimate">Prisestimat:</string>
